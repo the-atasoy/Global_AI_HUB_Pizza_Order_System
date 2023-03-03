@@ -14,4 +14,4 @@ class Main:
     b.set_cost(55)
     print(b.get_cost())
 
-# try
+# try 222
