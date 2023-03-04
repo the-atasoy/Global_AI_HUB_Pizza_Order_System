@@ -13,5 +13,6 @@ class Main:
 
     b.set_cost(55)
     print(b.get_cost())
+    a=1
 
 # try 222
