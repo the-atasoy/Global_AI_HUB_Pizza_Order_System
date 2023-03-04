@@ -63,12 +63,12 @@ class MainPage(QMainWindow):
         return ingredient_tuple
 
     def soslar_tuple(self):
-        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost())
-        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost())
-        hardal = Mustard("Hardal", Menu.Costs.hardal_cost())
-        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost())
-        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost())
-        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost())
+        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost()*self.ui.spinBox_ketcap_4)
+        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost()*self.ui.spinBox_mayonez_4)
+        hardal = Mustard("Hardal", Menu.Costs.hardal_cost()*self.ui.spinBox_hardal_4)
+        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost()*self.ui.spinBox_bbq_4)
+        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost()*self.ui.spinBox_aci_sos_4)
+        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost()*self.ui.spinBox_ranch_4)
 
         soslar_tuple = [(ketcap.get_description(), ketcap.get_cost(), self.ui.ketcap_check.isChecked()),
                         (mayonez.get_description(), mayonez.get_cost(), self.ui.mayonez_check.isChecked()),
@@ -80,11 +80,11 @@ class MainPage(QMainWindow):
         return soslar_tuple
 
     def icecekler_tuple(self):
-        kola = Coke("Kola", Menu.Costs.kola_cost())
-        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost())
-        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost())
-        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost())
-        ayran = Ayran("Ayran", Menu.Costs.ayran_cost())
+        kola = Coke("Kola", Menu.Costs.kola_cost()*self.ui.spinBox_KOLA)
+        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost()*self.ui.spinBox_FANTA)
+        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost()*self.ui.spinBox_GAZOZ)
+        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost()*self.ui.spinBox_LMONATA)
+        ayran = Ayran("Ayran", Menu.Costs.ayran_cost()*self.ui.spinBox_AYRAN)
 
         icecekler_tuple = [(kola.get_description(), kola.get_cost(), self.ui.kola_check.isChecked()),
                            (fanta.get_description(), kola.get_cost(), self.ui.fanta_check.isChecked()),
