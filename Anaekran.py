@@ -1,9 +1,13 @@
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
+
+import Menu
 from Anaekran_UI import *
 from PyQt5.QtCore import Qt
 from Product.Ingredient.SubIngredient import Olive, Mushroom, GoatCheese, Meat, Onion, Corn
+
+import pandas as pd
 
 from Product.Pizza.SubPizza import Classic, Turk, Margherita, Dominos
 
@@ -27,10 +31,10 @@ class MainPage(QMainWindow):
         return print(a)
 
     def pizza_tuple(self):
-        dominos = Dominos("Domino's pizza plain", 20)
-        turk = Turk("Turkish style pizza plain", 45)
-        margherita = Margherita("Margherita pizza plain", 50)
-        classic = Classic("Classic pizza plain", 35)
+        dominos = Dominos("Domino's pizza plain", Menu.Costs.dominos_pizza_cost())
+        turk = Turk("Turkish style pizza plain", Menu.Costs.turk_pizza_cost())
+        margherita = Margherita("Margherita pizza plain", Menu.Costs.margarita_pizza_cost())
+        classic = Classic("Classic pizza plain", Menu.Costs.klasik_pizza_cost())
         pizzalar_tuple = [
             (classic.get_description(), classic.get_cost(), self.ui.klas_pizza_check.isChecked()),
             (margherita.get_description(), margherita.get_cost(), self.ui.Mar_pizza_check.isChecked()),
@@ -40,12 +44,12 @@ class MainPage(QMainWindow):
         return pizzalar_tuple
 
     def ingredient_tuple(self):
-        olive = Olive("Zeytin", 5)
-        mushroom = Mushroom("Mantar", 10)
-        goat_cheese = GoatCheese("Keçi Peyniri", 30)
-        meat = Meat("Et", 20)
-        onion = Onion("Sogan", 3)
-        corn = Corn("Misir", 10)
+        olive = Olive("Zeytin", Menu.Costs.zeytin_cost())
+        mushroom = Mushroom("Mantar", Menu.Costs.mantar_cost())
+        goat_cheese = GoatCheese("Keçi Peyniri", Menu.Costs.keci_peyniri_cost())
+        meat = Meat("Et", Menu.Costs.et_cost())
+        onion = Onion("Sogan", Menu.Costs.sogan_cost())
+        corn = Corn("Misir", Menu.Costs.misir_cost())
 
         ingredient_tuple = [
             (olive.get_description(), olive.get_cost(), self.ui.zeytin_check.isChecked()),
