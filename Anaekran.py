@@ -107,10 +107,16 @@ class MainPage(QMainWindow):
         return self.siparis
 
     def sos_secim(self, sos_listesi):
-        pass
+        for i in sos_listesi:
+            if i[2] == True:
+                self.siparis.append(i[0:2])
+        return self.siparis
 
     def icecekler_secim(self, icecek_listesi):
-        pass
+        for i in icecek_listesi:
+            if i[2] == True:
+                self.siparis.append(i[0:2])
+        return self.siparis
 
     #def a(self):
         #self.ui.spinBox_aci_sos_4.setValue(self..value()+1)
