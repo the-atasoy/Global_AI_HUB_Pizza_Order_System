@@ -1,15 +1,14 @@
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
-
+import pandas as pd
 import Menu
 from Anaekran_UI import *
 from PyQt5.QtCore import Qt
 from Product.Ingredient.SubIngredient import Olive, Mushroom, GoatCheese, Meat, Onion, Corn
-
-import pandas as pd
-
 from Product.Pizza.SubPizza import Classic, Turk, Margherita, Dominos
+from Product.Sauce.SubSauce import Mayo, Mustard, Ketchup, BBQ, Hot, Ranch
+from Product.Drink.SubDrink import Coke, Ayran, OrangeJuice, SodaPop,Lemonade
 
 class MainPage(QMainWindow):
     def __init__(self):
@@ -64,10 +63,36 @@ class MainPage(QMainWindow):
         return ingredient_tuple
 
     def soslar_tuple(self):
-        pass
+        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost())
+        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost())
+        hardal = Mustard("Hardal", Menu.Costs.hardal_cost())
+        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost())
+        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost())
+        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost())
+
+        soslar_tuple = [(ketcap.get_description(), ketcap.get_cost(), self.ui.ketcap_check.isChecked()),
+                        (mayonez.get_description(), mayonez.get_cost(), self.ui.mayonez_check.isChecked()),
+                        (hardal.get_description(), hardal.get_cost(), self.ui.hardal_check.isChecked()),
+                        (bbq.get_description(), hardal.get_cost(), self.ui.hardal_check.isChecked()),
+                        aci_sos.get_description(), aci_sos.get_cost(), self.ui.aci_sos_check.isChecked(),
+                        ranch_sos.get_description(), ranch_sos.get_cost(), self.ui.ranch_check.isChecked()
+                        ]
+        return soslar_tuple
 
     def icecekler_tuple(self):
-        pass
+        kola = Coke("Kola", Menu.Costs.kola_cost())
+        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost())
+        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost())
+        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost())
+        ayran = Ayran("Ayran", Menu.Costs.ayran_cost())
+
+        icecekler_tuple = [(kola.get_description(), kola.get_cost(), self.ui.kola_check.isChecked()),
+                           (fanta.get_description(), kola.get_cost(), self.ui.fanta_check.isChecked()),
+                           (gazoz.get_description(), gazoz.get_cost(), self.ui.gazoz_check.isChecked()),
+                           (limonata.get_description(), limonata.get_cost(), self.ui.gazoz_check.isChecked()),
+                           (ayran.get_description(), ayran.get_cost(), self.ui.ayran_check.isChecked())
+        ]
+        return icecekler_tuple
 
     def pizza_secim(self, pizza_listesi):
         for eleman in pizza_listesi:
