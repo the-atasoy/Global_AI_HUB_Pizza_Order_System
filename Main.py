@@ -16,3 +16,4 @@ class Main:
     a=1
 
 # try 222
+b = 34
