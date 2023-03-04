@@ -4,3 +4,5 @@ class Pizza(Product, ABC):
     @abstractmethod
     def __init__(self, description, cost):
         super().__init__(description, cost)
+
+    
