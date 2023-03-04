@@ -7,8 +7,6 @@ from Product.Ingredient.SubIngredient import Olive, Mushroom, GoatCheese, Meat, 
 
 from Product.Pizza.SubPizza import Classic, Turk, Margherita, Dominos
 
-
-
 class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -22,6 +20,7 @@ class MainPage(QMainWindow):
         self.ui.turk_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.s_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.siparis = []
+
 
     def sepete_ekle(self):
         a = self.pizza_secim(self.pizza_tuple())
@@ -38,12 +37,25 @@ class MainPage(QMainWindow):
             (turk.get_description(), turk.get_cost(), self.ui.turk_pizza_check.isChecked()),
             (dominos.get_description(), dominos.get_cost(), self.ui.s_pizza_check.isChecked())
         ]
-        return print(pizzalar_tuple)
+        return pizzalar_tuple
 
-    def malzeme_tuple(self):
-        zeytin= Olive()
+    def ingredient_tuple(self):
+        olive = Olive("Zeytin", 5)
+        mushroom = Mushroom("Mantar", 10)
+        goat_cheese = GoatCheese("Keçi Peyniri", 30)
+        meat = Meat("Et", 20)
+        onion = Onion("Sogan", 3)
+        corn = Corn("Misir", 10)
 
-        pass
+        ingredient_tuple = [
+            (olive.get_description(), olive.get_cost(), self.ui.zeytin_check.isChecked()),
+            (mushroom.get_description(), mushroom.get_cost(), self.ui.mantar_check.isChecked()),
+            (goat_cheese.get_description(), goat_cheese.get_cost(), self.ui.keci_peyniri_check.isChecked()),
+            (meat.get_description(), meat.get_cost(), self.ui.et_check.isChecked()),
+            (onion.get_description(), onion.get_cost(), self.ui.sogan_check.isChecked()),
+            (corn.get_description(), corn.get_cost(), self.ui.misir_check.isChecked())
+        ]
+        return ingredient_tuple
 
     def soslar_tuple(self):
         pass
