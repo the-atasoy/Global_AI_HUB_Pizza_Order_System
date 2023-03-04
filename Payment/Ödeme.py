@@ -34,7 +34,7 @@ def kart_bilgisi_al():
                         "Card Number": [card_number],
                         }
         payment_history = pd.DataFrame(payment_info)
-        payment_history.to_csv("payment_history", index=False)
+        payment_history.to_csv("payment_history.cvs", index=False)
 
     if deneme != 0:
         print("Payment Failed. Please try again")
@@ -46,7 +46,7 @@ def kart_bilgisi_al():
                         "Card Number": [card_number],
                         }
         payment_history = pd.DataFrame(payment_info)
-        payment_history.to_csv("payment_history", index=False)
+        payment_history.to_csv("payment_history.cvs", index=False)
 
 
 kart_bilgisi_al()
