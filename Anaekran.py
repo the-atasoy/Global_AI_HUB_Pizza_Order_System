@@ -26,15 +26,15 @@ class MainPage(QMainWindow):
         return print(a)
 
     def pizza_tuple(self):
-        dominos = Dominos("Classic pizza plain", 35)
+        dominos = Dominos("Domino's pizza plain", 20)
         turk = Turk("Turkish style pizza plain", 45)
         margherita = Margherita("Margherita pizza plain", 50)
-        classic = Classic()
+        classic = Classic("Classic pizza plain", 35)
         pizzalar_tuple = [
-            (classic.description, classic.cost, self.ui.klas_pizza_check.isChecked()),
-            (margherita.description, margherita.cost, self.ui.Mar_pizza_check.isChecked()),
-            (turk.description, turk.cost, self.ui.turk_pizza_check.isChecked()),
-            (dominos.description, dominos.cost, self.ui.s_pizza_check.isChecked())
+            (classic.get_description(), classic.get_cost(), self.ui.klas_pizza_check.isChecked()),
+            (margherita.get_description(), margherita.get_cost(), self.ui.Mar_pizza_check.isChecked()),
+            (turk.get_description(), turk.get_cost(), self.ui.turk_pizza_check.isChecked()),
+            (dominos.get_description(), dominos.get_cost(), self.ui.s_pizza_check.isChecked())
         ]
         return print(pizzalar_tuple)
 
