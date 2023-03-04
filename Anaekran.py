@@ -23,7 +23,9 @@ class MainPage(QMainWindow):
         self.ui.Mar_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.turk_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.s_pizza_check.stateChanged.connect(self.checkBox_secim)
+        #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
+
 
 
     def sepete_ekle(self):
@@ -85,7 +87,11 @@ class MainPage(QMainWindow):
     def icecekler_secim(self, icecek_listesi):
         pass
 
-    def sozluk_olustur(siparis_listesi):
+    #def a(self):
+        #self.ui.spinBox_aci_sos_4.setValue(self..value()+1)
+
+
+    def sozluk_olustur(self, siparis_listesi):
         sepet_ekle = {"Pizza": "", "Malzemeler": "", "Soslar": "", "İçecekler": "", "Fiyat": 0, "Notlar": ""}
         for veri in siparis_listesi:
             if "Pizza" in veri[0]:
@@ -95,6 +101,9 @@ class MainPage(QMainWindow):
                     sepet_ekle["malzeme"] += ", "
                 sepet_ekle["malzeme"] += veri[0]
             sepet_ekle["fiyat"] += veri[1]
+        
+        #self.ui.plainTextEdit.text()
+
         return sepet_ekle
 
     def checkBox_secim(self):
