@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 # Pizzalar
 def klasik_pizza_cost():
     pizza = pd.read_csv("pizzas.csv")
