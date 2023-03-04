@@ -3,8 +3,10 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from Anaekran_UI import *
 from PyQt5.QtCore import Qt
+from Product.Ingredient.SubIngredient import Olive, Mushroom, GoatCheese, Meat, Onion, Corn
 
 from Product.Pizza.SubPizza import Classic, Turk, Margherita, Dominos
+
 
 
 class MainPage(QMainWindow):
@@ -39,6 +41,8 @@ class MainPage(QMainWindow):
         return print(pizzalar_tuple)
 
     def malzeme_tuple(self):
+        zeytin= Olive()
+
         pass
 
     def soslar_tuple(self):
