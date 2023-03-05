@@ -14,7 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1400, 790)
+        MainWindow.resize(1400, 780)
+        MainWindow.setMinimumSize(QtCore.QSize(1400, 780))
+        MainWindow.setMaximumSize(QtCore.QSize(1400, 780))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
@@ -433,9 +435,6 @@ class Ui_MainWindow(object):
         self.menuSipari_lerim = QtWidgets.QMenu(self.menubar)
         self.menuSipari_lerim.setObjectName("menuSipari_lerim")
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
         self.actionGe_mi_Sipari_lerim = QtWidgets.QAction(MainWindow)
         self.actionGe_mi_Sipari_lerim.setObjectName("actionGe_mi_Sipari_lerim")
         self.menuSipari_lerim.addAction(self.actionGe_mi_Sipari_lerim)
@@ -446,7 +445,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Pizza Sipariş Sistemi"))
         self.pizzalar_label.setText(_translate("MainWindow", "PİZZALAR:"))
         self.malzemeler_label.setText(_translate("MainWindow", "MALZEMELER:"))
         self.malzemeler_label_2.setText(_translate("MainWindow", "SOSLAR:"))

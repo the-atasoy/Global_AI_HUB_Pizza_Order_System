@@ -1,23 +1,8 @@
 <RCC>
-  <qresource prefix="Logo">
-    <file>logo.png</file>
-  </qresource>
-  <qresource prefix="logo_1">
-    <file>logo_1.png</file>
-  </qresource>
-  <qresource prefix="logo_2">
-    <file>logo_2.png</file>
-  </qresource>
   <qresource prefix="logo_3">
     <file>logo_3.png</file>
   </qresource>
-  <qresource prefix="logo_4">
-    <file>logo_4.png</file>
-  </qresource>
-  <qresource prefix="logo_5">
-    <file>logo_5.png</file>
-  </qresource>
   <qresource prefix="odeme_ekrani">
-    <file>odeme_ekrani.png</file>
+    <file>logo_2.png</file>
   </qresource>
 </RCC>
