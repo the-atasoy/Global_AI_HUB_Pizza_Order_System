@@ -1,7 +1,6 @@
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
-import pandas as pd
 import Menu
 from Anaekran_UI import *
 from PyQt5.QtCore import Qt
@@ -22,6 +21,17 @@ class MainPage(QMainWindow):
         self.ui.Mar_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.turk_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.s_pizza_check.stateChanged.connect(self.checkBox_secim)
+        self.ui.ketcap_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.mayonez_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.hardal_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.bbq_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.aci_sos_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.ranch_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.kola_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.fanta_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.gazoz_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.limonata_check.stateChanged.connect(self.soslar_icecekler_check)
+        self.ui.ayran_check.stateChanged.connect(self.soslar_icecekler_check)
         self.Auto_increament_spinbox()
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
@@ -137,11 +147,10 @@ class MainPage(QMainWindow):
                     sepet_ekle["malzeme"] += ", "
                 sepet_ekle["malzeme"] += veri[0]
             sepet_ekle["fiyat"] += veri[1]
-        
+
         #self.ui.plainTextEdit.text()
 
         return sepet_ekle
-
 
     def checkBox_secim(self):
         check_box = [
@@ -163,6 +172,32 @@ class MainPage(QMainWindow):
                     if other_checkbox[0] != checkbox[0]:
                         other_checkbox[0].setEnabled(True)
                         self.siparis.clear()
+
+    def soslar_icecekler_check(self):
+            check_box_soslar_icecekler = [
+                [self.ui.ketcap_check, self.ui.ketcap_check.isChecked()],
+                [self.ui.mayonez_check, self.ui.mayonez_check.isChecked()],
+                [self.ui.hardal_check, self.ui.hardal_check.isChecked()],
+                [self.ui.bbq_check, self.ui.bbq_check.isChecked()],
+                [self.ui.aci_sos_check, self.ui.aci_sos_check.isChecked()],
+                [self.ui.ranch_check, self.ui.ranch_check.isChecked()],
+                [self.ui.kola_check, self.ui.kola_check.isChecked()],
+                [self.ui.fanta_check, self.ui.fanta_check.isChecked()],
+                [self.ui.gazoz_check, self.ui.gazoz_check.isChecked()],
+                [self.ui.limonata_check, self.ui.limonata_check.isChecked()],
+                [self.ui.ayran_check, self.ui.ayran_check.isChecked()]
+            ]
+            for checkbox in check_box_soslar_icecekler:
+                if checkbox[1]:
+                    for other_checkbox in check_box_soslar_icecekler:
+                        if other_checkbox[0] != checkbox[0]:
+                            pass
+                    checkbox[1] = False
+                    break
+                else:
+                    for other_checkbox in check_box_soslar_icecekler:
+                        if other_checkbox[0] != checkbox[0]:
+                            self.siparis.clear()
 
 
     def Auto_increament_spinbox(self):
@@ -238,3 +273,4 @@ uyg = QApplication(sys.argv)
 pencere = MainPage()
 pencere.show()
 sys.exit(uyg.exec_())
+

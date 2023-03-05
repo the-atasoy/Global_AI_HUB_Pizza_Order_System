@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime
+from Anaekran import MainPage
 
 def tc_kontrol(value):
     value = str(value)
@@ -21,12 +22,25 @@ class Payment:
         self.payment_history = pd.read_csv("payment_history.csv")
 
     def kart_bilgisi_al(self):
+
+        a = MainPage.sozluk_olustur()
         # buraya costların toplamını çekeceğiz.
-        tutar = float(input("Tutar: "))
+        tutar = a["Fiyat"]
+
+        pizza = a["Pizza"]
+        malzemeler = a["Malzemeler"]
+        soslar = a["Soslar"]
+        icecekler = a["İçecekler"]
+
         deneme = 0
 
+
         #buraya sipariş toplanmını çekeceğiz
-        order = "Klasik pizza, sucuk, mayonez, kola"
+        order = f" {pizza}, {malzemeler}, {soslar}, {icecekler}"
+
+
+        notlar = a["Notlar"]
+
 
         id_number = input("Kimlik numarası:  ")
         if not tc_kontrol(id_number):
@@ -56,7 +70,8 @@ class Payment:
                             "Customer": name,
                             "Total Price": float(tutar),
                             "Card Number": card_number,
-                            "Order": order
+                            "Order": order,
+                            "Notlar": notlar
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
@@ -69,10 +84,8 @@ class Payment:
                             "Customer": name,
                             "Total Price": float(tutar),
                             "Card Number": card_number,
-                            "Order": order
+                            "Order": order,
+                            "Notlar": notlar
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
-
-a = Payment()
-a.kart_bilgisi_al()
