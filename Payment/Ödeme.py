@@ -1,6 +1,6 @@
 import pandas as pd
 import datetime
-from Anaekran import MainPage
+# from Anaekran import MainPage
 
 def tc_kontrol(value):
     value = str(value)
@@ -23,23 +23,23 @@ class Payment:
 
     def kart_bilgisi_al(self):
 
-        a = MainPage.sozluk_olustur()
+        #a = MainPage.sozluk_olustur()
         # buraya costların toplamını çekeceğiz.
-        tutar = a["Fiyat"]
+        tutar = float(input("Tutar: "))
 
-        pizza = a["Pizza"]
-        malzemeler = a["Malzemeler"]
-        soslar = a["Soslar"]
-        icecekler = a["İçecekler"]
+        # pizza = a["Pizza"]
+        #malzemeler = a["Malzemeler"]
+        #soslar = a["Soslar"]
+        #icecekler = a["İçecekler"]
 
         deneme = 0
 
 
         #buraya sipariş toplanmını çekeceğiz
-        order = f" {pizza}, {malzemeler}, {soslar}, {icecekler}"
+        # order = f" {pizza}, {malzemeler}, {soslar}, {icecekler}"
+        order = "Turk Pizza, Mayonez, Ketçap"
 
-
-        notlar = a["Notlar"]
+        notlar = "İyi kızarsın lütfen"
 
 
         id_number = input("Kimlik numarası:  ")
@@ -89,3 +89,5 @@ class Payment:
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
+a = Payment()
+a.kart_bilgisi_al()
