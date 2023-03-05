@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import Menu
 from Anaekran_UI import *
+from siparis_gecmisi import *
 from PyQt5.QtCore import Qt
 from Product.Ingredient.SubIngredient import Olive, Mushroom, GoatCheese, Meat, Onion, Corn
 from Product.Pizza.SubPizza import Classic, Turk, Margherita, Dominos
@@ -16,6 +17,7 @@ class MainPage(QMainWindow):
         self.ui.setupUi(self)
         # self.pizza_ad_cheB()
         # self.veri_ekle({'pizza': 'margarita Pizza', 'malzeme': 'zeytin, et, mantar', 'fiyat': 87})
+        self.pizza_menu()
         self.ui.sepete_ekle_button.clicked.connect(self.sepete_ekle)
         self.ui.klas_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.Mar_pizza_check.stateChanged.connect(self.checkBox_secim)
@@ -44,9 +46,13 @@ class MainPage(QMainWindow):
         self.ui.limonata_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.ui.ayran_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.Auto_increament_spinbox()
+        self.sipari_gecmisi= Siparis_Gecmisi()
+        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.siparis_gecmis_ac)
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
 
+    def siparis_gecmis_ac(self):
+        self.sipari_gecmisi.show()
 
 
     def sepete_ekle(self):
@@ -279,6 +285,20 @@ class MainPage(QMainWindow):
         checkbox_item = QTableWidgetItem()
         checkbox_item.setCheckState(Qt.Checked)
         table_widget.setItem(row, 6, checkbox_item)
+
+    def pizza_menu(self):
+        dominos = Dominos("Sade pizza", Menu.Costs.dominos_pizza_cost())
+        turk = Turk("Türk Pizza", Menu.Costs.turk_pizza_cost())
+        margherita = Margherita("Margherita Pizza", Menu.Costs.margarita_pizza_cost())
+        classic = Classic("Klasik Pizza", Menu.Costs.klasik_pizza_cost())
+
+        menu= (
+        f"1. {classic.get_description()}          -----> {classic.get_cost()} $" + "\n" + 
+        f"2. {margherita.get_description()} -----> {margherita.get_cost()} $" + "\n" + 
+        f"3. {turk.get_description()}            -----> {turk.get_cost()} $" + "\n" + 
+        f"4. {dominos.get_description()}           -----> {dominos.get_cost()} $")
+
+        self.ui.pizza_menu.setText(menu)
 
 
 uyg = QApplication(sys.argv)
