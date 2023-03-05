@@ -12,8 +12,9 @@ class Siparis_Gecmisi(QMainWindow):
         self.SP = siparis_gecmisi()
         self.SP.setupUi(self)
         self.csv_to_table()
+        self.tablo_arama()
+        self.SP.pushButton_search.clicked.connect(self.tablo_arama)
 
-        self.SP.pushButton_search.clicked.connect(self.search_customer)
 
     def csv_to_table(self):
         reader = pd.read_csv("Payment/payment_history.csv")
@@ -29,11 +30,29 @@ class Siparis_Gecmisi(QMainWindow):
             check_box = QCheckBox()
             self.SP.order_history.setCellWidget(row_index, self.SP.order_history.columnCount() - 1, check_box)
 
-    def search_customer(self):
-        pass
+    def tablo_arama(self):
+        search = self.SP.customer_info.text().capitalize()
+        table = self.SP.order_history
+        self.SP.error_handling.setText("")
 
-    def sil(self):
-        pass
+        for row in range(table.rowCount()):
+            match = False
+            for col in range(table.columnCount()):
+                item = table.item(row, col)
+                if item is not None and search in item.text().capitalize():
+                    match = True
+                    break
+
+            table.setRowHidden(row, not match)
+
+        if not any([not table.isRowHidden(row) for row in range(table.rowCount())]):
+            self.SP.error_handling.setText("Aradığınız kritere uygun bir eşleşme bulunamadı.")
+
+    def secili_sifre_sil(self):
+        for row in range(self.sifrelerim.kayit_defteri.rowCount()-1, -1, -1):
+            if self.sifrelerim.kayit_defteri.cellWidget(row, 3).isChecked():
+                sifre_id = self.sifrelerim.kayit_defteri.item(row, 1).text() # sifre id sütununu al
+                self.sifrelerim.kayit_defteri.removeRow(row)
 
 
 
