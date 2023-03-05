@@ -137,6 +137,7 @@ class MainPage(QMainWindow):
 
         return sepet_ekle
 
+
     def checkBox_secim(self):
         check_box = [
             [self.ui.klas_pizza_check, self.ui.klas_pizza_check.isChecked()],
