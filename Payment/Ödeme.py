@@ -15,8 +15,8 @@ class Payment:
             deneme += 1
             print("Kimlik no hatalı!")
 
-        name = input("İsim: ")
-        if name == int or name == float:
+        name = str(input("İsim: "))
+        if not isinstance(name, str):
             deneme += 1
             print("Kart üzerindeki isim hatalı!")
 
