@@ -1,17 +1,35 @@
 import pandas as pd
 import datetime
 
+def tc_kontrol(value):
+    value = str(value)
+    if not len(value) == 11:
+        return False
+    if not value.isdigit():
+        return False
+    if int(value[0]) == 0:
+        return False
+    digits = [int(d) for d in str(value)]
+    if not sum(digits[:10]) % 10 == digits[10]:
+        return False
+    if not (((7 * sum(digits[:9][-1::-2])) - sum(digits[:9][-2::-2])) % 10) == digits[9]:
+        return False
+    return True
+
 class Payment:
     def __init__(self):
         self.payment_history = pd.read_csv("payment_history.csv")
 
     def kart_bilgisi_al(self):
-        # buraya costların toplamını bağlayacağız get_cost buraya yazılabilir.
+        # buraya costların toplamını çekeceğiz.
         tutar = float(input("Tutar: "))
         deneme = 0
 
+        #buraya sipariş toplanmını çekeceğiz
+        order = "Klasik pizza, sucuk, mayonez, kola"
+
         id_number = input("Kimlik numarası:  ")
-        if len(id_number) != 11:
+        if not tc_kontrol(id_number):
             deneme += 1
             print("Kimlik no hatalı!")
 
@@ -36,8 +54,9 @@ class Payment:
             payment_info = {"Payment": "Successful",
                             "Date/Time": payment_date,
                             "Customer": name,
-                            "Total Price": tutar,
+                            "Total Price": float(tutar),
                             "Card Number": card_number,
+                            "Order": order
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
@@ -48,8 +67,9 @@ class Payment:
             payment_info = {"Payment": "Failed",
                             "Date/Time": payment_date,
                             "Customer": name,
-                            "Total Price": tutar,
+                            "Total Price": float(tutar),
                             "Card Number": card_number,
+                            "Order": order
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
