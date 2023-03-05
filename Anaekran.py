@@ -22,14 +22,19 @@ class MainPage(QMainWindow):
         self.ui.Mar_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.turk_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.s_pizza_check.stateChanged.connect(self.checkBox_secim)
+        self.Auto_increament_spinbox()
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
 
 
 
     def sepete_ekle(self):
-        a = self.pizza_secim(self.pizza_tuple())
-        return print(a)
+        self.pizza_secim(self.pizza_tuple())
+        self.malzeme_secimi(self.ingredient_tuple())
+        self.sos_secim(self.soslar_tuple())
+        self.icecekler_secim(self.icecekler_tuple())
+
+        return print(self.siparis)
 
     def pizza_tuple(self):
         dominos = Dominos("Domino's pizza plain", Menu.Costs.dominos_pizza_cost())
@@ -63,35 +68,35 @@ class MainPage(QMainWindow):
         return ingredient_tuple
 
     def soslar_tuple(self):
-        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost()*self.ui.spinBox_ketcap_4)
-        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost()*self.ui.spinBox_mayonez_4)
-        hardal = Mustard("Hardal", Menu.Costs.hardal_cost()*self.ui.spinBox_hardal_4)
-        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost()*self.ui.spinBox_bbq_4)
-        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost()*self.ui.spinBox_aci_sos_4)
-        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost()*self.ui.spinBox_ranch_4)
+        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost()*self.ui.spinBox_ketcap_4.value())
+        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost()*self.ui.spinBox_mayonez_4.value())
+        hardal = Mustard("Hardal", Menu.Costs.hardal_cost()*self.ui.spinBox_hardal_4.value())
+        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost()*self.ui.spinBox_bbq_4.value())
+        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost()*self.ui.spinBox_aci_sos_4.value())
+        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost()*self.ui.spinBox_ranch_4.value())
 
-        soslar_tuple = [(ketcap.get_description(), ketcap.get_cost(), self.ui.ketcap_check.isChecked()),
+        soslar_tuple = [(ketcap.get_description(), ketcap.get_cost()*self.ui.spinBox_ketcap_4.value(), self.ui.ketcap_check.isChecked()),
                         (mayonez.get_description(), mayonez.get_cost(), self.ui.mayonez_check.isChecked()),
                         (hardal.get_description(), hardal.get_cost(), self.ui.hardal_check.isChecked()),
                         (bbq.get_description(), hardal.get_cost(), self.ui.hardal_check.isChecked()),
-                        aci_sos.get_description(), aci_sos.get_cost(), self.ui.aci_sos_check.isChecked(),
-                        ranch_sos.get_description(), ranch_sos.get_cost(), self.ui.ranch_check.isChecked()
+                        (aci_sos.get_description(), aci_sos.get_cost(), self.ui.aci_sos_check.isChecked()),
+                        (ranch_sos.get_description(), ranch_sos.get_cost(), self.ui.ranch_check.isChecked())
                         ]
         return soslar_tuple
 
     def icecekler_tuple(self):
-        kola = Coke("Kola", Menu.Costs.kola_cost()*self.ui.spinBox_KOLA)
-        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost()*self.ui.spinBox_FANTA)
-        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost()*self.ui.spinBox_GAZOZ)
-        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost()*self.ui.spinBox_LMONATA)
-        ayran = Ayran("Ayran", Menu.Costs.ayran_cost()*self.ui.spinBox_AYRAN)
+        kola = Coke("Kola", Menu.Costs.kola_cost()*self.ui.spinBox_KOLA.value())
+        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost()*self.ui.spinBox_FANTA.value())
+        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost()*self.ui.spinBox_GAZOZ.value())
+        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost()*self.ui.spinBox_LMONATA.value())
+        ayran = Ayran("Ayran", Menu.Costs.ayran_cost()*self.ui.spinBox_AYRAN.value())
 
         icecekler_tuple = [(kola.get_description(), kola.get_cost(), self.ui.kola_check.isChecked()),
                            (fanta.get_description(), kola.get_cost(), self.ui.fanta_check.isChecked()),
                            (gazoz.get_description(), gazoz.get_cost(), self.ui.gazoz_check.isChecked()),
                            (limonata.get_description(), limonata.get_cost(), self.ui.gazoz_check.isChecked()),
-                           (ayran.get_description(), ayran.get_cost(), self.ui.ayran_check.isChecked())
-        ]
+                           (ayran.get_description(), ayran.get_cost(), self.ui.ayran_check.isChecked())]
+        
         return icecekler_tuple
 
     def pizza_secim(self, pizza_listesi):
@@ -157,6 +162,41 @@ class MainPage(QMainWindow):
                 for other_checkbox in check_box:
                     if other_checkbox[0] != checkbox[0]:
                         other_checkbox[0].setEnabled(True)
+                        self.siparis.clear()
+
+
+    def Auto_increament_spinbox(self):
+        checkBox = [self.ui.ketcap_check,
+                        self.ui.mayonez_check,
+                        self.ui.hardal_check,
+                        self.ui.bbq_check,
+                        self.ui.aci_sos_check,
+                        self.ui.ranch_check, 
+                        self.ui.kola_check,
+                        self.ui.fanta_check,
+                        self.ui.gazoz_check,
+                        self.ui.limonata_check,
+                        self.ui.ayran_check
+                          ]
+        spinBox= [self.ui.spinBox_ketcap_4,
+                        self.ui.spinBox_mayonez_4,
+                        self.ui.spinBox_hardal_4,
+                        self.ui.spinBox_bbq_4,
+                        self.ui.spinBox_aci_sos_4,
+                        self.ui.spinBox_ranch_4, 
+                        self.ui.spinBox_KOLA,
+                        self.ui.spinBox_FANTA,
+                        self.ui.spinBox_GAZOZ,
+                        self.ui.spinBox_LMONATA,
+                        self.ui.spinBox_AYRAN]
+
+        for i,e in enumerate(checkBox):
+            if  e.isChecked():
+                spinBox[i].setValue(1)
+            else:
+                # checkbox false konumuna geldiğinde spinbox değerini 0 yap
+                spinBox[i].setValue(0)
+
 
     def tabloya_veri_ekle(self, veriler):
         table_widget = self.ui.sepet_table
