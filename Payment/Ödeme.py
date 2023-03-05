@@ -7,25 +7,31 @@ class Payment:
 
     def kart_bilgisi_al(self):
         # buraya costların toplamını bağlayacağız get_cost buraya yazılabilir.
-        tutar = float(input("Please enter cost: "))
+        tutar = float(input("Tutar: "))
         deneme = 0
 
-        id_number = input("Please enter your ID Number:  ")
+        id_number = input("Kimlik numarası:  ")
         if len(id_number) != 11:
             deneme += 1
+            print("Kimlik no hatalı!")
 
-        name = input("Please enter your name: ")
+        name = input("İsim: ")
+        if name == int or name == float:
+            deneme += 1
+            print("Kart üzerindeki isim hatalı!")
 
-        card_number = input("Please enter card number:  ")
+        card_number = input("Kart numarası:  ")
         if len(card_number) != 16:
             deneme += 1
+            print("Kart numarası hatalı!")
 
-        password = input("Please enter 4 digit password:")
+        password = input("Kart şifresi: ")
         if len(password) != 4:
             deneme += 1
+            print("Kart şifresi hatalı!")
 
         if deneme == 0:
-            print("Payment successful.")
+            print("Ödeme başarılı.")
             payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             payment_info = {"Payment": "Successful",
                             "Date/Time": payment_date,
@@ -37,7 +43,7 @@ class Payment:
             self.payment_history.to_csv("payment_history.csv", index=False)
 
         if deneme != 0:
-            print("Payment Failed. Please try again")
+            print("Ödeme başarısız. Lütfen tekrar deneyin.")
             payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             payment_info = {"Payment": "Failed",
                             "Date/Time": payment_date,
