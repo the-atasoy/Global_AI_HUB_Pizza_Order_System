@@ -1,6 +1,6 @@
 import pandas as pd
 import datetime
-# from Anaekran import MainPage
+from Anaekran import MainPage
 
 def tc_kontrol(value):
     value = str(value)
@@ -18,76 +18,100 @@ def tc_kontrol(value):
     return True
 
 class Payment:
+
     def __init__(self):
+        self.deneme = 0
         self.payment_history = pd.read_csv("payment_history.csv")
+        self.tutar()
+        self.order()
+        self.notlar()
+        self.tc()
+        self.name()
+        self.kart_no()
+        self.sifre()
+        self.odeme_yap()
+        self.isim = self.name()
 
-    def kart_bilgisi_al(self):
+    def tutar(self):
+        a = MainPage()
+        sepet = a.siparis
 
-        #a = MainPage.sozluk_olustur()
-        # buraya costların toplamını çekeceğiz.
-        tutar = float(input("Tutar: "))
+        tutar = sepet["Fiyat"]
+        #tutar = 25
 
-        # pizza = a["Pizza"]
-        #malzemeler = a["Malzemeler"]
-        #soslar = a["Soslar"]
-        #icecekler = a["İçecekler"]
+        return print(tutar)
+    def order(self):
+        a = MainPage()
+        sepet = a.siparis
+        pizza = sepet["Pizza"]
+        malzemeler = sepet["Malzemeler"]
+        soslar = sepet["Soslar"]
+        icecekler = sepet["İçecekler"]
 
-        deneme = 0
+        order = f" {pizza}, {malzemeler}, {soslar}, {icecekler}"
+        #order = "Margarita, kola, ayran, mayonez,et"
+        return print(order)
 
+    def notlar(self):
+        a = MainPage()
+        sepet = a.siparis
 
-        #buraya sipariş toplanmını çekeceğiz
-        # order = f" {pizza}, {malzemeler}, {soslar}, {icecekler}"
-        order = "Turk Pizza, Mayonez, Ketçap"
+        notlar = sepet["Notlar"]
+        #notlar = "Acılı olsun"
+        return print(notlar)
 
-        notlar = "İyi kızarsın lütfen"
-
-
+    def tc(self):
         id_number = input("Kimlik numarası:  ")
         if not tc_kontrol(id_number):
-            deneme += 1
+            self.deneme += 1
             print("Kimlik no hatalı!")
 
+    def name(self):
         name = str(input("İsim: "))
         if not isinstance(name, str):
-            deneme += 1
+            self.deneme += 1
             print("Kart üzerindeki isim hatalı!")
+        return print(name)
 
+    def kart_no(self):
         card_number = input("Kart numarası:  ")
         if len(card_number) != 16:
-            deneme += 1
+            self.deneme += 1
             print("Kart numarası hatalı!")
-
+        return print(card_number)
+    def sifre(self):
         password = input("Kart şifresi: ")
         if len(password) != 4:
-            deneme += 1
+            self.deneme += 1
             print("Kart şifresi hatalı!")
 
-        if deneme == 0:
+    def odeme_yap(self):
+        if self.deneme == 0:
             print("Ödeme başarılı.")
             payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             payment_info = {"Payment": "Successful",
                             "Date/Time": payment_date,
-                            "Customer": name,
-                            "Total Price": float(tutar),
-                            "Card Number": card_number,
-                            "Order": order,
-                            "Notlar": notlar
+                            "Customer": self.isim,
+                            "Total Price": float(self.tutar()),
+                            "Card Number": self.kart_no,
+                            "Order": self.order,
+                            "Notlar": self.notlar
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
 
-        if deneme != 0:
+        if self.deneme != 0:
             print("Ödeme başarısız. Lütfen tekrar deneyin.")
             payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             payment_info = {"Payment": "Failed",
                             "Date/Time": payment_date,
-                            "Customer": name,
-                            "Total Price": float(tutar),
-                            "Card Number": card_number,
-                            "Order": order,
-                            "Notlar": notlar
+                            "Customer": self.name,
+                            "Total Price": float(self.tutar()),
+                            "Card Number": self.kart_no,
+                            "Order": self.order,
+                            "Notlar": self.notlar
                             }
             self.payment_history = self.payment_history.append(payment_info, ignore_index=True)
             self.payment_history.to_csv("payment_history.csv", index=False)
+
 a = Payment()
-a.kart_bilgisi_al()

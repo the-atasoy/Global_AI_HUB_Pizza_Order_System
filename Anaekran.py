@@ -55,6 +55,9 @@ class MainPage(QMainWindow):
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
 
+
+
+
     def siparis_gecmis_ac(self):
         self.sipari_gecmisi.show()
 
@@ -65,8 +68,7 @@ class MainPage(QMainWindow):
         self.icecekler_secim(Tuples.drinks_tuple(self))
         a = self.sozluk_olustur(self.siparis)
         self.tabloya_veri_ekle(a)
-
-        return print(self.siparis)
+        return a
 
     def pizza_secim(self, pizza_listesi):
         for eleman in pizza_listesi:
@@ -96,7 +98,7 @@ class MainPage(QMainWindow):
         #self.ui.spinBox_aci_sos_4.setValue(self..value()+1)
 
     def sozluk_olustur(self, siparis_listesi):
-         
+
         pizzalar = [classic.get_description(),
                  margherita.get_description(),
                  turk.get_description(), 
@@ -124,7 +126,7 @@ class MainPage(QMainWindow):
                  pop_soda.get_description(),
                  lemonade.get_description(),
                  ayran.get_description()]
-        
+
         sepet_ekle = {"Pizza": "", "Malzemeler": "", "Soslar": "", "İçecekler": "", "Fiyat": 0, "Notlar": ""}
         for veri in siparis_listesi:
             if veri[0] in pizzalar :
