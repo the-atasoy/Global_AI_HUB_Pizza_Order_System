@@ -1,7 +1,10 @@
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
+
+import MealMenu
 import Menu
+import Tuples
 from Anaekran_UI import *
 from Objects import *
 from siparis_gecmisi import *
@@ -15,10 +18,10 @@ class MainPage(QMainWindow):
         self.ui.setupUi(self)
         # self.pizza_ad_cheB()
         # self.veri_ekle({'pizza': 'margarita Pizza', 'malzeme': 'zeytin, et, mantar', 'fiyat': 87})
-        self.pizza_menu()
-        self.ingredient_menu()
-        self.sauce_menu()
-        self.drink_menu()
+        MealMenu.pizza_menu(self)
+        MealMenu.ingredient_menu(self)
+        MealMenu.sauce_menu(self)
+        MealMenu.drink_menu(self)
         self.ui.sepete_ekle_button.clicked.connect(self.sepete_ekle)
         self.ui.klas_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.Mar_pizza_check.stateChanged.connect(self.checkBox_secim)
@@ -55,60 +58,15 @@ class MainPage(QMainWindow):
     def siparis_gecmis_ac(self):
         self.sipari_gecmisi.show()
 
-
     def sepete_ekle(self):
-        self.pizza_secim(self.pizza_tuple())
-        self.malzeme_secimi(self.ingredient_tuple())
-        self.sos_secim(self.soslar_tuple())
-        self.icecekler_secim(self.icecekler_tuple())
+        self.pizza_secim(Tuples.pizza_tuple(self))
+        self.malzeme_secimi(Tuples.ingredient_tuple(self))
+        self.sos_secim(Tuples.sauce_tuple(self))
+        self.icecekler_secim(Tuples.drinks_tuple(self))
         a = self.sozluk_olustur(self.siparis)
         self.tabloya_veri_ekle(a)
 
         return print(self.siparis)
-
-    def pizza_tuple(self):
-        pizzalar_tuple = [
-            (classic.get_description(), classic.get_cost(), self.ui.klas_pizza_check.isChecked()),
-            (margherita.get_description(), margherita.get_cost(), self.ui.Mar_pizza_check.isChecked()),
-            (turk.get_description(), turk.get_cost(), self.ui.turk_pizza_check.isChecked()),
-            (dominos.get_description(), dominos.get_cost(), self.ui.s_pizza_check.isChecked())
-        ]
-        return pizzalar_tuple
-
-    def ingredient_tuple(self):
-        ingredient_tuple = [
-            (olive.get_description(), olive.get_cost(), self.ui.zeytin_check.isChecked()),
-            (mushroom.get_description(), mushroom.get_cost(), self.ui.mantar_check.isChecked()),
-            (goat_cheese.get_description(), goat_cheese.get_cost(), self.ui.keci_peyniri_check.isChecked()),
-            (meat.get_description(), meat.get_cost(), self.ui.et_check.isChecked()),
-            (onion.get_description(), onion.get_cost(), self.ui.sogan_check.isChecked()),
-            (corn.get_description(), corn.get_cost(), self.ui.misir_check.isChecked())
-        ]
-        return ingredient_tuple
-
-    # These tuples codes add products to selected items menu in GUI
-    def soslar_tuple(self):
-        soslar_tuple = [(ketchup.get_description(), ketchup.get_cost() * self.ui.spinBox_ketcap_4.value(), self.ui.ketcap_check.isChecked()),
-                        (mayo.get_description(), mayo.get_cost() * self.ui.spinBox_mayonez_4.value() , self.ui.mayonez_check.isChecked()),
-                        (mustard.get_description(), mustard.get_cost() * self.ui.spinBox_hardal_4.value() , self.ui.hardal_check.isChecked()),
-                        (bbq.get_description(), bbq.get_cost()*self.ui.spinBox_bbq_4.value() , self.ui.bbq_check.isChecked()),
-                        (hot_sauce.get_description(), hot_sauce.get_cost() * self.ui.spinBox_aci_sos_4.value() , self.ui.aci_sos_check.isChecked()),
-                        (ranch.get_description(), ranch.get_cost() * self.ui.spinBox_ranch_4.value() , self.ui.ranch_check.isChecked())
-                        ]
-        return soslar_tuple
-
-    def icecekler_tuple(self):
-        icecekler_tuple = [(coke.get_description(), coke.get_cost() * self.ui.spinBox_KOLA.value(), self.ui.kola_check.isChecked()),
-                           (fanta.get_description(), fanta.get_cost()*self.ui.spinBox_FANTA.value(), self.ui.fanta_check.isChecked()),
-                           (pop_soda.get_description(), pop_soda.get_cost() * self.ui.spinBox_GAZOZ.value(), self.ui.gazoz_check.isChecked()),
-                           (lemonade.get_description(), lemonade.get_cost() * self.ui.spinBox_LMONATA.value(), self.ui.limonata_check.isChecked()),
-                           (ayran.get_description(), ayran.get_cost()*self.ui.spinBox_AYRAN.value(), self.ui.ayran_check.isChecked())]
-        
-        return icecekler_tuple
-    
-   
-    
-   
 
     def pizza_secim(self, pizza_listesi):
         for eleman in pizza_listesi:
@@ -307,46 +265,7 @@ class MainPage(QMainWindow):
         checkbox_item.setCheckState(Qt.Checked)
         table_widget.setItem(row, 6, checkbox_item)
 
-    def pizza_menu(self):
-        menu = (
-            f"1. {classic.get_description()}          -----> {classic.get_cost()} $" + "\n" +
-            f"2. {margherita.get_description()}   -----> {margherita.get_cost()} $" + "\n" +
-            f"3. {turk.get_description()}            -----> {turk.get_cost()} $" + "\n" +
-            f"4. {dominos.get_description()}    -----> {dominos.get_cost()} $")
 
-        self.ui.pizza_menu.setText(menu)
-
-    def ingredient_menu(self):
-        menu = (
-                f"1. {olive.get_description()}           -----> {olive.get_cost()} $" + "\n" +
-                f"2. {mushroom.get_description()}         -----> {mushroom.get_cost()} $" + "\n" +
-                f"3. {goat_cheese.get_description()}   -----> {goat_cheese.get_cost()} $" + "\n" +
-                f"4. {meat.get_description()}                 -----> {meat.get_cost()} $" + "\n" +
-                f"5. {onion.get_description()}           -----> {onion.get_cost()} $" + "\n" +
-                f"6. {corn.get_description()}             -----> {corn.get_cost()} $")
-
-        self.ui.ingredient_menu.setText(menu)
-
-    def sauce_menu(self):
-        menu = (
-                f"1. {ketchup.get_description()}             -----> {ketchup.get_cost()} $" + "\n" +
-                f"2. {mayo.get_description()}          -----> {mayo.get_cost()} $" + "\n" +
-                f"3. {mustard.get_description()}              -----> {mustard.get_cost()} $" + "\n" +
-                f"4. {ranch.get_description()}        -----> {ranch.get_cost()} $" + "\n" +
-                f"5. {bbq.get_description()}            -----> {bbq.get_cost()} $" + "\n" +
-                f"6. {hot_sauce.get_description()}             -----> {hot_sauce.get_cost()} $")
-
-        self.ui.sauce_menu.setText(menu)
-
-    def drink_menu(self):
-        menu = (
-            f"1. {coke.get_description()}               -----> {coke.get_cost()} $" + "\n" +
-            f"2. {fanta.get_description()}             -----> {fanta.get_cost()} $" + "\n" +
-            f"3. {pop_soda.get_description()}            -----> {pop_soda.get_cost()} $" + "\n" +
-            f"4. {lemonade.get_description()}       -----> {lemonade.get_cost()} $" + "\n" +
-            f"5. {ayran.get_description()}            -----> {ayran.get_cost()} $")
-
-        self.ui.drink_menu.setText(menu)
 
 
 uyg = QApplication(sys.argv)
