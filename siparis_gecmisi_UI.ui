@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Sipariş Geçmişi</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icon.qrc">
+    <normaloff>:/icon/logo_3.png</normaloff>:/icon/logo_3.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableWidget" name="order_history">
     <property name="geometry">
@@ -79,9 +83,9 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>190</x>
       <y>10</y>
-      <width>971</width>
+      <width>791</width>
       <height>81</height>
      </rect>
     </property>
@@ -187,8 +191,26 @@
      <string>SİL</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/icon/logo_3.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

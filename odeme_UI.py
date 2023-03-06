@@ -17,6 +17,9 @@ class odeme_ui(object):
         MainWindow.resize(482, 394)
         MainWindow.setMinimumSize(QtCore.QSize(482, 394))
         MainWindow.setMaximumSize(QtCore.QSize(482, 394))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/kredi kartı/logo_2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pay_button = QtWidgets.QPushButton(self.centralwidget)
@@ -104,7 +107,7 @@ class odeme_ui(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Ödeme"))
         self.pay_button.setText(_translate("MainWindow", "Öde"))
         self.label.setText(_translate("MainWindow", "Ad Soyad:"))
         self.label_3.setText(_translate("MainWindow", "TC Kimlik No:"))

@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Pizza Sipariş Sistemi</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="logo.qrc">
+    <normaloff>:/logo_3/logo_3.png</normaloff>:/logo_3/logo_3.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame">
     <property name="geometry">

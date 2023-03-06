@@ -13,7 +13,7 @@ class Odeme(QMainWindow):
        
         
 
-uyg = QApplication(sys.argv)
-pencere = Odeme()
-pencere.show()
-sys.exit(uyg.exec_())
+#uyg_2 = QApplication(sys.argv)
+#pencere_2 = Odeme()
+#pencere_2.show()
+#sys.exit(uyg_2.exec_())

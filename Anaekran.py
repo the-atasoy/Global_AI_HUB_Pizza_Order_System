@@ -8,6 +8,7 @@ import Tuples
 from Anaekran_UI import *
 from Objects import *
 from siparis_gecmisi import *
+from odeme import *
 from PyQt5.QtCore import Qt
 
 class MainPage(QMainWindow):
@@ -16,8 +17,6 @@ class MainPage(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        # self.pizza_ad_cheB()
-        # self.veri_ekle({'pizza': 'margarita Pizza', 'malzeme': 'zeytin, et, mantar', 'fiyat': 87})
         MealMenu.pizza_menu(self)
         MealMenu.ingredient_menu(self)
         MealMenu.sauce_menu(self)
@@ -51,16 +50,36 @@ class MainPage(QMainWindow):
         self.ui.ayran_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.Auto_increament_spinbox()
         self.sipari_gecmisi= Siparis_Gecmisi()
+        self.odeme_ekrani = Odeme()
         self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.siparis_gecmis_ac)
+        self.ui.tumunu_sec.clicked.connect(self.choose_all)
+        self.ui.secilenleri_sil.clicked.connect(self.del_choosen_row)
+        self.ui.sepeti_onayla.clicked.connect(self.go_to_odeme)
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
-
-
 
 
     def siparis_gecmis_ac(self):
         self.sipari_gecmisi.show()
 
+    def go_to_odeme (self):
+        all_checked= True
+        for row in range(self.ui.sepet_table.rowCount()):
+            if not self.ui.sepet_table.cellWidget(row, 6).isChecked():
+                all_checked = False
+                break
+
+        if all_checked:
+            self.odeme_ekrani.show()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Tüm siparişlerin seçili olması gerek")
+            msg.setWindowTitle("HATA")
+            ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
+            msg.exec_()
+
+                
     def sepete_ekle(self):
         self.pizza_secim(Tuples.pizza_tuple(self))
         self.malzeme_secimi(Tuples.ingredient_tuple(self))
@@ -68,6 +87,7 @@ class MainPage(QMainWindow):
         self.icecekler_secim(Tuples.drinks_tuple(self))
         a = self.sozluk_olustur(self.siparis)
         self.tabloya_veri_ekle(a)
+        self.set_default_situation()
         return a
 
     def pizza_secim(self, pizza_listesi):
@@ -94,24 +114,19 @@ class MainPage(QMainWindow):
                 self.siparis.append(i[0:2])
         return self.siparis
 
-    #def a(self):
-        #self.ui.spinBox_aci_sos_4.setValue(self..value()+1)
-
     def sozluk_olustur(self, siparis_listesi):
 
         pizzalar = [classic.get_description(),
                  margherita.get_description(),
                  turk.get_description(), 
-                 dominos.get_description()]
-        
+                 dominos.get_description()]      
     
         malzemeler = [olive.get_description(),
                  mushroom.get_description(),
                  goat_cheese.get_description(),
                  meat.get_description(),
                  onion.get_description(),
-                 corn.get_description()]
-    
+                 corn.get_description()]  
 
         soslar =  [ketchup.get_description(), 
                 mayo.get_description(),
@@ -119,7 +134,6 @@ class MainPage(QMainWindow):
                 bbq.get_description(),
                 hot_sauce.get_description(),
                 ranch.get_description()]
-    
 
         icecekler = [coke.get_description(), 
                  fanta.get_description(),
@@ -146,10 +160,7 @@ class MainPage(QMainWindow):
             sepet_ekle["Fiyat"] += veri[1]
             sepet_ekle["Notlar"] = self.ui.plainTextEdit.toPlainText()
         return sepet_ekle
-        
-        #self.ui.plainTextEdit.text()
 
-        
 
     def checkBox_secim(self):
         check_box = [
@@ -231,7 +242,6 @@ class MainPage(QMainWindow):
                 # checkbox false konumuna geldiğinde spinbox değerini 0 yap
                 spinBox[i].setValue(0)
 
-
     def tabloya_veri_ekle(self, veriler):
         table_widget = self.ui.sepet_table
         row_count = table_widget.rowCount()
@@ -245,7 +255,7 @@ class MainPage(QMainWindow):
         icecekler_item = QTableWidgetItem(veriler["İçecekler"])
         tutar_item = QTableWidgetItem(str(veriler["Fiyat"]))
         notlar_item = QTableWidgetItem(veriler["Notlar"])
-
+      
         # Tablonun dışarıdan erişilmesini engelleme
         pizza_item.setFlags(pizza_item.flags() ^ Qt.ItemIsEditable)
         malzeme_item.setFlags(malzeme_item.flags() ^ Qt.ItemIsEditable)
@@ -263,12 +273,51 @@ class MainPage(QMainWindow):
         table_widget.setItem(row, 5, notlar_item)
 
         #  Sil Sütununa Checkbox eklenmesi
-        checkbox_item = QTableWidgetItem()
-        checkbox_item.setCheckState(Qt.Checked)
-        table_widget.setItem(row, 6, checkbox_item)
+        check_box = QCheckBox()
+        self.ui.sepet_table.setCellWidget(row, 6, check_box)
 
+    def choose_all(self):
+         # burada checkbox widgetlerini bulmak için QCheckBox tipi kullanılır
+        for row in range(self.ui.sepet_table.rowCount()):
+            checkBox =self.ui.sepet_table.cellWidget(row, 6)
+            if checkBox.isChecked():
+                checkBox.setChecked(False) # tüm checkbox'ları işaretleyin
+            else:
+                checkBox.setChecked(True)
 
+    def del_choosen_row(self):
+        for row in range(self.ui.sepet_table.rowCount()-1, -1, -1):
+            if self.ui.sepet_table.cellWidget(row, 6).isChecked():
+                self.ui.sepet_table.removeRow(row)
 
+    def set_default_situation(self):
+        checkBox_list= [
+            self.ui.klas_pizza_check,
+            self.ui.Mar_pizza_check, 
+            self.ui.turk_pizza_check,
+            self.ui.s_pizza_check,
+            self.ui.zeytin_check,
+            self.ui.keci_peyniri_check,
+            self.ui.misir_check,
+            self.ui.et_check,
+            self.ui.sogan_check,
+            self.ui.mantar_check,
+            self.ui.keci_peyniri_check, 
+            self.ui.ketcap_check,
+            self.ui.mayonez_check,
+            self.ui.hardal_check,
+            self.ui.bbq_check,
+            self.ui.aci_sos_check,
+            self.ui.ranch_check, 
+            self.ui.kola_check,
+            self.ui.fanta_check,
+            self.ui.gazoz_check,
+            self.ui.limonata_check,
+            self.ui.ayran_check]
+        
+        for e in checkBox_list:
+            if e.isChecked():
+                e.setChecked(False)
 
 uyg = QApplication(sys.argv)
 pencere = MainPage()

@@ -23,7 +23,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Ödeme</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="odeme.qrc">
+    <normaloff>:/kredi kartı/logo_2.png</normaloff>:/kredi kartı/logo_2.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pay_button">
