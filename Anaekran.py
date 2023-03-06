@@ -3,14 +3,12 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import Menu
 from Anaekran_UI import *
+from Objects import *
 from siparis_gecmisi import *
 from PyQt5.QtCore import Qt
-from Product.Ingredient.SubIngredient import Olive, Mushroom, GoatCheese, Meat, Onion, Corn
-from Product.Pizza.SubPizza import Classic, Turk, Margherita, Dominos
-from Product.Sauce.SubSauce import Mayo, Mustard, Ketchup, BBQ, Hot, Ranch
-from Product.Drink.SubDrink import Coke, Ayran, OrangeJuice, SodaPop,Lemonade
 
 class MainPage(QMainWindow):
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -64,10 +62,6 @@ class MainPage(QMainWindow):
         return print(self.siparis)
 
     def pizza_tuple(self):
-        dominos = Dominos("Domino's pizza plain", Menu.Costs.dominos_pizza_cost())
-        turk = Turk("Turkish style pizza plain", Menu.Costs.turk_pizza_cost())
-        margherita = Margherita("Margherita pizza plain", Menu.Costs.margarita_pizza_cost())
-        classic = Classic("Classic pizza plain", Menu.Costs.klasik_pizza_cost())
         pizzalar_tuple = [
             (classic.get_description(), classic.get_cost(), self.ui.klas_pizza_check.isChecked()),
             (margherita.get_description(), margherita.get_cost(), self.ui.Mar_pizza_check.isChecked()),
@@ -77,13 +71,6 @@ class MainPage(QMainWindow):
         return pizzalar_tuple
 
     def ingredient_tuple(self):
-        olive = Olive("Zeytin", Menu.Costs.zeytin_cost())
-        mushroom = Mushroom("Mantar", Menu.Costs.mantar_cost())
-        goat_cheese = GoatCheese("Keçi Peyniri", Menu.Costs.keci_peyniri_cost())
-        meat = Meat("Et", Menu.Costs.et_cost())
-        onion = Onion("Sogan", Menu.Costs.sogan_cost())
-        corn = Corn("Misir", Menu.Costs.misir_cost())
-
         ingredient_tuple = [
             (olive.get_description(), olive.get_cost(), self.ui.zeytin_check.isChecked()),
             (mushroom.get_description(), mushroom.get_cost(), self.ui.mantar_check.isChecked()),
@@ -95,33 +82,20 @@ class MainPage(QMainWindow):
         return ingredient_tuple
 
     def soslar_tuple(self):
-        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost())
-        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost())
-        hardal = Mustard("Hardal", Menu.Costs.hardal_cost())
-        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost())
-        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost())
-        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost())
-
-        soslar_tuple = [(ketcap.get_description(), ketcap.get_cost()*self.ui.spinBox_ketcap_4.value(), self.ui.ketcap_check.isChecked()),
-                        (mayonez.get_description(), mayonez.get_cost()*self.ui.spinBox_mayonez_4.value() , self.ui.mayonez_check.isChecked()),
-                        (hardal.get_description(), hardal.get_cost()*self.ui.spinBox_hardal_4.value() , self.ui.hardal_check.isChecked()),
+        soslar_tuple = [(ketchup.get_description(), ketchup.get_cost() * self.ui.spinBox_ketcap_4.value(), self.ui.ketcap_check.isChecked()),
+                        (mayo.get_description(), mayo.get_cost() * self.ui.spinBox_mayonez_4.value() , self.ui.mayonez_check.isChecked()),
+                        (mustard.get_description(), mustard.get_cost() * self.ui.spinBox_hardal_4.value() , self.ui.hardal_check.isChecked()),
                         (bbq.get_description(), bbq.get_cost()*self.ui.spinBox_bbq_4.value() , self.ui.bbq_check.isChecked()),
-                        (aci_sos.get_description(), aci_sos.get_cost()*self.ui.spinBox_aci_sos_4.value() , self.ui.aci_sos_check.isChecked()),
-                        (ranch_sos.get_description(), ranch_sos.get_cost()*self.ui.spinBox_ranch_4.value() , self.ui.ranch_check.isChecked())
+                        (hot_sauce.get_description(), hot_sauce.get_cost() * self.ui.spinBox_aci_sos_4.value() , self.ui.aci_sos_check.isChecked()),
+                        (ranch.get_description(), ranch.get_cost() * self.ui.spinBox_ranch_4.value() , self.ui.ranch_check.isChecked())
                         ]
         return soslar_tuple
 
     def icecekler_tuple(self):
-        kola = Coke("Kola", Menu.Costs.kola_cost())
-        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost())
-        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost())
-        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost())
-        ayran = Ayran("Ayran", Menu.Costs.ayran_cost())
-
-        icecekler_tuple = [(kola.get_description(), kola.get_cost()*self.ui.spinBox_KOLA.value(), self.ui.kola_check.isChecked()),
+        icecekler_tuple = [(coke.get_description(), coke.get_cost() * self.ui.spinBox_KOLA.value(), self.ui.kola_check.isChecked()),
                            (fanta.get_description(), fanta.get_cost()*self.ui.spinBox_FANTA.value(), self.ui.fanta_check.isChecked()),
-                           (gazoz.get_description(), gazoz.get_cost()*self.ui.spinBox_GAZOZ.value(), self.ui.gazoz_check.isChecked()),
-                           (limonata.get_description(), limonata.get_cost()*self.ui.spinBox_LMONATA.value(), self.ui.limonata_check.isChecked()),
+                           (pop_soda.get_description(), pop_soda.get_cost() * self.ui.spinBox_GAZOZ.value(), self.ui.gazoz_check.isChecked()),
+                           (lemonade.get_description(), lemonade.get_cost() * self.ui.spinBox_LMONATA.value(), self.ui.limonata_check.isChecked()),
                            (ayran.get_description(), ayran.get_cost()*self.ui.spinBox_AYRAN.value(), self.ui.ayran_check.isChecked())]
         
         return icecekler_tuple
@@ -217,7 +191,6 @@ class MainPage(QMainWindow):
                         if other_checkbox[0] != checkbox[0]:
                             self.siparis.clear()
 
-
     def Auto_increament_spinbox(self):
         checkBox = [self.ui.ketcap_check,
                         self.ui.mayonez_check,
@@ -243,8 +216,8 @@ class MainPage(QMainWindow):
                         self.ui.spinBox_LMONATA,
                         self.ui.spinBox_AYRAN]
       
-        for i,e in enumerate(checkBox):
-            if  e.isChecked():
+        for i, e in enumerate(checkBox):
+            if e.isChecked():
                 spinBox[i].setValue(1)
             else:
                 # checkbox false konumuna geldiğinde spinbox değerini 0 yap
@@ -292,11 +265,11 @@ class MainPage(QMainWindow):
         margherita = Margherita("Margherita Pizza", Menu.Costs.margarita_pizza_cost())
         classic = Classic("Klasik Pizza", Menu.Costs.klasik_pizza_cost())
 
-        menu= (
-        f"1. {classic.get_description()}          -----> {classic.get_cost()} $" + "\n" + 
-        f"2. {margherita.get_description()} -----> {margherita.get_cost()} $" + "\n" + 
-        f"3. {turk.get_description()}            -----> {turk.get_cost()} $" + "\n" + 
-        f"4. {dominos.get_description()}           -----> {dominos.get_cost()} $")
+        menu = (
+            f"1. {classic.get_description()}          -----> {classic.get_cost()} $" + "\n" +
+            f"2. {margherita.get_description()} -----> {margherita.get_cost()} $" + "\n" +
+            f"3. {turk.get_description()}            -----> {turk.get_cost()} $" + "\n" +
+            f"4. {dominos.get_description()}           -----> {dominos.get_cost()} $")
 
         self.ui.pizza_menu.setText(menu)
 
