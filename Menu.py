@@ -1,6 +1,6 @@
 import pandas as pd
 
-# Pizzalar
+# Pizzas
 class Costs:
     @staticmethod
     def klasik_pizza_cost():
