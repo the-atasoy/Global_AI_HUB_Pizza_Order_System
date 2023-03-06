@@ -10,8 +10,6 @@ import Objects
 from Objects import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -463,23 +461,23 @@ class Ui_MainWindow(object):
         self.malzemeler_label_3.setText(_translate("MainWindow", "İÇECEKLER:"))
         self.plainTextEdit.setPlaceholderText(_translate("MainWindow", "Not ekleyin"))
         self.malzemeler_label_4.setText(_translate("MainWindow", "Eklemek İstediğiniz Not Varsa:"))
-        self.klas_pizza_check.setText(_translate("MainWindow", "Klasik Pizza"))
+        self.klas_pizza_check.setText(_translate("MainWindow", Objects.classic.get_description()))
         self.Mar_pizza_check.setToolTip(_translate("MainWindow", "margarita"))
-        self.Mar_pizza_check.setText(_translate("MainWindow", "Margarita Pizza"))
-        self.turk_pizza_check.setText(_translate("MainWindow", "Türk Pizza"))
-        self.s_pizza_check.setText(_translate("MainWindow", "Sade Pizza"))
-        self.zeytin_check.setText(_translate("MainWindow", "Zeytin"))
-        self.mantar_check.setText(_translate("MainWindow", "Mantar"))
-        self.keci_peyniri_check.setText(_translate("MainWindow", "Keçi Peyniri"))
-        self.et_check.setText(_translate("MainWindow", "Et"))
-        self.sogan_check.setText(_translate("MainWindow", "Soğan"))
-        self.misir_check.setText(_translate("MainWindow", "Mısır"))
+        self.Mar_pizza_check.setText(_translate("MainWindow", Objects.margherita.get_description()))
+        self.turk_pizza_check.setText(_translate("MainWindow", Objects.turk.get_description()))
+        self.s_pizza_check.setText(_translate("MainWindow", Objects.dominos.get_description()))
+        self.zeytin_check.setText(_translate("MainWindow", Objects.olive.get_description()))
+        self.mantar_check.setText(_translate("MainWindow", Objects.mushroom.get_description()))
+        self.keci_peyniri_check.setText(_translate("MainWindow", Objects.goat_cheese.get_description()))
+        self.et_check.setText(_translate("MainWindow", Objects.meat.get_description()))
+        self.sogan_check.setText(_translate("MainWindow", Objects.onion.get_description()))
+        self.misir_check.setText(_translate("MainWindow", Objects.corn.get_description()))
         self.sepete_ekle_button.setText(_translate("MainWindow", "Sepete Ekle"))
-        self.kola_check.setText(_translate("MainWindow", "Kola"))
-        self.fanta_check.setText(_translate("MainWindow", "Fanta"))
-        self.gazoz_check.setText(_translate("MainWindow", "Gazoz"))
-        self.limonata_check.setText(_translate("MainWindow", "Limonata"))
-        self.ayran_check.setText(_translate("MainWindow", "Ayran"))
+        self.kola_check.setText(_translate("MainWindow", Objects.coke.get_description()))
+        self.fanta_check.setText(_translate("MainWindow", Objects.fanta.get_description()))
+        self.gazoz_check.setText(_translate("MainWindow", Objects.pop_soda.get_description()))
+        self.limonata_check.setText(_translate("MainWindow", Objects.lemonade.get_description()))
+        self.ayran_check.setText(_translate("MainWindow", Objects.ayran.get_description()))
         self.secilenleri_sil.setText(_translate("MainWindow", "Seçilenleri Sil"))
         self.tumunu_sec.setText(_translate("MainWindow", "Tümünüs Seç"))
         self.sepeti_onayla.setText(_translate("MainWindow", "Sepeti Onayla"))

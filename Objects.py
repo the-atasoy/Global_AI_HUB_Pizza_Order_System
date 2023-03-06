@@ -5,10 +5,10 @@ from Product.Pizza.SubPizza import *
 from Product.Sauce.SubSauce import *
 
 # pizza objects
-dominos = Dominos("Domino's pizza tabanı", Menu.Costs.dominos_pizza_cost())
-turk = Turk("Türk pizza tabanı", Menu.Costs.turk_pizza_cost())
-margherita = Margherita("Margarita pizza tabanı", Menu.Costs.margarita_pizza_cost())
-classic = Classic("Klasik pizza tabanı", Menu.Costs.klasik_pizza_cost())
+dominos = Dominos("Domino's Pizza", Menu.Costs.dominos_pizza_cost())
+turk = Turk("Türk Pizza", Menu.Costs.turk_pizza_cost())
+margherita = Margherita("Margarita Pizza", Menu.Costs.margarita_pizza_cost())
+classic = Classic("Klasik Pizza", Menu.Costs.klasik_pizza_cost())
 
 # ingredient objects
 olive = Olive("Zeytin", Menu.Costs.zeytin_cost())
