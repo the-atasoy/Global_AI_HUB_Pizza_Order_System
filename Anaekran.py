@@ -58,7 +58,8 @@ class MainPage(QMainWindow):
         self.malzeme_secimi(self.ingredient_tuple())
         self.sos_secim(self.soslar_tuple())
         self.icecekler_secim(self.icecekler_tuple())
-        self.sozluk_olustur(self.siparis)
+        a = self.sozluk_olustur(self.siparis)
+        self.tabloya_veri_ekle(a)
 
         return print(self.siparis)
 
@@ -134,68 +135,43 @@ class MainPage(QMainWindow):
 
     def sozluk_olustur(self,siparis_listesi):
          
-        dominos = Dominos("Domino's pizza plain", Menu.Costs.dominos_pizza_cost())
-        turk = Turk("Turkish style pizza plain", Menu.Costs.turk_pizza_cost())
-        margherita = Margherita("Margherita pizza plain", Menu.Costs.margarita_pizza_cost())
-        classic = Classic("Classic pizza plain", Menu.Costs.klasik_pizza_cost())
-        
         pizzalar = [classic.get_description(),
                  margherita.get_description(),
-                 turk.get_description(),
+                 turk.get_description(), 
                  dominos.get_description()]
-    
-
-        olive = Olive("Zeytin", Menu.Costs.zeytin_cost())
-        mushroom = Mushroom("Mantar", Menu.Costs.mantar_cost())
-        goat_cheese = GoatCheese("Keçi Peyniri", Menu.Costs.keci_peyniri_cost())
-        meat = Meat("Et", Menu.Costs.et_cost())
-        onion = Onion("Sogan", Menu.Costs.sogan_cost())
-        corn = Corn("Misir", Menu.Costs.misir_cost())
+        
     
         malzemeler = [olive.get_description(),
-                     mushroom.get_description(),
-                     goat_cheese.get_description(),
-                     meat.get_description(),
-                     onion.get_description(),
-                     corn.get_description()]
+                 mushroom.get_description(),
+                 goat_cheese.get_description(),
+                 meat.get_description(),
+                 onion.get_description(),
+                 corn.get_description()]
     
-        ketcap = Ketchup("Ketçap", Menu.Costs.ketcap_cost())
-        mayonez = Mayo("Mayonez", Menu.Costs.mayonez_cost())
-        hardal = Mustard("Hardal", Menu.Costs.hardal_cost())
-        bbq = BBQ("BBQ Sos", Menu.Costs.bbq_cost())
-        aci_sos = Hot("Acı Sos", Menu.Costs.aci_sos_cost())
-        ranch_sos = Ranch("Ranch Sos", Menu.Costs.ranch_cost())
 
-        soslar = [ketcap.get_description(), 
-                  mayonez.get_description(),
-                  hardal.get_description(), 
-                  bbq.get_description(),
-                  aci_sos.get_description(),
-                  ranch_sos.get_description()]
-        
-        kola = Coke("Kola", Menu.Costs.kola_cost())
-        fanta = OrangeJuice("Fanta", Menu.Costs.fanta_cost())
-        gazoz = SodaPop("Gazoz", Menu.Costs.gazoz_cost())
-        limonata = Lemonade("Limonata", Menu.Costs.limonata_cost())
-        ayran = Ayran("Ayran", Menu.Costs.ayran_cost())
+        soslar =  [ketchup.get_description(), 
+                mayo.get_description(),
+                mustard.get_description(), 
+                bbq.get_description(),
+                hot_sauce.get_description(),
+                ranch.get_description()]
+    
 
-        icecekler = [kola.get_description(), 
-                    fanta.get_description(),
-                    gazoz.get_description(),
-                    limonata.get_description(),
-                    ayran.get_description()]
-                        
-
+        icecekler = [coke.get_description(), 
+                 fanta.get_description(),
+                 pop_soda.get_description(),
+                 lemonade.get_description(),
+                 ayran.get_description()]
         
         sepet_ekle = {"Pizza": "", "Malzemeler": "", "Soslar": "", "İçecekler": "", "Fiyat": 0, "Notlar": ""}
         for veri in siparis_listesi:
             if veri[0] in pizzalar :
                 sepet_ekle['Pizza'] = veri[0]
-            elif "Sos" in veri[0]:
+            elif  veri[0] in soslar:
                 if sepet_ekle["Soslar"] != "":
                     sepet_ekle["Soslar"] += ", "
                 sepet_ekle["Soslar"] += veri[0]
-            elif "İçecek" in veri[0]:
+            elif  veri[0] in icecekler:
                 if sepet_ekle["İçecekler"] != "":
                     sepet_ekle["İçecekler"] += ", "
                 sepet_ekle["İçecekler"] += veri[0]
@@ -204,14 +180,12 @@ class MainPage(QMainWindow):
                     sepet_ekle["Malzemeler"] += ", "
                 sepet_ekle["Malzemeler"] += veri[0]
             sepet_ekle["Fiyat"] += veri[1]
-            sepet_ekle["Notlar"] = ""
-        return print (sepet_ekle)
+            sepet_ekle["Notlar"] = self.ui.plainTextEdit.toPlainText()
+        return sepet_ekle
         
         #self.ui.plainTextEdit.text()
 
         
-
-    
 
     def checkBox_secim(self):
         check_box = [
