@@ -3,7 +3,7 @@ class Coke(Ingredient):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
-class OrangeJuice(Ingredient):
+class Fanta(Ingredient):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
