@@ -89,27 +89,27 @@ class Costs:
     @staticmethod
     #beverages
     def kola_cost():
-        beverages = pd.read_csv("ingredients.csv")
+        beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[0, 1]
 
     @staticmethod
     def fanta_cost():
-        beverages = pd.read_csv("ingredients.csv")
+        beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[1, 1]
 
     @staticmethod
     def gazoz_cost():
-        beverages = pd.read_csv("ingredients.csv")
+        beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[2, 1]
 
     @staticmethod
     def limonata_cost():
-        beverages = pd.read_csv("ingredients.csv")
+        beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[3, 1]
 
     @staticmethod
     def ayran_cost():
-        beverages = pd.read_csv("ingredients.csv")
+        beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[4, 1]
 
 
