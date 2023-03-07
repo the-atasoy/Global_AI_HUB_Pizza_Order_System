@@ -1,4 +1,5 @@
 import sys
+import csv
 import pandas as pd
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTableWidgetItem, QCheckBox
 from siparis_gecmisi_UI import siparis_gecmisi
@@ -12,14 +13,13 @@ class Siparis_Gecmisi(QMainWindow):
         self.SP = siparis_gecmisi()
         self.SP.setupUi(self)
         self.csv_to_table()
-        self.tablo_arama()
         self.SP.pushButton_search.clicked.connect(self.tablo_arama)
         self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
         self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
 
 
     def csv_to_table(self):
-        reader = pd.read_csv("Payment/payment_history.csv")
+        reader = pd.read_csv("Data/order_history.csv")
         data = reader.values.tolist()
 
         for row_index, row_data in enumerate(data):
