@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTableWidget
 from siparis_gecmisi_UI import siparis_gecmisi
 from PyQt5.QtCore import Qt
 
-
 class Siparis_Gecmisi(QMainWindow):
 
     def __init__(self):
@@ -16,7 +15,6 @@ class Siparis_Gecmisi(QMainWindow):
         self.SP.pushButton_search.clicked.connect(self.tablo_arama)
         self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
         self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
-
 
     def csv_to_table(self):
         reader = pd.read_csv("Data/order_history.csv")

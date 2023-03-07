@@ -2,19 +2,24 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from odeme_UI import *
-#from Anaekran import MainPage
+from PyQt5.QtCore import pyqtSignal
+# from Anaekran import MainPage
 from PyQt5.QtCore import Qt
 
 
 class Odeme(QMainWindow):
+    signal = pyqtSignal(str)
     def __init__(self):
         super().__init__()
-        self.odeme = odeme_ui()
-        self.odeme.setupUi(self)
-        #self.anaekran = MainPage()
-        self.odeme.pay_button.clicked.connect(self.pay)
+        self.payment = odeme_ui()
+        self.payment.setupUi(self)
+        # self.anaekran = MainPage()
+        self.payment.pay_button.clicked.connect(self.pay)
 
     def pay(self):
+
+        a = "dddd"
+        self.signal.emit(a)
 
         if not self.name_lastname_check():
             return
@@ -24,10 +29,9 @@ class Odeme(QMainWindow):
             return
         if not self.password_check():
             return
-       
-    
+
     def name_lastname_check(self):
-        name_lastname = self.odeme.name_lastname.text().capitalize()
+        name_lastname = self.payment.name_lastname.text().capitalize()
         split_name_lastname = name_lastname.split()
         turkish_chars = "İıÖöÜüÇçŞşĞğ"
         if all(c.isalpha() or c in turkish_chars for c in split_name_lastname):
@@ -40,11 +44,9 @@ class Odeme(QMainWindow):
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
             return False
-            
-        
 
     def id_check(self):
-        id_no = self.odeme.id_number.text()
+        id_no = self.payment.id_number.text()
         if (len(id_no) != 11) or not all(c.isdigit() for c in id_no) or (id_no[0] == '0') or (sum(map(int, id_no[:10])) % 10 != int(id_no[10])) or ((((7 * sum(map(int, id_no[:9][-1::-2]))) - sum(map(int, id_no[:9][-2::-2]))) % 10 != int(id_no[9]))):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
@@ -56,9 +58,8 @@ class Odeme(QMainWindow):
         else:
             return True
 
-
     def card_no_check(self):
-        card_num = self.odeme.card_number.text()
+        card_num = self.payment.card_number.text()
         card_num_list = [int(num) for num in card_num]
         if len(card_num_list) != 16:
             msg = QMessageBox()
@@ -72,7 +73,7 @@ class Odeme(QMainWindow):
             return True 
         
     def password_check(self):
-        password = self.odeme.password_edit.text()
+        password = self.payment.password_edit.text()
         passwor_list = [e for e in password]
         if len(passwor_list) != 4 or not all(c.isdigit() for c in password):
             msg = QMessageBox()

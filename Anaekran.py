@@ -10,6 +10,7 @@ from Objects import *
 from siparis_gecmisi import *
 from odeme import *
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import pyqtSignal
 
 class MainPage(QMainWindow):
 
@@ -49,21 +50,24 @@ class MainPage(QMainWindow):
         self.ui.limonata_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.ui.ayran_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.Auto_increament_spinbox()
-        self.sipari_gecmisi= Siparis_Gecmisi()
+        self.order_history= Siparis_Gecmisi()
         self.odeme_ekrani = Odeme()
-        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.siparis_gecmis_ac)
+        self.odeme_ekrani.signal.connect(self.save_to_order_history)
+        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
         self.ui.tumunu_sec.clicked.connect(self.choose_all)
         self.ui.secilenleri_sil.clicked.connect(self.del_chosen_row)
-        self.ui.sepeti_onayla.clicked.connect(self.go_to_odeme)
+        self.ui.sepeti_onayla.clicked.connect(self.go_to_payment)
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
 
+    def show_order_history(self):
+        self.order_history.show()
 
-    def siparis_gecmis_ac(self):
-        self.sipari_gecmisi.show()
+    def save_to_order_history(self, a):
+        print(a)
 
-    def go_to_odeme (self):
-        all_checked= True
+    def go_to_payment(self):
+        all_checked = True
         for row in range(self.ui.sepet_table.rowCount()):
             if not self.ui.sepet_table.cellWidget(row, 6).isChecked():
                 all_checked = False
@@ -318,10 +322,10 @@ class MainPage(QMainWindow):
             if e.isChecked():
                 e.setChecked(False)
 
+
 uyg = QApplication(sys.argv)
 pencere = MainPage()
 pencere.show()
 sys.exit(uyg.exec_())
 
-a = 3
 
