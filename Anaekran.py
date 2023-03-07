@@ -324,3 +324,5 @@ pencere = MainPage()
 pencere.show()
 sys.exit(uyg.exec_())
 
+a = 3
+
