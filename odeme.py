@@ -8,7 +8,7 @@ from PyQt5.QtCore import Qt
 
 
 class Odeme(QMainWindow):
-    signal = pyqtSignal(str)
+    signal = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.payment = odeme_ui()
@@ -18,8 +18,7 @@ class Odeme(QMainWindow):
 
     def pay(self):
 
-        a = "dddd"
-        self.signal.emit(a)
+        self.signal.emit()
 
         if not self.name_lastname_check():
             return

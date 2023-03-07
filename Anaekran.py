@@ -63,8 +63,8 @@ class MainPage(QMainWindow):
     def show_order_history(self):
         self.order_history.show()
 
-    def save_to_order_history(self, a):
-        print(a)
+    def save_to_order_history(self):
+        print("aaa")
 
     def go_to_payment(self):
         all_checked = True
