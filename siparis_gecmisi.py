@@ -61,11 +61,8 @@ class Siparis_Gecmisi(QMainWindow):
     def tumunu_sec(self):
         for row in range(self.SP.order_history.rowCount()):
             checkbox = self.SP.order_history.cellWidget(row, 7)
-            if checkbox.isChecked():
-                checkbox.setChecked(False)
-            else:
+            if not checkbox.isChecked():
                 checkbox.setChecked(True)
-
 
 
 #uyg_1 = QApplication(sys.argv)

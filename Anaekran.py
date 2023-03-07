@@ -53,7 +53,7 @@ class MainPage(QMainWindow):
         self.odeme_ekrani = Odeme()
         self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.siparis_gecmis_ac)
         self.ui.tumunu_sec.clicked.connect(self.choose_all)
-        self.ui.secilenleri_sil.clicked.connect(self.del_choosen_row)
+        self.ui.secilenleri_sil.clicked.connect(self.del_chosen_row)
         self.ui.sepeti_onayla.clicked.connect(self.go_to_odeme)
         #self.ui.ketcap_check.stateChanged.connect(self.a)
         self.siparis = []
@@ -280,12 +280,10 @@ class MainPage(QMainWindow):
          # burada checkbox widgetlerini bulmak için QCheckBox tipi kullanılır
         for row in range(self.ui.sepet_table.rowCount()):
             checkBox =self.ui.sepet_table.cellWidget(row, 6)
-            if checkBox.isChecked():
-                checkBox.setChecked(False) # tüm checkbox'ları işaretleyin
-            else:
-                checkBox.setChecked(True)
+            if not checkBox.isChecked():
+                checkBox.setChecked(True) # tüm checkbox'ları işaretleyin
 
-    def del_choosen_row(self):
+    def del_chosen_row(self):
         for row in range(self.ui.sepet_table.rowCount()-1, -1, -1):
             if self.ui.sepet_table.cellWidget(row, 6).isChecked():
                 self.ui.sepet_table.removeRow(row)
