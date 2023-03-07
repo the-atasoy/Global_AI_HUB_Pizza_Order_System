@@ -276,6 +276,7 @@ class MainPage(QMainWindow):
         check_box = QCheckBox()
         self.ui.sepet_table.setCellWidget(row, 6, check_box)
 
+
     def choose_all(self):
          # burada checkbox widgetlerini bulmak için QCheckBox tipi kullanılır
         for row in range(self.ui.sepet_table.rowCount()):
