@@ -17,8 +17,9 @@ class Siparis_Gecmisi(QMainWindow):
         self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
 
     def csv_to_table(self):
-        reader = pd.read_csv("Data/order_history.csv")
+        reader = pd.read_csv("Data\order_history.csv")
         data = reader.values.tolist()
+        print(data)
 
         for row_index, row_data in enumerate(data):
             self.SP.order_history.insertRow(row_index)
@@ -50,10 +51,10 @@ class Siparis_Gecmisi(QMainWindow):
 
     def secili_sil(self):
         for row in range(self.SP.order_history.rowCount()-1, -1, -1):
-            if self.SP.order_history.cellWidget(row, 7).isChecked():
-                reader = pd.read_csv("Payment/payment_history.csv")
+            if self.SP.order_history.cellWidget(row, 8).isChecked():
+                reader = pd.read_csv("Data\order_history.csv")
                 reader.drop(row, inplace=True)
-                reader.to_csv("Payment/payment_history.csv", index=False)
+                reader.to_csv("Data\order_history.csv", index=False)
                 self.SP.order_history.removeRow(row)
 
     def tumunu_sec(self):

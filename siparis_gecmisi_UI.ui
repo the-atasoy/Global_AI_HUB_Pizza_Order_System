@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>995</width>
+    <width>1020</width>
     <height>460</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>995</width>
+    <width>1020</width>
     <height>460</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>995</width>
+    <width>1020</width>
     <height>460</height>
    </size>
   </property>
@@ -35,33 +35,13 @@
      <rect>
       <x>10</x>
       <y>150</y>
-      <width>971</width>
+      <width>1001</width>
       <height>291</height>
      </rect>
     </property>
     <column>
      <property name="text">
-      <string>Ödeme</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Tarih-Saat</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
       <string>Müşteri Bilgisi</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Tutar</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Kart Numarası</string>
      </property>
     </column>
     <column>
@@ -72,6 +52,31 @@
     <column>
      <property name="text">
       <string>Notlar</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tarih-Saat</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tutar</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>TC Kimlik Numarası</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Kart Numarası</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Şifre</string>
      </property>
     </column>
     <column>
@@ -145,7 +150,7 @@
      <rect>
       <x>330</x>
       <y>110</y>
-      <width>391</width>
+      <width>421</width>
       <height>31</height>
      </rect>
     </property>
@@ -156,7 +161,7 @@
    <widget class="QPushButton" name="pushbutton_choose_all">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>760</x>
       <y>110</y>
       <width>121</width>
       <height>31</height>
@@ -175,7 +180,7 @@
    <widget class="QPushButton" name="pushbutton_remove_">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>890</x>
       <y>110</y>
       <width>121</width>
       <height>31</height>

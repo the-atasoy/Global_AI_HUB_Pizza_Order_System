@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 
 import MealMenu
 import Menu
+import datetime
 import Tuples
 from Anaekran_UI import *
 from Objects import *
@@ -64,11 +65,63 @@ class MainPage(QMainWindow):
         self.order_history.show()
 
     def save_to_order_history(self, info):
-        print(info)
+        order_info=[]
+        total_price=0
+        notes_info=[]
+        table_widget = self.ui.sepet_table
+        payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        for row in range(table_widget.rowCount()):
+            pizza = table_widget.item(row, 0).text()
+            malzemeler = table_widget.item(row, 1).text()
+            soslar = table_widget.item(row, 2).text()
+            icecekler = table_widget.item(row, 3).text()
+            order_info.append(pizza)
+            order_info.append(malzemeler)
+            order_info.append(soslar)
+            order_info.append(icecekler)
 
+        for row in range(table_widget.rowCount()):
+            total_price += int(table_widget.item(row, 4).text())
+        
+        for row in range(table_widget.rowCount()):
+            notes= table_widget.item(row, 5).text()
+            notes_info.append(notes)
+
+        
+        customer_order_info={"Müşteri Bilgisi":info["name_lastname"],
+                             "Sipariş":"", 
+                             "Notlar":"" , 
+                             "Tarih-Saat":payment_date,
+                             "Toplam Tutar": total_price, 
+                             "TC Kimlik Numarası": info["tc"], 
+                             "Kart Numarası":info["card_no"], 
+                             "Şifre":info["sifre"]}
+
+        for i in order_info:
+            if customer_order_info["Sipariş"] != "":
+                customer_order_info["Sipariş"] += ", "
+            customer_order_info["Sipariş"] += i
+
+        for i in notes_info:
+            if customer_order_info["Notlar"] != "":
+                customer_order_info["Notlar"] += ", "
+            customer_order_info["Notlar"] += i
+
+        with open("Data/order_history.csv", "a", newline='', encoding="utf-8") as myFile:
+            writer = csv.DictWriter(myFile, fieldnames=list(customer_order_info.keys()))
+            writer.writerow(customer_order_info)
 
     def go_to_payment(self):
         all_checked = True
+        if self.ui.sepet_table.rowCount() == 0:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Sepetinizde ürün bulunmamaktadır")
+            msg.setWindowTitle("HATA")
+            ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
+            msg.exec_()
+            return
+
         for row in range(self.ui.sepet_table.rowCount()):
             if not self.ui.sepet_table.cellWidget(row, 6).isChecked():
                 all_checked = False
@@ -242,7 +295,8 @@ class MainPage(QMainWindow):
       
         for i, e in enumerate(checkBox):
             if e.isChecked():
-                spinBox[i].setValue(1)
+                if spinBox[i].value() == 0:
+                    spinBox[i].setValue(1)
             else:
                 # checkbox false konumuna geldiğinde spinbox değerini 0 yap
                 spinBox[i].setValue(0)
