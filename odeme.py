@@ -8,8 +8,10 @@ from PyQt5.QtCore import Qt
 
 
 class Odeme(QMainWindow):
-    signal = pyqtSignal()
+    signal = pyqtSignal(dict)
+
     def __init__(self):
+
         super().__init__()
         self.payment = odeme_ui()
         self.payment.setupUi(self)
@@ -17,8 +19,6 @@ class Odeme(QMainWindow):
         self.payment.pay_button.clicked.connect(self.pay)
 
     def pay(self):
-
-        self.signal.emit()
 
         if not self.name_lastname_check():
             return
@@ -28,6 +28,10 @@ class Odeme(QMainWindow):
             return
         if not self.password_check():
             return
+        info = {"name_lastname": self.payment.name_lastname.text(), "tc": int(self.payment.id_number.text()),
+                "card_no": int(self.payment.card_number.text()), "sifre": int(self.payment.password_edit.text())}
+        self.signal.emit(info)
+
 
     def name_lastname_check(self):
         name_lastname = self.payment.name_lastname.text().capitalize()
