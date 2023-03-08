@@ -15,7 +15,6 @@ class Odeme(QMainWindow):
         super().__init__()
         self.payment = odeme_ui()
         self.payment.setupUi(self)
-        # self.anaekran = MainPage()
         self.payment.pay_button.clicked.connect(self.pay)
 
     def pay(self):

@@ -14,7 +14,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtCore import pyqtSignal
 
 class MainPage(QMainWindow):
-
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -54,15 +53,19 @@ class MainPage(QMainWindow):
         self.order_history= Siparis_Gecmisi()
         self.odeme_ekrani = Odeme()
         self.odeme_ekrani.signal.connect(self.save_to_order_history)
-        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
         self.ui.tumunu_sec.clicked.connect(self.choose_all)
         self.ui.secilenleri_sil.clicked.connect(self.del_chosen_row)
         self.ui.sepeti_onayla.clicked.connect(self.go_to_payment)
-        #self.ui.ketcap_check.stateChanged.connect(self.a)
+        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
+        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
+        #self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
         self.siparis = []
 
     def show_order_history(self):
         self.order_history.show()
+        self.order_history.update_table()
+
+
 
     def save_to_order_history(self, info):
         order_info=[]

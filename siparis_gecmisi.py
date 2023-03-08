@@ -6,30 +6,46 @@ from siparis_gecmisi_UI import siparis_gecmisi
 from PyQt5.QtCore import Qt
 
 class Siparis_Gecmisi(QMainWindow):
-
     def __init__(self):
         super().__init__()
         self.SP = siparis_gecmisi()
         self.SP.setupUi(self)
-        self.csv_to_table()
         self.SP.pushButton_search.clicked.connect(self.tablo_arama)
         self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
         self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
+        self.csv_to_table()
+        self.last_row_count = 0
+        self.update_table()
+
 
     def csv_to_table(self):
-        reader = pd.read_csv("Data\order_history.csv")
-        data = reader.values.tolist()
-        print(data)
+        table = self.SP.order_history
 
-        for row_index, row_data in enumerate(data):
-            self.SP.order_history.insertRow(row_index)
-            for col_index, col_data in enumerate(row_data):
+        # CSV dosyasını aç ve içindeki verileri oku
+        csvfile= open("Data\order_history.csv", newline='', encoding="utf-8") 
+        reader = csv.reader(csvfile)
+            # Her satırı table widget içine ekle
+        for row_num, row_data in enumerate(reader):
+            table.insertRow(row_num)
+            for col_num, col_data in enumerate(row_data):
                 item = QTableWidgetItem(str(col_data))
-                self.SP.order_history.setItem(row_index, col_index, item)
-                self.SP.order_history.item(row_index, col_index).setFlags(self.SP.order_history.item(row_index, col_index).flags() & ~Qt.ItemIsEditable)
+                table.setItem(row_num, col_num, item)
+                self.SP.order_history.item(row_num, col_num).setFlags(self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
 
             check_box = QCheckBox()
-            self.SP.order_history.setCellWidget(row_index, self.SP.order_history.columnCount() - 1, check_box)
+            self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
+        table.update()
+
+    def update_table(self):
+        with open('Data\order_history.csv', 'r') as file:
+            reader = csv.reader(file)
+            rows = [row for i, row in enumerate(reader) if i >= self.last_row_count] # sadece yeni eklenen verileri al
+            self.last_row_count = reader.line_num # son okunan satır sayısını güncelle
+        if rows: # eğer yeni veri varsa, tabloyu güncelle
+            self.SP.order_history.setRowCount(len(rows))
+            for i, row in enumerate(rows):
+                for j, item in enumerate(row):
+                    self.SP.order_history.setItem(i, j, QTableWidgetItem(item))
 
     def tablo_arama(self):
         search = self.SP.customer_info.text().capitalize()
