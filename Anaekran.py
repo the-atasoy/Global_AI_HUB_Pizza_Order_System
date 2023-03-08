@@ -56,13 +56,14 @@ class MainPage(QMainWindow):
         self.ui.secilenleri_sil.clicked.connect(self.del_chosen_row)
         self.ui.sepeti_onayla.clicked.connect(self.go_to_payment)
         self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
-        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
+        self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
+        #self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
         #self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
         self.siparis = []
 
     def show_order_history(self):
         self.order_history.show()
-        # self.order_history.update_table()
+        self.order_history.loadCsv()
 
     def save_to_order_history(self, info):
         order_info = []
@@ -97,6 +98,7 @@ class MainPage(QMainWindow):
                              "Kart Numarası":info["card_no"], 
                              "Şifre":info["sifre"]}
 
+
         for i in order_info:
             if customer_order_info["Sipariş"] != "":
                 customer_order_info["Sipariş"] += ", "
@@ -110,6 +112,8 @@ class MainPage(QMainWindow):
         with open("Data/order_history.csv", "a", newline='', encoding="utf-8") as myFile:
             writer = csv.DictWriter(myFile, fieldnames=list(customer_order_info.keys()))
             writer.writerow(customer_order_info)
+
+        self.order_history.clear_table()
 
     def go_to_payment(self):
         all_checked = True

@@ -10,43 +10,33 @@ class Siparis_Gecmisi(QMainWindow):
         super().__init__()
         self.SP = siparis_gecmisi()
         self.SP.setupUi(self)
+        self.file= open("Data\order_history.csv", "r", newline='', encoding="utf-8")
         self.SP.pushButton_search.clicked.connect(self.tablo_arama)
         self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
         self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
-        self.csv_to_table()
         self.last_row_count = 0
-        self.update_table()
+        self.loadCsv()
 
-    def csv_to_table(self):
-        table = self.SP.order_history
+   
+    def loadCsv(self):
+        self.SP.order_history.setRowCount(0)
+        with open("Data\order_history.csv", "r", newline='', encoding="utf-8") as fileInput:
+            reader = csv.reader(fileInput)
+            for row_num, row_data in enumerate(reader):
+                items = [
+                    QTableWidgetItem(field)
+                    for field in row_data
+                ]
+                self.SP.order_history.insertRow(row_num)
+                for col_num, item in enumerate(items):
+                    self.SP.order_history.setItem(row_num, col_num, item)
+                    self.SP.order_history.item(row_num, col_num).setFlags(self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
+                
+                check_box = QCheckBox()
+                self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
 
-        # CSV dosyasını aç ve içindeki verileri oku
-        csvfile = open("Data\order_history.csv", newline='', encoding="utf-8")
-        reader = csv.reader(csvfile)
-            # Her satırı table widget içine ekle
-        for row_num, row_data in enumerate(reader):
-            table.insertRow(row_num)
-            for col_num, col_data in enumerate(row_data):
-                item = QTableWidgetItem(str(col_data))
-                table.setItem(row_num, col_num, item)
-                self.SP.order_history.item(row_num, col_num).setFlags(self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
-
-            check_box = QCheckBox()
-            self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
-            table.update()
-        csvfile.close()
-
-    def update_table(self):
-        with open('Data\order_history.csv', 'r') as file:
-            reader = csv.reader(file)
-            rows = [row for i, row in enumerate(reader) if
-                    i >= self.last_row_count]  # sadece yeni eklenen verileri al
-            self.last_row_count = reader.line_num  # son okunan satır sayısını güncelle
-        if rows:  # eğer yeni veri varsa, tabloyu güncelle
-            self.SP.order_history.setRowCount(len(rows))
-            for i, row in enumerate(rows):
-                for j, item in enumerate(row):
-                    self.SP.order_history.setItem(i, j, QTableWidgetItem(item))
+    def clear_table(self):
+        self.SP.order_history.clearContents()
 
 
     def tablo_arama(self):
@@ -70,8 +60,11 @@ class Siparis_Gecmisi(QMainWindow):
     def secili_sil(self):
         for row in range(self.SP.order_history.rowCount()-1, -1, -1):
             if self.SP.order_history.cellWidget(row, 8).isChecked():
-                reader = pd.read_csv("Data\order_history.csv")
-                reader.drop(row, inplace=True)
+                reader = pd.read_csv("Data\order_history.csv", header=0)
+                next(reader, None)
+                index_to_drop = reader[reader.index == row].index
+            # indeksi kullanarak satırı silin
+                reader.drop(index_to_drop, inplace=True)
                 reader.to_csv("Data\order_history.csv", index=False)
                 self.SP.order_history.removeRow(row)
 
