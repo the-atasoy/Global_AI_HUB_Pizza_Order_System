@@ -11,7 +11,6 @@ from Objects import *
 from siparis_gecmisi import *
 from odeme import *
 from PyQt5.QtCore import Qt
-from PyQt5.QtCore import pyqtSignal
 
 class MainPage(QMainWindow):
     def __init__(self):
