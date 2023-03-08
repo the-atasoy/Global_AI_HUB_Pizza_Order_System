@@ -28,9 +28,9 @@ class Odeme(QMainWindow):
         if not self.password_check():
             return
         info = {"name_lastname": self.payment.name_lastname.text(), "tc": int(self.payment.id_number.text()),
-                "card_no": int(self.payment.card_number.text()), "sifre": int(self.payment.password_edit.text())}
+                "card_no": int(self.payment.card_number.text()), "sifre": str(self.payment.password_edit.text())}
         self.signal.emit(info)
-
+        self.close()
 
     def name_lastname_check(self):
         name_lastname = self.payment.name_lastname.text().capitalize()

@@ -62,14 +62,12 @@ class MainPage(QMainWindow):
 
     def show_order_history(self):
         self.order_history.show()
-        self.order_history.update_table()
-
-
+        # self.order_history.update_table()
 
     def save_to_order_history(self, info):
-        order_info=[]
-        total_price=0
-        notes_info=[]
+        order_info = []
+        total_price = 0
+        notes_info = []
         table_widget = self.ui.sepet_table
         payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         for row in range(table_widget.rowCount()):
@@ -89,7 +87,7 @@ class MainPage(QMainWindow):
             notes= table_widget.item(row, 5).text()
             notes_info.append(notes)
 
-        
+
         customer_order_info={"Müşteri Bilgisi":info["name_lastname"],
                              "Sipariş":"", 
                              "Notlar":"" , 
