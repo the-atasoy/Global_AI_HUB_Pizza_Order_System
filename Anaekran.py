@@ -48,7 +48,17 @@ class MainPage(QMainWindow):
         self.ui.gazoz_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.ui.limonata_check.stateChanged.connect(self.Auto_increament_spinbox)
         self.ui.ayran_check.stateChanged.connect(self.Auto_increament_spinbox)
-        self.Auto_increament_spinbox()
+        self.ui.spinBox_ketcap_4.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_mayonez_4.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_hardal_4.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_bbq_4.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_aci_sos_4.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_ranch_4.valueChanged.connect(self.auto_check) 
+        self.ui.spinBox_KOLA.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_FANTA.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_GAZOZ.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_LMONATA.valueChanged.connect(self.auto_check)
+        self.ui.spinBox_AYRAN.valueChanged.connect(self.auto_check)
         self.order_history= Siparis_Gecmisi()
         self.odeme_ekrani = Odeme()
         self.odeme_ekrani.signal.connect(self.save_to_order_history)
@@ -57,8 +67,6 @@ class MainPage(QMainWindow):
         self.ui.sepeti_onayla.clicked.connect(self.go_to_payment)
         self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
         self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.show_order_history)
-        #self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
-        #self.ui.actionGe_mi_Sipari_lerim.triggered.connect(self.order_history.csv_to_table)
         self.siparis = []
 
     def show_order_history(self):
@@ -304,6 +312,39 @@ class MainPage(QMainWindow):
             else:
                 # checkbox false konumuna geldiğinde spinbox değerini 0 yap
                 spinBox[i].setValue(0)
+
+
+
+    def auto_check(self):
+        checkBox = [self.ui.ketcap_check,
+                        self.ui.mayonez_check,
+                        self.ui.hardal_check,
+                        self.ui.bbq_check,
+                        self.ui.aci_sos_check,
+                        self.ui.ranch_check, 
+                        self.ui.kola_check,
+                        self.ui.fanta_check,
+                        self.ui.gazoz_check,
+                        self.ui.limonata_check,
+                        self.ui.ayran_check
+                          ]
+        spinBox= [self.ui.spinBox_ketcap_4,
+                        self.ui.spinBox_mayonez_4,
+                        self.ui.spinBox_hardal_4,
+                        self.ui.spinBox_bbq_4,
+                        self.ui.spinBox_aci_sos_4,
+                        self.ui.spinBox_ranch_4, 
+                        self.ui.spinBox_KOLA,
+                        self.ui.spinBox_FANTA,
+                        self.ui.spinBox_GAZOZ,
+                        self.ui.spinBox_LMONATA,
+                        self.ui.spinBox_AYRAN] 
+        
+        for i,e in enumerate(spinBox):
+            if e.value() > 0:
+                checkBox[i].setChecked(True)
+            else:
+                checkBox[i].setChecked(False)          
 
     def tabloya_veri_ekle(self, veriler):
         table_widget = self.ui.sepet_table

@@ -27,6 +27,8 @@ class odeme_ui(object):
         font = QtGui.QFont()
         font.setPointSize(11)
         self.pay_button.setFont(font)
+        self.pay_button.setAutoDefault(True)
+        self.pay_button.setDefault(True)
         self.pay_button.setObjectName("pay_button")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(110, 10, 271, 181))

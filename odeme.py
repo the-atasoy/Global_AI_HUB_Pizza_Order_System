@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from odeme_UI import *
 from PyQt5.QtCore import pyqtSignal
-# from Anaekran import MainPage
 from PyQt5.QtCore import Qt
 
 
@@ -16,6 +15,7 @@ class Odeme(QMainWindow):
         self.payment = odeme_ui()
         self.payment.setupUi(self)
         self.payment.pay_button.clicked.connect(self.pay)
+
 
     def pay(self):
 

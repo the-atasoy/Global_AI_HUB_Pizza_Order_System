@@ -11,6 +11,7 @@ class Siparis_Gecmisi(QMainWindow):
         self.SP = siparis_gecmisi()
         self.SP.setupUi(self)
         self.file= open("Data\order_history.csv", "r", newline='', encoding="utf-8")
+        self.SP.customer_info.returnPressed.connect(self.tablo_arama)
         self.SP.pushButton_search.clicked.connect(self.tablo_arama)
         self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
         self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
@@ -22,6 +23,7 @@ class Siparis_Gecmisi(QMainWindow):
         self.SP.order_history.setRowCount(0)
         with open("Data\order_history.csv", "r", newline='', encoding="utf-8") as fileInput:
             reader = csv.reader(fileInput)
+            next(reader)
             for row_num, row_data in enumerate(reader):
                 items = [
                     QTableWidgetItem(field)
@@ -58,15 +60,25 @@ class Siparis_Gecmisi(QMainWindow):
             self.SP.error_handling.setText("Aradığınız kritere uygun bir eşleşme bulunamadı.")
 
     def secili_sil(self):
-        for row in range(self.SP.order_history.rowCount()-1, -1, -1):
-            if self.SP.order_history.cellWidget(row, 8).isChecked():
-                reader = pd.read_csv("Data\order_history.csv", header=0)
-                next(reader, None)
-                index_to_drop = reader[reader.index == row].index
-            # indeksi kullanarak satırı silin
-                reader.drop(index_to_drop, inplace=True)
-                reader.to_csv("Data\order_history.csv", index=False)
-                self.SP.order_history.removeRow(row)
+        df = pd.read_csv("Data\order_history.csv")
+        rows_to_delete = []
+        for row in range(df.shape[0]):
+            if self.SP.order_history.cellWidget(row, 8) is not None and self.SP.order_history.cellWidget(row, 8).isChecked():
+                rows_to_delete.append(row)
+        df.drop(rows_to_delete, inplace=True)
+        df.to_csv("Data\order_history.csv", index=False)
+        self.SP.order_history.setRowCount(df.shape[0])
+        for row_num, row_data in df.iterrows():
+            items = [
+                QTableWidgetItem(str(field))
+                for field in row_data
+            ]
+            for col_num, item in enumerate(items):
+                if self.SP.order_history.item(row_num, col_num) is not None:
+                    self.SP.order_history.setItem(row_num, col_num, item)
+                    self.SP.order_history.item(row_num, col_num).setFlags(self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
+            check_box = QCheckBox()
+            self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
 
     def tumunu_sec(self):
         for row in range(self.SP.order_history.rowCount()):
