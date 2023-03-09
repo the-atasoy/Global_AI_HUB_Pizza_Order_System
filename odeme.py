@@ -7,7 +7,12 @@ from PyQt5.QtCore import Qt
 
 
 class Odeme(QMainWindow):
-    signal = pyqtSignal(dict)
+    # this signal sends a signal to main page
+    # to save datas to database when push the pay button
+    order_history_signal = pyqtSignal(dict)
+    # this signal sends a signal to main page
+    # to delete datas on order table in main page when push the pay button
+    table_cleaning_signal = pyqtSignal()
 
     def __init__(self):
 
@@ -29,7 +34,8 @@ class Odeme(QMainWindow):
             return
         info = {"name_lastname": self.payment.name_lastname.text(), "tc": int(self.payment.id_number.text()),
                 "card_no": int(self.payment.card_number.text()), "sifre": str(self.payment.password_edit.text())}
-        self.signal.emit(info)
+        self.order_history_signal.emit(info)
+        self.table_cleaning_signal.emit()
         self.close()
 
     def name_lastname_check(self):
@@ -41,7 +47,7 @@ class Odeme(QMainWindow):
         else:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Adınızı ve Soyadınızı Doğru giriniz")
+            msg.setText("Ad Soyad Bilgisi Hatalı, Tekrar Deneyin")
             msg.setWindowTitle("HATA")
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
@@ -52,7 +58,7 @@ class Odeme(QMainWindow):
         if (len(id_no) != 11) or not all(c.isdigit() for c in id_no) or (id_no[0] == '0') or (sum(map(int, id_no[:10])) % 10 != int(id_no[10])) or ((((7 * sum(map(int, id_no[:9][-1::-2]))) - sum(map(int, id_no[:9][-2::-2]))) % 10 != int(id_no[9]))):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Tc Kimlik Numaranız Hatalı, yeniden giriniz")
+            msg.setText("TC Kimlik Numarası Hatalı, Tekrar Deneyin")
             msg.setWindowTitle("HATA")
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
@@ -66,7 +72,7 @@ class Odeme(QMainWindow):
         if len(card_num_list) != 16:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Kart Numaranız Hatalı, yeniden giriniz")
+            msg.setText("Kart Numarası Hatalı, Tekrar Deneyin")
             msg.setWindowTitle("HATA")
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
@@ -80,7 +86,7 @@ class Odeme(QMainWindow):
         if len(passwor_list) != 4 or not all(c.isdigit() for c in password):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Şifreniz Hatalı, yeniden giriniz")
+            msg.setText("Şifre Hatalı, Tekrar Deneyin")
             msg.setWindowTitle("HATA")
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
