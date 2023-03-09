@@ -1,4 +1,4 @@
-import MealMenu
+from Costs import MealMenu
 import datetime
 import Tuples
 from UI_Files.Anaekran_UI import *
