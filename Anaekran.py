@@ -1,9 +1,4 @@
-import sys
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import *
-
 import MealMenu
-import Costs
 import datetime
 import Tuples
 from Anaekran_UI import *
