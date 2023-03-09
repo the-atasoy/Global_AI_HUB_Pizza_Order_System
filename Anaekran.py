@@ -12,6 +12,7 @@ from siparis_gecmisi import *
 from odeme import *
 from PyQt5.QtCore import Qt
 
+
 class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -53,13 +54,13 @@ class MainPage(QMainWindow):
         self.ui.spinBox_hardal_4.valueChanged.connect(self.auto_check)
         self.ui.spinBox_bbq_4.valueChanged.connect(self.auto_check)
         self.ui.spinBox_aci_sos_4.valueChanged.connect(self.auto_check)
-        self.ui.spinBox_ranch_4.valueChanged.connect(self.auto_check) 
+        self.ui.spinBox_ranch_4.valueChanged.connect(self.auto_check)
         self.ui.spinBox_KOLA.valueChanged.connect(self.auto_check)
         self.ui.spinBox_FANTA.valueChanged.connect(self.auto_check)
         self.ui.spinBox_GAZOZ.valueChanged.connect(self.auto_check)
         self.ui.spinBox_LMONATA.valueChanged.connect(self.auto_check)
         self.ui.spinBox_AYRAN.valueChanged.connect(self.auto_check)
-        self.order_history= Siparis_Gecmisi()
+        self.order_history = Siparis_Gecmisi()
         self.odeme_ekrani = Odeme()
         self.odeme_ekrani.signal.connect(self.save_to_order_history)
         self.ui.tumunu_sec.clicked.connect(self.choose_all)
@@ -91,21 +92,19 @@ class MainPage(QMainWindow):
 
         for row in range(table_widget.rowCount()):
             total_price += int(table_widget.item(row, 4).text())
-        
+
         for row in range(table_widget.rowCount()):
-            notes= table_widget.item(row, 5).text()
+            notes = table_widget.item(row, 5).text()
             notes_info.append(notes)
 
-
-        customer_order_info={"Müşteri Bilgisi":info["name_lastname"],
-                             "Sipariş":"", 
-                             "Notlar":"" , 
-                             "Tarih-Saat":payment_date,
-                             "Toplam Tutar": total_price, 
-                             "TC Kimlik Numarası": info["tc"], 
-                             "Kart Numarası":info["card_no"], 
-                             "Şifre":info["sifre"]}
-
+        customer_order_info = {"Müşteri Bilgisi": info["name_lastname"],
+                               "Sipariş": "",
+                               "Notlar": "",
+                               "Tarih-Saat": payment_date,
+                               "Toplam Tutar": total_price,
+                               "TC Kimlik Numarası": info["tc"],
+                               "Kart Numarası": info["card_no"],
+                               "Şifre": info["sifre"]}
 
         for i in order_info:
             if customer_order_info["Sipariş"] != "":
@@ -149,7 +148,6 @@ class MainPage(QMainWindow):
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
 
-                
     def sepete_ekle(self):
         self.pizza_secim(Tuples.pizza_tuple(self))
         self.malzeme_secimi(Tuples.ingredient_tuple(self))
@@ -187,39 +185,39 @@ class MainPage(QMainWindow):
     def sozluk_olustur(self, siparis_listesi):
 
         pizzalar = [classic.get_description(),
-                 margherita.get_description(),
-                 turk.get_description(), 
-                 dominos.get_description()]      
-    
+                    margherita.get_description(),
+                    turk.get_description(),
+                    dominos.get_description()]
+
         malzemeler = [olive.get_description(),
-                 mushroom.get_description(),
-                 goat_cheese.get_description(),
-                 meat.get_description(),
-                 onion.get_description(),
-                 corn.get_description()]  
+                      mushroom.get_description(),
+                      goat_cheese.get_description(),
+                      meat.get_description(),
+                      onion.get_description(),
+                      corn.get_description()]
 
-        soslar =  [ketchup.get_description(), 
-                mayo.get_description(),
-                mustard.get_description(), 
-                bbq.get_description(),
-                hot_sauce.get_description(),
-                ranch.get_description()]
+        soslar = [ketchup.get_description(),
+                  mayo.get_description(),
+                  mustard.get_description(),
+                  bbq.get_description(),
+                  hot_sauce.get_description(),
+                  ranch.get_description()]
 
-        icecekler = [coke.get_description(), 
-                 fanta.get_description(),
-                 pop_soda.get_description(),
-                 lemonade.get_description(),
-                 ayran.get_description()]
+        icecekler = [coke.get_description(),
+                     fanta.get_description(),
+                     pop_soda.get_description(),
+                     lemonade.get_description(),
+                     ayran.get_description()]
 
         sepet_ekle = {"Pizza": "", "Malzemeler": "", "Soslar": "", "İçecekler": "", "Fiyat": 0, "Notlar": ""}
         for veri in siparis_listesi:
-            if veri[0] in pizzalar :
+            if veri[0] in pizzalar:
                 sepet_ekle['Pizza'] = veri[0]
-            elif  veri[0] in soslar:
+            elif veri[0] in soslar:
                 if sepet_ekle["Soslar"] != "":
                     sepet_ekle["Soslar"] += ", "
                 sepet_ekle["Soslar"] += veri[0]
-            elif  veri[0] in icecekler:
+            elif veri[0] in icecekler:
                 if sepet_ekle["İçecekler"] != "":
                     sepet_ekle["İçecekler"] += ", "
                 sepet_ekle["İçecekler"] += veri[0]
@@ -230,7 +228,6 @@ class MainPage(QMainWindow):
             sepet_ekle["Fiyat"] += veri[1]
             sepet_ekle["Notlar"] = self.ui.plainTextEdit.toPlainText()
         return sepet_ekle
-
 
     def checkBox_secim(self):
         check_box = [
@@ -255,56 +252,56 @@ class MainPage(QMainWindow):
                     self.siparis.clear()
 
     def soslar_icecekler_check(self):
-            check_box_soslar_icecekler = [
-                [self.ui.ketcap_check, self.ui.ketcap_check.isChecked()],
-                [self.ui.mayonez_check, self.ui.mayonez_check.isChecked()],
-                [self.ui.hardal_check, self.ui.hardal_check.isChecked()],
-                [self.ui.bbq_check, self.ui.bbq_check.isChecked()],
-                [self.ui.aci_sos_check, self.ui.aci_sos_check.isChecked()],
-                [self.ui.ranch_check, self.ui.ranch_check.isChecked()],
-                [self.ui.kola_check, self.ui.kola_check.isChecked()],
-                [self.ui.fanta_check, self.ui.fanta_check.isChecked()],
-                [self.ui.gazoz_check, self.ui.gazoz_check.isChecked()],
-                [self.ui.limonata_check, self.ui.limonata_check.isChecked()],
-                [self.ui.ayran_check, self.ui.ayran_check.isChecked()]
-            ]
-            for checkbox in check_box_soslar_icecekler:
-                if checkbox[1]:
-                    for other_checkbox in check_box_soslar_icecekler:
-                        if other_checkbox[0] != checkbox[0]:
-                            self.siparis.clear()
-                    checkbox[1] = False
-                    break
-                else:
-                    for other_checkbox in check_box_soslar_icecekler:
-                        if other_checkbox[0] != checkbox[0]:
-                            self.siparis.clear()
+        check_box_soslar_icecekler = [
+            [self.ui.ketcap_check, self.ui.ketcap_check.isChecked()],
+            [self.ui.mayonez_check, self.ui.mayonez_check.isChecked()],
+            [self.ui.hardal_check, self.ui.hardal_check.isChecked()],
+            [self.ui.bbq_check, self.ui.bbq_check.isChecked()],
+            [self.ui.aci_sos_check, self.ui.aci_sos_check.isChecked()],
+            [self.ui.ranch_check, self.ui.ranch_check.isChecked()],
+            [self.ui.kola_check, self.ui.kola_check.isChecked()],
+            [self.ui.fanta_check, self.ui.fanta_check.isChecked()],
+            [self.ui.gazoz_check, self.ui.gazoz_check.isChecked()],
+            [self.ui.limonata_check, self.ui.limonata_check.isChecked()],
+            [self.ui.ayran_check, self.ui.ayran_check.isChecked()]
+        ]
+        for checkbox in check_box_soslar_icecekler:
+            if checkbox[1]:
+                for other_checkbox in check_box_soslar_icecekler:
+                    if other_checkbox[0] != checkbox[0]:
+                        self.siparis.clear()
+                checkbox[1] = False
+                break
+            else:
+                for other_checkbox in check_box_soslar_icecekler:
+                    if other_checkbox[0] != checkbox[0]:
+                        self.siparis.clear()
 
     def Auto_increament_spinbox(self):
         checkBox = [self.ui.ketcap_check,
-                        self.ui.mayonez_check,
-                        self.ui.hardal_check,
-                        self.ui.bbq_check,
-                        self.ui.aci_sos_check,
-                        self.ui.ranch_check, 
-                        self.ui.kola_check,
-                        self.ui.fanta_check,
-                        self.ui.gazoz_check,
-                        self.ui.limonata_check,
-                        self.ui.ayran_check
-                          ]
-        spinBox= [self.ui.spinBox_ketcap_4,
-                        self.ui.spinBox_mayonez_4,
-                        self.ui.spinBox_hardal_4,
-                        self.ui.spinBox_bbq_4,
-                        self.ui.spinBox_aci_sos_4,
-                        self.ui.spinBox_ranch_4, 
-                        self.ui.spinBox_KOLA,
-                        self.ui.spinBox_FANTA,
-                        self.ui.spinBox_GAZOZ,
-                        self.ui.spinBox_LMONATA,
-                        self.ui.spinBox_AYRAN]
-      
+                    self.ui.mayonez_check,
+                    self.ui.hardal_check,
+                    self.ui.bbq_check,
+                    self.ui.aci_sos_check,
+                    self.ui.ranch_check,
+                    self.ui.kola_check,
+                    self.ui.fanta_check,
+                    self.ui.gazoz_check,
+                    self.ui.limonata_check,
+                    self.ui.ayran_check
+                    ]
+        spinBox = [self.ui.spinBox_ketcap_4,
+                   self.ui.spinBox_mayonez_4,
+                   self.ui.spinBox_hardal_4,
+                   self.ui.spinBox_bbq_4,
+                   self.ui.spinBox_aci_sos_4,
+                   self.ui.spinBox_ranch_4,
+                   self.ui.spinBox_KOLA,
+                   self.ui.spinBox_FANTA,
+                   self.ui.spinBox_GAZOZ,
+                   self.ui.spinBox_LMONATA,
+                   self.ui.spinBox_AYRAN]
+
         for i, e in enumerate(checkBox):
             if e.isChecked():
                 if spinBox[i].value() == 0:
@@ -313,38 +310,36 @@ class MainPage(QMainWindow):
                 # checkbox false konumuna geldiğinde spinbox değerini 0 yap
                 spinBox[i].setValue(0)
 
-
-
     def auto_check(self):
         checkBox = [self.ui.ketcap_check,
-                        self.ui.mayonez_check,
-                        self.ui.hardal_check,
-                        self.ui.bbq_check,
-                        self.ui.aci_sos_check,
-                        self.ui.ranch_check, 
-                        self.ui.kola_check,
-                        self.ui.fanta_check,
-                        self.ui.gazoz_check,
-                        self.ui.limonata_check,
-                        self.ui.ayran_check
-                          ]
-        spinBox= [self.ui.spinBox_ketcap_4,
-                        self.ui.spinBox_mayonez_4,
-                        self.ui.spinBox_hardal_4,
-                        self.ui.spinBox_bbq_4,
-                        self.ui.spinBox_aci_sos_4,
-                        self.ui.spinBox_ranch_4, 
-                        self.ui.spinBox_KOLA,
-                        self.ui.spinBox_FANTA,
-                        self.ui.spinBox_GAZOZ,
-                        self.ui.spinBox_LMONATA,
-                        self.ui.spinBox_AYRAN] 
-        
-        for i,e in enumerate(spinBox):
+                    self.ui.mayonez_check,
+                    self.ui.hardal_check,
+                    self.ui.bbq_check,
+                    self.ui.aci_sos_check,
+                    self.ui.ranch_check,
+                    self.ui.kola_check,
+                    self.ui.fanta_check,
+                    self.ui.gazoz_check,
+                    self.ui.limonata_check,
+                    self.ui.ayran_check
+                    ]
+        spinBox = [self.ui.spinBox_ketcap_4,
+                   self.ui.spinBox_mayonez_4,
+                   self.ui.spinBox_hardal_4,
+                   self.ui.spinBox_bbq_4,
+                   self.ui.spinBox_aci_sos_4,
+                   self.ui.spinBox_ranch_4,
+                   self.ui.spinBox_KOLA,
+                   self.ui.spinBox_FANTA,
+                   self.ui.spinBox_GAZOZ,
+                   self.ui.spinBox_LMONATA,
+                   self.ui.spinBox_AYRAN]
+
+        for i, e in enumerate(spinBox):
             if e.value() > 0:
                 checkBox[i].setChecked(True)
             else:
-                checkBox[i].setChecked(False)          
+                checkBox[i].setChecked(False)
 
     def tabloya_veri_ekle(self, veriler):
         table_widget = self.ui.sepet_table
@@ -359,7 +354,7 @@ class MainPage(QMainWindow):
         icecekler_item = QTableWidgetItem(veriler["İçecekler"])
         tutar_item = QTableWidgetItem(str(veriler["Fiyat"]))
         notlar_item = QTableWidgetItem(veriler["Notlar"])
-      
+
         # Tablonun dışarıdan erişilmesini engelleme
         pizza_item.setFlags(pizza_item.flags() ^ Qt.ItemIsEditable)
         malzeme_item.setFlags(malzeme_item.flags() ^ Qt.ItemIsEditable)
@@ -380,23 +375,22 @@ class MainPage(QMainWindow):
         check_box = QCheckBox()
         self.ui.sepet_table.setCellWidget(row, 6, check_box)
 
-
     def choose_all(self):
-         # burada checkbox widgetlerini bulmak için QCheckBox tipi kullanılır
+        # burada checkbox widgetlerini bulmak için QCheckBox tipi kullanılır
         for row in range(self.ui.sepet_table.rowCount()):
-            checkBox =self.ui.sepet_table.cellWidget(row, 6)
+            checkBox = self.ui.sepet_table.cellWidget(row, 6)
             if not checkBox.isChecked():
-                checkBox.setChecked(True) # tüm checkbox'ları işaretleyin
+                checkBox.setChecked(True)  # tüm checkbox'ları işaretleyin
 
     def del_chosen_row(self):
-        for row in range(self.ui.sepet_table.rowCount()-1, -1, -1):
+        for row in range(self.ui.sepet_table.rowCount() - 1, -1, -1):
             if self.ui.sepet_table.cellWidget(row, 6).isChecked():
                 self.ui.sepet_table.removeRow(row)
 
     def set_default_situation(self):
-        checkBox_list= [
+        checkBox_list = [
             self.ui.klas_pizza_check,
-            self.ui.Mar_pizza_check, 
+            self.ui.Mar_pizza_check,
             self.ui.turk_pizza_check,
             self.ui.s_pizza_check,
             self.ui.zeytin_check,
@@ -405,19 +399,19 @@ class MainPage(QMainWindow):
             self.ui.et_check,
             self.ui.sogan_check,
             self.ui.mantar_check,
-            self.ui.keci_peyniri_check, 
+            self.ui.keci_peyniri_check,
             self.ui.ketcap_check,
             self.ui.mayonez_check,
             self.ui.hardal_check,
             self.ui.bbq_check,
             self.ui.aci_sos_check,
-            self.ui.ranch_check, 
+            self.ui.ranch_check,
             self.ui.kola_check,
             self.ui.fanta_check,
             self.ui.gazoz_check,
             self.ui.limonata_check,
             self.ui.ayran_check]
-        
+
         for e in checkBox_list:
             if e.isChecked():
                 e.setChecked(False)
@@ -427,5 +421,3 @@ uyg = QApplication(sys.argv)
 pencere = MainPage()
 pencere.show()
 sys.exit(uyg.exec_())
-
-
