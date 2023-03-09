@@ -1,8 +1,7 @@
-import sys
 import csv
 import pandas as pd
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTableWidgetItem, QCheckBox
-from siparis_gecmisi_UI import siparis_gecmisi
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QCheckBox
+from UI_Files.siparis_gecmisi_UI import siparis_gecmisi
 from PyQt5.QtCore import Qt
 
 class Siparis_Gecmisi(QMainWindow):

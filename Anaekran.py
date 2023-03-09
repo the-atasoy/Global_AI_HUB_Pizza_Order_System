@@ -1,11 +1,12 @@
 import MealMenu
 import datetime
 import Tuples
-from Anaekran_UI import *
+from UI_Files.Anaekran_UI import *
 from Objects import *
 from siparis_gecmisi import *
 from odeme import *
 from PyQt5.QtCore import Qt
+import sys
 
 
 class MainPage(QMainWindow):

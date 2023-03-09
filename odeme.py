@@ -1,9 +1,6 @@
-import sys
-from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
-from odeme_UI import *
+from UI_Files.odeme_UI import *
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import Qt
 
 
 class Odeme(QMainWindow):
