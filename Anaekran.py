@@ -129,7 +129,7 @@ class MainPage(QMainWindow):
         if self.ui.sepet_table.rowCount() == 0:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Sepetinizde ürün bulunmamaktadır")
+            msg.setText("Lütfen Sepete Ürün Ekleyin")
             msg.setWindowTitle("HATA")
             ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
             msg.exec_()
@@ -155,10 +155,10 @@ class MainPage(QMainWindow):
         self.malzeme_secimi(Tuples.ingredient_tuple(self))
         self.sos_secim(Tuples.sauce_tuple(self))
         self.icecekler_secim(Tuples.drinks_tuple(self))
-        a = self.sozluk_olustur(self.siparis)
-        self.tabloya_veri_ekle(a)
+        order_dict = self.sozluk_olustur(self.siparis)
+        self.tabloya_veri_ekle(order_dict)
         self.set_default_situation()
-        return a
+        return order_dict
 
     def pizza_secim(self, pizza_listesi):
         for eleman in pizza_listesi:
@@ -417,6 +417,10 @@ class MainPage(QMainWindow):
         for e in checkBox_list:
             if e.isChecked():
                 e.setChecked(False)
+
+        # this code make add note widget default when push the "Sepete Ekle" button
+        self.ui.plainTextEdit.clear()
+        self.ui.plainTextEdit.setPlaceholderText("Not Ekleyin")
 
 
 uyg = QApplication(sys.argv)

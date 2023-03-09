@@ -33,9 +33,15 @@ class Odeme(QMainWindow):
         if not self.password_check():
             return
         info = {"name_lastname": self.payment.name_lastname.text(), "tc": int(self.payment.id_number.text()),
-                "card_no": int(self.payment.card_number.text()), "sifre": str(self.payment.password_edit.text())}
+                "card_no": str(self.payment.card_number.text()), "sifre": str(self.payment.password_edit.text())}
         self.order_history_signal.emit(info)
         self.table_cleaning_signal.emit()
+        # these methods clean the data on payment screen when the payment completed
+        self.payment.name_lastname.clear()
+        self.payment.id_number.clear()
+        self.payment.card_number.clear()
+        self.payment.password_edit.clear()
+
         self.close()
 
     def name_lastname_check(self):
