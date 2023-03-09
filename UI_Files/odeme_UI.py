@@ -111,4 +111,4 @@ class odeme_ui(object):
         self.label_3.setText(_translate("MainWindow", "TC Kimlik No:"))
         self.label_4.setText(_translate("MainWindow", "Kart Numarası:"))
         self.label_5.setText(_translate("MainWindow", "Şifre:"))
-import odeme_rc
+import UI_Files.odeme_rc as odeme_rc

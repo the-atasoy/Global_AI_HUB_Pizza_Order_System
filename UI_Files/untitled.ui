@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1400</width>
+    <width>1470</width>
     <height>780</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1400</width>
+    <width>1470</width>
     <height>780</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1400</width>
+    <width>1470</width>
     <height>780</height>
    </size>
   </property>
@@ -615,7 +615,7 @@
      <rect>
       <x>510</x>
       <y>440</y>
-      <width>881</width>
+      <width>951</width>
       <height>41</height>
      </rect>
     </property>
@@ -642,7 +642,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Tümünüs Seç</string>
+        <string>Tümünü Seç</string>
        </property>
       </widget>
      </item>
@@ -666,7 +666,7 @@
      <rect>
       <x>510</x>
       <y>490</y>
-      <width>881</width>
+      <width>951</width>
       <height>241</height>
      </rect>
     </property>
@@ -771,7 +771,7 @@
      <rect>
       <x>510</x>
       <y>220</y>
-      <width>881</width>
+      <width>951</width>
       <height>211</height>
      </rect>
     </property>
@@ -793,9 +793,14 @@
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>211</width>
+          <width>231</width>
           <height>191</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
         </property>
         <property name="text">
          <string/>
@@ -824,9 +829,14 @@
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>211</width>
+          <width>231</width>
           <height>191</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
         </property>
         <property name="text">
          <string/>
@@ -855,9 +865,14 @@
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>191</width>
+          <width>231</width>
           <height>191</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
         </property>
         <property name="text">
          <string/>
@@ -886,9 +901,14 @@
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>201</width>
+          <width>231</width>
           <height>191</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
         </property>
         <property name="text">
          <string/>
@@ -907,7 +927,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1400</width>
+     <width>1470</width>
      <height>26</height>
     </rect>
    </property>

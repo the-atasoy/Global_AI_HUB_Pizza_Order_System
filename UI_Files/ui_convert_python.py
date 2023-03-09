@@ -1,4 +1,4 @@
 from PyQt5 import uic
-with open("Anaekran_UI.py", "w", encoding="utf-8") as fout:
-    uic.compileUi("untitled.ui", fout)
+with open("UI_Files\Anaekran_UI.py", "w", encoding="utf-8") as fout:
+    uic.compileUi("UI_Files\\untitled.ui", fout)
     

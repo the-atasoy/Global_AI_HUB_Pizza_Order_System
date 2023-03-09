@@ -121,4 +121,4 @@ class siparis_gecmisi(object):
         self.pushButton_search.setText(_translate("mainWindow", "ARA"))
         self.pushbutton_choose_all.setText(_translate("mainWindow", "Tümünü Seç"))
         self.pushbutton_remove_.setText(_translate("mainWindow", "SİL"))
-import icon_rc
+import UI_Files.icon_rc as icon_rc
