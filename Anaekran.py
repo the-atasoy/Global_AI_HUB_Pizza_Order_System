@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 
 import MealMenu
-import Menu
+import Costs
 import datetime
 import Tuples
 from Anaekran_UI import *

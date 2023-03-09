@@ -1,41 +1,41 @@
 import pandas as pd
 
-# Pizzas
 class Costs:
+
+    # Pizzas
     @staticmethod
-    def klasik_pizza_cost():
+    def classic_cost():
         pizza = pd.read_csv("pizzas.csv")
         return pizza.iloc[0, 1]
 
     @staticmethod
-    def margarita_pizza_cost():
+    def margherita_cost():
         pizza = pd.read_csv("pizzas.csv")
         return pizza.iloc[1, 1]
 
     @staticmethod
-    def turk_pizza_cost():
+    def turk_cost():
         pizza = pd.read_csv("pizzas.csv")
         return pizza.iloc[2, 1]
 
     @staticmethod
-    def dominos_pizza_cost():
+    def dominos_cost():
         pizza = pd.read_csv("pizzas.csv")
         return pizza.iloc[3, 1]
 
-
-    # Soslar
+    # Sauces
     @staticmethod
-    def ketcap_cost():
+    def ketchup_cost():
         sauce = pd.read_csv("sauces.csv")
         return sauce.iloc[0, 1]
 
     @staticmethod
-    def mayonez_cost():
+    def mayo_cost():
         sauce = pd.read_csv("sauces.csv")
         return sauce.iloc[1, 1]
 
     @staticmethod
-    def hardal_cost():
+    def mustard_cost():
         sauce = pd.read_csv("sauces.csv")
         return sauce.iloc[2, 1]
 
@@ -50,45 +50,44 @@ class Costs:
         return sauce.iloc[4, 1]
 
     @staticmethod
-    def aci_sos_cost():
+    def hot_sauce_cost():
         sauce = pd.read_csv("sauces.csv")
         return sauce.iloc[5, 1]
 
-    #ingredients
-
+    # Ingredients
     @staticmethod
-    def zeytin_cost():
+    def olive_cost():
         ingredients = pd.read_csv("ingredients.csv")
         return ingredients.iloc[0, 1]
 
     @staticmethod
-    def mantar_cost():
+    def mushroom_cost():
         ingredients = pd.read_csv("ingredients.csv")
         return ingredients.iloc[1, 1]
 
     @staticmethod
-    def keci_peyniri_cost():
+    def goat_cheese_cost():
         ingredients = pd.read_csv("ingredients.csv")
         return ingredients.iloc[2, 1]
 
     @staticmethod
-    def et_cost():
+    def meat_cost():
         ingredients = pd.read_csv("ingredients.csv")
         return ingredients.iloc[3, 1]
 
     @staticmethod
-    def sogan_cost():
+    def onion_cost():
         ingredients = pd.read_csv("ingredients.csv")
         return ingredients.iloc[4, 1]
 
     @staticmethod
-    def misir_cost():
+    def corn_cost():
         ingredients = pd.read_csv("ingredients.csv")
         return ingredients.iloc[5, 1]
 
+    # Beverages
     @staticmethod
-    #beverages
-    def kola_cost():
+    def coke_cost():
         beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[0, 1]
 
@@ -98,12 +97,12 @@ class Costs:
         return beverages.iloc[1, 1]
 
     @staticmethod
-    def gazoz_cost():
+    def pop_soda_cost():
         beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[2, 1]
 
     @staticmethod
-    def limonata_cost():
+    def lemonade_cost():
         beverages = pd.read_csv("beverages.csv")
         return beverages.iloc[3, 1]
 
