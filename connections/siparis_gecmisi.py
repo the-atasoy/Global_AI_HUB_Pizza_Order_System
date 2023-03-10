@@ -59,31 +59,40 @@ class Siparis_Gecmisi(QMainWindow):
             self.SP.error_handling.setText("Aradığınız kritere uygun bir eşleşme bulunamadı.")
 
     def secili_sil(self):
-        df = pd.read_csv("Data\order_history.csv")
+        df = pd.read_csv("Data/order_history.csv")
         rows_to_delete = []
-        for row in range(df.shape[0]):
+        for row in range(self.SP.order_history.rowCount()):
             if self.SP.order_history.cellWidget(row, 8) is not None and self.SP.order_history.cellWidget(row, 8).isChecked():
                 rows_to_delete.append(row)
         df.drop(rows_to_delete, inplace=True)
-        df.to_csv("Data\order_history.csv", index=False)
-        self.SP.order_history.setRowCount(df.shape[0])
+        df.to_csv("Data/order_history.csv", index=False)
+        for i, row in enumerate(rows_to_delete):
+            self.SP.order_history.removeRow(row - i)
         for row_num, row_data in df.iterrows():
-            items = [
-                QTableWidgetItem(str(field))
-                for field in row_data
-            ]
+            items = [QTableWidgetItem(str(field)) for field in row_data]
             for col_num, item in enumerate(items):
                 if self.SP.order_history.item(row_num, col_num) is not None:
                     self.SP.order_history.setItem(row_num, col_num, item)
-                    self.SP.order_history.item(row_num, col_num).setFlags(self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
+                    self.SP.order_history.item(row_num, col_num).setFlags(
+                        self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable
+                    )
             check_box = QCheckBox()
             self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
+
+
+
 
     def tumunu_sec(self):
         for row in range(self.SP.order_history.rowCount()):
             checkbox = self.SP.order_history.cellWidget(row, 8)
             if not checkbox.isChecked():
                 checkbox.setChecked(True)
+            elif checkbox.isChecked():
+                if checkbox.isChecked():
+                    checkbox.setChecked(True)
+                else:
+                    checkbox.setChecked(False)
+
 
 
 #uyg_1 = QApplication(sys.argv)

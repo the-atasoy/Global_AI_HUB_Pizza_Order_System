@@ -510,7 +510,7 @@ class Ui_MainWindow(object):
         item = self.sepet_table.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "Not"))
         item = self.sepet_table.horizontalHeaderItem(6)
-        item.setText(_translate("MainWindow", "Sil"))
+        item.setText(_translate("MainWindow", "Sil/Onayla"))
         self.label_2.setText(_translate("MainWindow", "Pizza.Py "))
         self.groupBox.setTitle(_translate("MainWindow", "PİZZALAR"))
         self.groupBox_2.setTitle(_translate("MainWindow", "MALZEMELER"))
