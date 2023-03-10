@@ -1,10 +1,10 @@
-from Costs import MealMenu
+from Costs.MealMenu import pizza_menu, ingredient_menu, sauce_menu, drink_menu
 import datetime
-import Tuples
+import connections.Tuples as Tuples
 from UI_Files.Anaekran_UI import *
-from Objects import *
-from siparis_gecmisi import *
-from odeme import *
+from connections.Objects import *
+from connections.siparis_gecmisi import *
+from connections.odeme import *
 from PyQt5.QtCore import Qt
 import sys
 
@@ -14,10 +14,10 @@ class MainPage(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        MealMenu.pizza_menu(self)
-        MealMenu.ingredient_menu(self)
-        MealMenu.sauce_menu(self)
-        MealMenu.drink_menu(self)
+        pizza_menu(self)
+        ingredient_menu(self)
+        sauce_menu(self)
+        drink_menu(self)
         self.ui.sepete_ekle_button.clicked.connect(self.sepete_ekle)
         self.ui.klas_pizza_check.stateChanged.connect(self.checkBox_secim)
         self.ui.Mar_pizza_check.stateChanged.connect(self.checkBox_secim)
@@ -419,7 +419,7 @@ class MainPage(QMainWindow):
         self.ui.plainTextEdit.setPlaceholderText("Not Ekleyin")
 
 
-uyg = QApplication(sys.argv)
-pencere = MainPage()
-pencere.show()
-sys.exit(uyg.exec_())
+#uyg = QApplication(sys.argv)
+#pencere = MainPage()
+#pencere.show()
+#sys.exit(uyg.exec_())

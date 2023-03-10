@@ -1,5 +1,5 @@
 # These tuples codes add products to selected items menu in GUI
-from Objects import *
+from connections.Objects import *
 def pizza_tuple(self):
     pizzas = [
         (classic.get_description(), classic.get_cost(), self.ui.klas_pizza_check.isChecked()),
