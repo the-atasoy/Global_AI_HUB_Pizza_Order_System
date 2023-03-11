@@ -1,5 +1,5 @@
-from Costs.Costs import *
-from Costs.Descriptions import *
+from Connections.Costs import *
+from Connections.Descriptions import *
 
 from Product.Drink.SubDrink import *
 from Product.Ingredient.SubIngredient import *

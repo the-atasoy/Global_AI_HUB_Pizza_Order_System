@@ -1,4 +1,4 @@
-from connections.Objects import *
+from Connections.Objects import *
 
 
 def pizza_menu(self):

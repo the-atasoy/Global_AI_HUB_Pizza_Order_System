@@ -1,5 +1,7 @@
+import sys
+
 if __name__ == '__main__':
-    from connections.Anaekran import *
+    from GUI_Pages.Anaekran import *
     uyg = QApplication(sys.argv)
     pencere = MainPage()
     pencere.show()

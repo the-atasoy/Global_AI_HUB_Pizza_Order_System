@@ -1,12 +1,11 @@
-from Costs.MealMenu import pizza_menu, ingredient_menu, sauce_menu, drink_menu
+from Connections.MealMenu import pizza_menu, ingredient_menu, sauce_menu, drink_menu
 import datetime
-import connections.Tuples as Tuples
+import Connections.Tuples as Tuples
 from UI_Files.Anaekran_UI import *
-from connections.Objects import *
-from connections.siparis_gecmisi import *
-from connections.Payment import *
+from Connections.Objects import *
+from GUI_Pages.siparis_gecmisi import *
+from GUI_Pages.Payment import *
 from PyQt5.QtCore import Qt
-import sys
 
 
 class MainPage(QMainWindow):
