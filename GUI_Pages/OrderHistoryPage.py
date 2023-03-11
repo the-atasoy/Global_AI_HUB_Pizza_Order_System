@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QCheckBox
 from UI_Files.siparis_gecmisi_UI import siparis_gecmisi
 from PyQt5.QtCore import Qt
 
-class OrderHistory(QMainWindow):
+class OrderHistoryPage(QMainWindow):
     def __init__(self):
         super().__init__()
         self.SP = siparis_gecmisi()

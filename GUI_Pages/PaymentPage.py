@@ -3,7 +3,7 @@ from UI_Files.odeme_UI import *
 from PyQt5.QtCore import pyqtSignal
 
 
-class Payment(QMainWindow):
+class PaymentPage(QMainWindow):
     # this signal sends a signal to main page
     # to save datas to database when push the pay button
     order_history_signal = pyqtSignal(dict)

@@ -9,7 +9,7 @@ def pizza_menu(self):
             f"3. {turk.get_description()}          -----> {turk.get_cost()} TL" + "\n" +
             f"4. {dominos.get_description()}  -----> {dominos.get_cost()} TL")
 
-    self.ui.pizza_menu.setText(menu)
+    self.main_page.pizza_menu.setText(menu)
 
 
 def ingredient_menu(self):
@@ -21,7 +21,7 @@ def ingredient_menu(self):
             f"5. {onion.get_description()}              -----> {onion.get_cost()} TL" + "\n" +
             f"6. {corn.get_description()}                -----> {corn.get_cost()} TL")
 
-    self.ui.ingredient_menu.setText(menu)
+    self.main_page.ingredient_menu.setText(menu)
 
 
 def sauce_menu(self):
@@ -33,7 +33,7 @@ def sauce_menu(self):
             f"5. {bbq.get_description()}      -----> {bbq.get_cost()} TL" + "\n" +
             f"6. {hot_sauce.get_description()}        -----> {hot_sauce.get_cost()} TL")
 
-    self.ui.sauce_menu.setText(menu)
+    self.main_page.sauce_menu.setText(menu)
 
 
 def drink_menu(self):
@@ -44,4 +44,4 @@ def drink_menu(self):
             f"4. {lemonade.get_description()}      -----> {lemonade.get_cost()} TL" + "\n" +
             f"5. {ayran.get_description()}            -----> {ayran.get_cost()} TL")
 
-    self.ui.drink_menu.setText(menu)
+    self.main_page.beverages_menu.setText(menu)
