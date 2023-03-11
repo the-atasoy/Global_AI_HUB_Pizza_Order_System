@@ -94,89 +94,156 @@ class MainPage(QMainWindow):
 
         # Connection to show order history when clicked on "orders"
         self.main_page.action_past_orders.triggered.connect(self.show_order_history)
-        self.main_page.action_past_orders.triggered.connect(self.show_order_history)
 
         # A list to save order
         self.order = []
 
-    def show_order_history(self):
-        self.order_history_window.show()
-        self.order_history_window.loadCsv()
+    # This function checks if a pizza is checked or not and if a pizza is checked, do not allow checking another pizza
+    def choose_pizza(self):
+        check_box = [
+            [self.main_page.classic_pizza_check, self.main_page.classic_pizza_check.isChecked()],
+            [self.main_page.margherita_pizza_check, self.main_page.margherita_pizza_check.isChecked()],
+            [self.main_page.turk_pizza_check, self.main_page.turk_pizza_check.isChecked()],
+            [self.main_page.dominos_pizza_check, self.main_page.dominos_pizza_check.isChecked()]
+        ]
 
-    def save_to_order_history(self, info):
-        order_info = []
-        total_price = 0
-        notes_info = []
-        table_widget = self.main_page.basket_table
-        payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        for row in range(table_widget.rowCount()):
-            pizza = table_widget.item(row, 0).text()
-            malzemeler = table_widget.item(row, 1).text()
-            soslar = table_widget.item(row, 2).text()
-            icecekler = table_widget.item(row, 3).text()
-            order_info.append(pizza)
-            order_info.append(malzemeler)
-            order_info.append(soslar)
-            order_info.append(icecekler)
-
-        for row in range(table_widget.rowCount()):
-            total_price += int(table_widget.item(row, 4).text())
-
-        for row in range(table_widget.rowCount()):
-            notes = table_widget.item(row, 5).text()
-            notes_info.append(notes)
-
-        customer_order_info = {"Müşteri Bilgisi": info["name_lastname"],
-                               "Sipariş": "",
-                               "Notlar": "",
-                               "Tarih-Saat": payment_date,
-                               "Toplam Tutar": total_price,
-                               "TC Kimlik Numarası": info["tc"],
-                               "Kart Numarası": info["card_no"],
-                               "Şifre": info["sifre"]}
-
-        for i in order_info:
-            if customer_order_info["Sipariş"] != "":
-                customer_order_info["Sipariş"] += ", "
-            customer_order_info["Sipariş"] += i
-
-        for i in notes_info:
-            if customer_order_info["Notlar"] != "":
-                customer_order_info["Notlar"] += ", "
-            customer_order_info["Notlar"] += i
-
-        with open("Data/order_history.csv", "a", newline='', encoding="utf-8") as myFile:
-            writer = csv.DictWriter(myFile, fieldnames=list(customer_order_info.keys()))
-            writer.writerow(customer_order_info)
-
-        self.order_history_window.clear_table()
-
-    def go_to_payment(self):
-        all_checked = True
-        if self.main_page.basket_table.rowCount() == 0:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText("Lütfen Sepete Ürün Ekleyin")
-            msg.setWindowTitle("HATA")
-            ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
-            msg.exec_()
-            return
-
-        for row in range(self.main_page.basket_table.rowCount()):
-            if not self.main_page.basket_table.cellWidget(row, 6).isChecked():
-                all_checked = False
+        for checkbox in check_box:
+            if checkbox[1]:
+                for other_checkbox in check_box:
+                    if other_checkbox[0] != checkbox[0]:
+                        other_checkbox[0].setEnabled(False)
+                        self.order.clear()
+                checkbox[1] = False
                 break
+            else:
+                for other_checkbox in check_box:
+                    if other_checkbox[0] != checkbox[0]:
+                        other_checkbox[0].setEnabled(True)
+                    self.order.clear()
 
-        if all_checked:
-            self.payment_window.show()
-        else:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText("Tüm siparişlerin seçili olması gerek")
-            msg.setWindowTitle("HATA")
-            ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
-            msg.exec_()
+    # This function checks if sauces and beverages are checked or not
+    def choose_sauce_beverage(self):
+        check_box_sauces_beverages = [
+            [self.main_page.ketchup_check, self.main_page.ketchup_check.isChecked()],
+            [self.main_page.mayo_check, self.main_page.mayo_check.isChecked()],
+            [self.main_page.mustard_check, self.main_page.mustard_check.isChecked()],
+            [self.main_page.bbq_check, self.main_page.bbq_check.isChecked()],
+            [self.main_page.hot_sauce_check, self.main_page.hot_sauce_check.isChecked()],
+            [self.main_page.ranch_check, self.main_page.ranch_check.isChecked()],
+            [self.main_page.coke_check, self.main_page.coke_check.isChecked()],
+            [self.main_page.fanta_check, self.main_page.fanta_check.isChecked()],
+            [self.main_page.pop_soda_check, self.main_page.pop_soda_check.isChecked()],
+            [self.main_page.lemonade_check, self.main_page.lemonade_check.isChecked()],
+            [self.main_page.ayran_check, self.main_page.ayran_check.isChecked()]
+        ]
+        for checkbox in check_box_sauces_beverages:
+            if checkbox[1]:
+                for other_checkbox in check_box_sauces_beverages:
+                    if other_checkbox[0] != checkbox[0]:
+                        self.order.clear()
+                checkbox[1] = False
+                break
+            else:
+                for other_checkbox in check_box_sauces_beverages:
+                    if other_checkbox[0] != checkbox[0]:
+                        self.order.clear()
 
+    # This function increases the amount of selected item to 1 automatically when it is chosen
+    def auto_increment_spinbox(self):
+        checkbox = [self.main_page.ketchup_check,
+                    self.main_page.mayo_check,
+                    self.main_page.mustard_check,
+                    self.main_page.bbq_check,
+                    self.main_page.hot_sauce_check,
+                    self.main_page.ranch_check,
+                    self.main_page.coke_check,
+                    self.main_page.fanta_check,
+                    self.main_page.pop_soda_check,
+                    self.main_page.lemonade_check,
+                    self.main_page.ayran_check
+                    ]
+        spinbox = [self.main_page.spinBox_ketchup_4,
+                   self.main_page.spinBox_mayo_4,
+                   self.main_page.spinBox_mustard_4,
+                   self.main_page.spinBox_bbq_4,
+                   self.main_page.spinBox_hot_sauce_4,
+                   self.main_page.spinBox_ranch_4,
+                   self.main_page.spinBox_coke,
+                   self.main_page.spinBox_fanta,
+                   self.main_page.spinBox_pop_soda,
+                   self.main_page.spinBox_lemonade,
+                   self.main_page.spinBox_ayran]
+
+        for i, e in enumerate(checkbox):
+            if e.isChecked():
+                if spinbox[i].value() == 0:
+                    spinbox[i].setValue(1)
+            else:
+                # if item is unchecked, value of spinbox will be 0
+                spinbox[i].setValue(0)
+
+    # This function checks the item automatically if amount of it is increased via spinbox
+    def auto_check(self):
+        checkbox = [self.main_page.ketchup_check,
+                    self.main_page.mayo_check,
+                    self.main_page.mustard_check,
+                    self.main_page.bbq_check,
+                    self.main_page.hot_sauce_check,
+                    self.main_page.ranch_check,
+                    self.main_page.coke_check,
+                    self.main_page.fanta_check,
+                    self.main_page.pop_soda_check,
+                    self.main_page.lemonade_check,
+                    self.main_page.ayran_check
+                    ]
+        spinbox = [self.main_page.spinBox_ketchup_4,
+                   self.main_page.spinBox_mayo_4,
+                   self.main_page.spinBox_mustard_4,
+                   self.main_page.spinBox_bbq_4,
+                   self.main_page.spinBox_hot_sauce_4,
+                   self.main_page.spinBox_ranch_4,
+                   self.main_page.spinBox_coke,
+                   self.main_page.spinBox_fanta,
+                   self.main_page.spinBox_pop_soda,
+                   self.main_page.spinBox_lemonade,
+                   self.main_page.spinBox_ayran]
+
+        for i, e in enumerate(spinbox):
+            if e.value() > 0:
+                checkbox[i].setChecked(True)
+            else:
+                checkbox[i].setChecked(False)
+
+    # This function is added the selected pizza to order list
+    def add_pizza(self, pizza_list):
+        for element in pizza_list:
+            if element[2]:
+                self.order.append(element[0:2])
+        return self.order
+
+    # This function is added the selected ingredients to order list
+    def add_ingredient(self, ingredient_list):
+        for element in ingredient_list:
+            if element[2]:
+                self.order.append(element[0:2])
+        return self.order
+
+    # This function is added the selected sauces to order list
+    def add_sauce(self, sauce_list):
+        for element in sauce_list:
+            if element[2]:
+                self.order.append(element[0:2])
+        return self.order
+
+    # This function is added the selected beverages to order list
+    def add_beverages(self, beverages_list):
+        for element in beverages_list:
+            if element[2]:
+                self.order.append(element[0:2])
+        return self.order
+
+    # This function displays the order which is created to the basket table and
+    # call the set_default_situation function to make options and note table default
     def add_to_basket(self):
         self.add_pizza(Tuples.pizza_tuple(self))
         self.add_ingredient(Tuples.ingredient_tuple(self))
@@ -187,30 +254,41 @@ class MainPage(QMainWindow):
         self.set_default_situation()
         return order_dict
 
-    def add_pizza(self, pizza_list):
-        for element in pizza_list:
-            if element[2]:
-                self.order.append(element[0:2])
-        return self.order
+    # This function make options and note table default
+    def set_default_situation(self):
+        checkbox_list = [
+            self.main_page.classic_pizza_check,
+            self.main_page.margherita_pizza_check,
+            self.main_page.turk_pizza_check,
+            self.main_page.dominos_pizza_check,
+            self.main_page.zeytin_check,
+            self.main_page.keci_peyniri_check,
+            self.main_page.misir_check,
+            self.main_page.et_check,
+            self.main_page.sogan_check,
+            self.main_page.mantar_check,
+            self.main_page.keci_peyniri_check,
+            self.main_page.ketchup_check,
+            self.main_page.mayo_check,
+            self.main_page.mustard_check,
+            self.main_page.bbq_check,
+            self.main_page.hot_sauce_check,
+            self.main_page.ranch_check,
+            self.main_page.coke_check,
+            self.main_page.fanta_check,
+            self.main_page.pop_soda_check,
+            self.main_page.lemonade_check,
+            self.main_page.ayran_check]
 
-    def add_ingredient(self, ingredient_list):
-        for element in ingredient_list:
-            if element[2]:
-                self.order.append(element[0:2])
-        return self.order
+        for e in checkbox_list:
+            if e.isChecked():
+                e.setChecked(False)
 
-    def add_sauce(self, sauce_list):
-        for element in sauce_list:
-            if element[2]:
-                self.order.append(element[0:2])
-        return self.order
+        # this code make add note widget default when push the "add to basket" button
+        self.main_page.plainTextEdit.clear()
+        self.main_page.plainTextEdit.setPlaceholderText("Not Ekleyin")
 
-    def add_beverages(self, beverages_list):
-        for element in beverages_list:
-            if element[2]:
-                self.order.append(element[0:2])
-        return self.order
-
+    # This function creates a dictionary in order to add items to database and basket table
     def create_dictionary(self, order_list):
 
         pizzas = [classic.get_description(),
@@ -258,131 +336,21 @@ class MainPage(QMainWindow):
             basket["Notlar"] = self.main_page.plainTextEdit.toPlainText()
         return basket
 
-    def choose_pizza(self):
-        check_box = [
-            [self.main_page.classic_pizza_check, self.main_page.classic_pizza_check.isChecked()],
-            [self.main_page.margherita_pizza_check, self.main_page.margherita_pizza_check.isChecked()],
-            [self.main_page.turk_pizza_check, self.main_page.turk_pizza_check.isChecked()],
-            [self.main_page.dominos_pizza_check, self.main_page.dominos_pizza_check.isChecked()]
-        ]
-
-        for checkbox in check_box:
-            if checkbox[1]:
-                for other_checkbox in check_box:
-                    if other_checkbox[0] != checkbox[0]:
-                        other_checkbox[0].setEnabled(False)
-                        self.order.clear()
-                checkbox[1] = False
-                break
-            else:
-                for other_checkbox in check_box:
-                    if other_checkbox[0] != checkbox[0]:
-                        other_checkbox[0].setEnabled(True)
-                    self.order.clear()
-
-    def choose_sauce_beverage(self):
-        check_box_sauces_beverages = [
-            [self.main_page.ketchup_check, self.main_page.ketchup_check.isChecked()],
-            [self.main_page.mayo_check, self.main_page.mayo_check.isChecked()],
-            [self.main_page.mustard_check, self.main_page.mustard_check.isChecked()],
-            [self.main_page.bbq_check, self.main_page.bbq_check.isChecked()],
-            [self.main_page.hot_sauce_check, self.main_page.hot_sauce_check.isChecked()],
-            [self.main_page.ranch_check, self.main_page.ranch_check.isChecked()],
-            [self.main_page.coke_check, self.main_page.coke_check.isChecked()],
-            [self.main_page.fanta_check, self.main_page.fanta_check.isChecked()],
-            [self.main_page.pop_soda_check, self.main_page.pop_soda_check.isChecked()],
-            [self.main_page.lemonade_check, self.main_page.lemonade_check.isChecked()],
-            [self.main_page.ayran_check, self.main_page.ayran_check.isChecked()]
-        ]
-        for checkbox in check_box_sauces_beverages:
-            if checkbox[1]:
-                for other_checkbox in check_box_sauces_beverages:
-                    if other_checkbox[0] != checkbox[0]:
-                        self.order.clear()
-                checkbox[1] = False
-                break
-            else:
-                for other_checkbox in check_box_sauces_beverages:
-                    if other_checkbox[0] != checkbox[0]:
-                        self.order.clear()
-
-    def auto_increment_spinbox(self):
-        checkbox = [self.main_page.ketchup_check,
-                    self.main_page.mayo_check,
-                    self.main_page.mustard_check,
-                    self.main_page.bbq_check,
-                    self.main_page.hot_sauce_check,
-                    self.main_page.ranch_check,
-                    self.main_page.coke_check,
-                    self.main_page.fanta_check,
-                    self.main_page.pop_soda_check,
-                    self.main_page.lemonade_check,
-                    self.main_page.ayran_check
-                    ]
-        spinbox = [self.main_page.spinBox_ketchup_4,
-                   self.main_page.spinBox_mayo_4,
-                   self.main_page.spinBox_mustard_4,
-                   self.main_page.spinBox_bbq_4,
-                   self.main_page.spinBox_hot_sauce_4,
-                   self.main_page.spinBox_ranch_4,
-                   self.main_page.spinBox_coke,
-                   self.main_page.spinBox_fanta,
-                   self.main_page.spinBox_pop_soda,
-                   self.main_page.spinBox_lemonade,
-                   self.main_page.spinBox_ayran]
-
-        for i, e in enumerate(checkbox):
-            if e.isChecked():
-                if spinbox[i].value() == 0:
-                    spinbox[i].setValue(1)
-            else:
-                # checkbox false konumuna geldiğinde spinbox değerini 0 yap
-                spinbox[i].setValue(0)
-
-    def auto_check(self):
-        checkbox = [self.main_page.ketchup_check,
-                    self.main_page.mayo_check,
-                    self.main_page.mustard_check,
-                    self.main_page.bbq_check,
-                    self.main_page.hot_sauce_check,
-                    self.main_page.ranch_check,
-                    self.main_page.coke_check,
-                    self.main_page.fanta_check,
-                    self.main_page.pop_soda_check,
-                    self.main_page.lemonade_check,
-                    self.main_page.ayran_check
-                    ]
-        spinbox = [self.main_page.spinBox_ketchup_4,
-                   self.main_page.spinBox_mayo_4,
-                   self.main_page.spinBox_mustard_4,
-                   self.main_page.spinBox_bbq_4,
-                   self.main_page.spinBox_hot_sauce_4,
-                   self.main_page.spinBox_ranch_4,
-                   self.main_page.spinBox_coke,
-                   self.main_page.spinBox_fanta,
-                   self.main_page.spinBox_pop_soda,
-                   self.main_page.spinBox_lemonade,
-                   self.main_page.spinBox_ayran]
-
-        for i, e in enumerate(spinbox):
-            if e.value() > 0:
-                checkbox[i].setChecked(True)
-            else:
-                checkbox[i].setChecked(False)
-
-    def add_data_to_table(self, datas):
+    # This function displays order in basket table getting datas
+    # from dictionary which is created in "create_dictionary function
+    def add_data_to_table(self, data):
         table_widget = self.main_page.basket_table
         row_count = table_widget.rowCount()
         table_widget.setRowCount(row_count + 1)
         row = row_count
 
         # Create a new QTableWidgetItem object
-        pizza_item = QTableWidgetItem(datas["Pizza"])
-        ingredient_item = QTableWidgetItem(datas["Malzemeler"])
-        sauce_item = QTableWidgetItem(datas["Soslar"])
-        beverage_item = QTableWidgetItem(datas["İçecekler"])
-        cost_item = QTableWidgetItem(str(datas["Fiyat"]))
-        notes_item = QTableWidgetItem(datas["Notlar"])
+        pizza_item = QTableWidgetItem(data["Pizza"])
+        ingredient_item = QTableWidgetItem(data["Malzemeler"])
+        sauce_item = QTableWidgetItem(data["Soslar"])
+        beverage_item = QTableWidgetItem(data["İçecekler"])
+        cost_item = QTableWidgetItem(str(data["Fiyat"]))
+        notes_item = QTableWidgetItem(data["Notlar"])
 
         # Blocking outside access to the QTableWidgetItem
         pizza_item.setFlags(pizza_item.flags() ^ Qt.ItemIsEditable)
@@ -404,6 +372,7 @@ class MainPage(QMainWindow):
         check_box = QCheckBox()
         self.main_page.basket_table.setCellWidget(row, 6, check_box)
 
+    # This function choose all rows in basket table
     def choose_all(self):
         # QCheckBox is used to find checkbox widgets
         for row in range(self.main_page.basket_table.rowCount()):
@@ -411,40 +380,90 @@ class MainPage(QMainWindow):
             if not checkbox.isChecked():
                 checkbox.setChecked(True)  # check all checkboxes
 
+    # This function deletes selected rows in basket table
     def del_chosen(self):
         for row in range(self.main_page.basket_table.rowCount() - 1, -1, -1):
             if self.main_page.basket_table.cellWidget(row, 6).isChecked():
                 self.main_page.basket_table.removeRow(row)
 
-    def set_default_situation(self):
-        checkbox_list = [
-            self.main_page.classic_pizza_check,
-            self.main_page.margherita_pizza_check,
-            self.main_page.turk_pizza_check,
-            self.main_page.dominos_pizza_check,
-            self.main_page.zeytin_check,
-            self.main_page.keci_peyniri_check,
-            self.main_page.misir_check,
-            self.main_page.et_check,
-            self.main_page.sogan_check,
-            self.main_page.mantar_check,
-            self.main_page.keci_peyniri_check,
-            self.main_page.ketchup_check,
-            self.main_page.mayo_check,
-            self.main_page.mustard_check,
-            self.main_page.bbq_check,
-            self.main_page.hot_sauce_check,
-            self.main_page.ranch_check,
-            self.main_page.coke_check,
-            self.main_page.fanta_check,
-            self.main_page.pop_soda_check,
-            self.main_page.lemonade_check,
-            self.main_page.ayran_check]
+    # This function brings you to payment page if you choose all rows in basket table
+    def go_to_payment(self):
+        all_checked = True
+        if self.main_page.basket_table.rowCount() == 0:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Lütfen Sepete Ürün Ekleyin")
+            msg.setWindowTitle("HATA")
+            ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
+            msg.exec_()
+            return
 
-        for e in checkbox_list:
-            if e.isChecked():
-                e.setChecked(False)
+        for row in range(self.main_page.basket_table.rowCount()):
+            if not self.main_page.basket_table.cellWidget(row, 6).isChecked():
+                all_checked = False
+                break
 
-        # this code make add note widget default when push the "add to basket" button
-        self.main_page.plainTextEdit.clear()
-        self.main_page.plainTextEdit.setPlaceholderText("Not Ekleyin")
+        if all_checked:
+            self.payment_window.show()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Tüm siparişlerin seçili olması gerek")
+            msg.setWindowTitle("HATA")
+            ok_button = msg.addButton("Tamam", QMessageBox.AcceptRole)
+            msg.exec_()
+
+    # This function add order information to database and clear the basket table when payment is successful
+    # This function uses signals in order to these
+    def save_to_order_history(self, info):
+        order_info = []
+        total_price = 0
+        notes_info = []
+        table_widget = self.main_page.basket_table
+        payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        for row in range(table_widget.rowCount()):
+            pizza = table_widget.item(row, 0).text()
+            ingredient = table_widget.item(row, 1).text()
+            sauce = table_widget.item(row, 2).text()
+            beverages = table_widget.item(row, 3).text()
+            order_info.append(pizza)
+            order_info.append(ingredient)
+            order_info.append(sauce)
+            order_info.append(beverages)
+
+        for row in range(table_widget.rowCount()):
+            total_price += int(table_widget.item(row, 4).text())
+
+        for row in range(table_widget.rowCount()):
+            notes = table_widget.item(row, 5).text()
+            notes_info.append(notes)
+
+        customer_order_info = {"Müşteri Bilgisi": info["name_lastname"],
+                               "Sipariş": "",
+                               "Notlar": "",
+                               "Tarih-Saat": payment_date,
+                               "Toplam Tutar": total_price,
+                               "TC Kimlik Numarası": info["tc"],
+                               "Kart Numarası": info["card_no"],
+                               "Şifre": info["sifre"]}
+
+        for i in order_info:
+            if customer_order_info["Sipariş"] != "":
+                customer_order_info["Sipariş"] += ", "
+            customer_order_info["Sipariş"] += i
+
+        for i in notes_info:
+            if customer_order_info["Notlar"] != "":
+                customer_order_info["Notlar"] += ", "
+            customer_order_info["Notlar"] += i
+
+        with open("Data/order_history.csv", "a", newline='', encoding="utf-8") as myFile:
+            writer = csv.DictWriter(myFile, fieldnames=list(customer_order_info.keys()))
+            writer.writerow(customer_order_info)
+
+        self.order_history_window.clear_table()
+
+    # This function shows order history
+    def show_order_history(self):
+        self.order_history_window.show()
+        self.order_history_window.loadCsv()

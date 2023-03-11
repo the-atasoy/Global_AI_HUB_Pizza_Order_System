@@ -477,7 +477,7 @@ class Ui_MainWindow(object):
         self.bbq_check.setText(_translate("MainWindow", "BBQ Sos"))
         self.hot_sauce_check.setText(_translate("MainWindow", "Acı Sos"))
         self.malzemeler_label_3.setText(_translate("MainWindow", "İÇECEKLER:"))
-        self.plainTextEdit.setPlaceholderText(_translate("MainWindow", "Not ekleyin"))
+        self.plainTextEdit.setPlaceholderText(_translate("MainWindow", "Not Ekleyin"))
         self.malzemeler_label_4.setText(_translate("MainWindow", "Eklemek İstediğiniz Not Varsa:"))
         self.classic_pizza_check.setText(_translate("MainWindow", Objects.classic.get_description()))
         self.margherita_pizza_check.setToolTip(_translate("MainWindow", "margarita"))
