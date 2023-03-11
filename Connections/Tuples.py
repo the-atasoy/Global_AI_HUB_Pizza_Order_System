@@ -1,5 +1,8 @@
-# These tuples codes add products to selected items to menu in GUI
+# These functions are used for adding selected items to add the basket.
+# Last element of every tuple checks if product selected or not.
+
 from Connections.Objects import *
+
 def pizza_tuple(self):
     pizzas = [
         (classic.get_description(), classic.get_cost(), self.ui.klas_pizza_check.isChecked()),

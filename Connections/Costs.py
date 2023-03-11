@@ -1,112 +1,115 @@
+# This .py file returns costs of the products from database which is in folder "Data" in order to use them when creating objects.
+# Thus, product's costs will change automatically in GUI if costs are changed in database.
+
 import pandas as pd
 
-class Descriptions:
+class Costs:
 
     # Pizzas
     @staticmethod
-    def classic_description():
+    def classic_cost():
         pizza = pd.read_csv("Data/pizzas.csv")
-        return pizza.iloc[0, 0]
+        return pizza.iloc[0, 1]
 
     @staticmethod
-    def margherita_description():
+    def margherita_cost():
         pizza = pd.read_csv("Data/pizzas.csv")
-        return pizza.iloc[1, 0]
+        return pizza.iloc[1, 1]
 
     @staticmethod
-    def turk_description():
+    def turk_cost():
         pizza = pd.read_csv("Data/pizzas.csv")
-        return pizza.iloc[2, 0]
+        return pizza.iloc[2, 1]
 
     @staticmethod
-    def dominos_description():
+    def dominos_cost():
         pizza = pd.read_csv("Data/pizzas.csv")
-        return pizza.iloc[3, 0]
+        return pizza.iloc[3, 1]
 
     # Sauces
     @staticmethod
-    def ketchup_description():
+    def ketchup_cost():
         sauce = pd.read_csv("Data/sauces.csv")
-        return sauce.iloc[0, 0]
+        return sauce.iloc[0, 1]
 
     @staticmethod
-    def mayo_description():
+    def mayo_cost():
         sauce = pd.read_csv("Data/sauces.csv")
-        return sauce.iloc[1, 0]
+        return sauce.iloc[1, 1]
 
     @staticmethod
-    def mustard_description():
+    def mustard_cost():
         sauce = pd.read_csv("Data/sauces.csv")
-        return sauce.iloc[2, 0]
+        return sauce.iloc[2, 1]
 
     @staticmethod
-    def ranch_description():
+    def ranch_cost():
         sauce = pd.read_csv("Data/sauces.csv")
-        return sauce.iloc[3, 0]
+        return sauce.iloc[3, 1]
 
     @staticmethod
-    def bbq_description():
+    def bbq_cost():
         sauce = pd.read_csv("Data/sauces.csv")
-        return sauce.iloc[4, 0]
+        return sauce.iloc[4, 1]
 
     @staticmethod
-    def hot_sauce_description():
+    def hot_sauce_cost():
         sauce = pd.read_csv("Data/sauces.csv")
-        return sauce.iloc[5, 0]
+        return sauce.iloc[5, 1]
 
     # Ingredients
     @staticmethod
-    def olive_description():
+    def olive_cost():
         ingredients = pd.read_csv("Data/ingredients.csv")
-        return ingredients.iloc[0, 0]
+        return ingredients.iloc[0, 1]
 
     @staticmethod
-    def mushroom_description():
+    def mushroom_cost():
         ingredients = pd.read_csv("Data/ingredients.csv")
-        return ingredients.iloc[1, 0]
+        return ingredients.iloc[1, 1]
 
     @staticmethod
-    def goat_cheese_description():
+    def goat_cheese_cost():
         ingredients = pd.read_csv("Data/ingredients.csv")
-        return ingredients.iloc[2, 0]
+        return ingredients.iloc[2, 1]
 
     @staticmethod
-    def meat_description():
+    def meat_cost():
         ingredients = pd.read_csv("Data/ingredients.csv")
-        return ingredients.iloc[3, 0]
+        return ingredients.iloc[3, 1]
 
     @staticmethod
-    def onion_description():
+    def onion_cost():
         ingredients = pd.read_csv("Data/ingredients.csv")
-        return ingredients.iloc[4, 0]
+        return ingredients.iloc[4, 1]
 
     @staticmethod
-    def corn_description():
+    def corn_cost():
         ingredients = pd.read_csv("Data/ingredients.csv")
-        return ingredients.iloc[5, 0]
+        return ingredients.iloc[5, 1]
 
     # Beverages
     @staticmethod
-    def coke_description():
+    def coke_cost():
         beverages = pd.read_csv("Data/beverages.csv")
-        return beverages.iloc[0, 0]
+        return beverages.iloc[0, 1]
 
     @staticmethod
-    def fanta_description():
+    def fanta_cost():
         beverages = pd.read_csv("Data/beverages.csv")
-        return beverages.iloc[1, 0]
+        return beverages.iloc[1, 1]
 
     @staticmethod
-    def pop_soda_description():
+    def pop_soda_cost():
         beverages = pd.read_csv("Data/beverages.csv")
-        return beverages.iloc[2, 0]
+        return beverages.iloc[2, 1]
 
     @staticmethod
-    def lemonade_description():
+    def lemonade_cost():
         beverages = pd.read_csv("Data/beverages.csv")
-        return beverages.iloc[3, 0]
+        return beverages.iloc[3, 1]
 
     @staticmethod
-    def ayran_description():
+    def ayran_cost():
         beverages = pd.read_csv("Data/beverages.csv")
-        return beverages.iloc[4, 0]
+        return beverages.iloc[4, 1]

@@ -1,5 +1,6 @@
-from Connections.Objects import *
+# This file prints the menu to GUI using object's getter methods.
 
+from Connections.Objects import *
 
 def pizza_menu(self):
     menu = (
