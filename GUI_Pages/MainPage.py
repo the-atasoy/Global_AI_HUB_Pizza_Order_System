@@ -1,19 +1,18 @@
 from Connections.MealMenu import pizza_menu, ingredient_menu, sauce_menu, drink_menu
 import datetime
 import Connections.Tuples as Tuples
-from UI_Files.Anaekran_UI import *
+from UI_Files.MainPage_UI import *
 from Connections.Objects import *
 from GUI_Pages.OrderHistoryPage import *
 from GUI_Pages.PaymentPage import *
 from PyQt5.QtCore import Qt
-
 
 class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
 
         # Main page object
-        self.main_page = Ui_MainWindow()
+        self.main_page = MainPage_UI()
         self.main_page.setupUi(self)
 
         # Payment page object
