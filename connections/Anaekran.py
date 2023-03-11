@@ -4,7 +4,7 @@ import connections.Tuples as Tuples
 from UI_Files.Anaekran_UI import *
 from connections.Objects import *
 from connections.siparis_gecmisi import *
-from connections.odeme import *
+from connections.Payment import *
 from PyQt5.QtCore import Qt
 import sys
 
@@ -57,7 +57,7 @@ class MainPage(QMainWindow):
         self.ui.spinBox_LMONATA.valueChanged.connect(self.auto_check)
         self.ui.spinBox_AYRAN.valueChanged.connect(self.auto_check)
         self.order_history = Siparis_Gecmisi()
-        self.odeme_ekrani = Odeme()
+        self.odeme_ekrani = Payment()
         self.odeme_ekrani.order_history_signal.connect(self.save_to_order_history)
         self.odeme_ekrani.table_cleaning_signal.connect(self.choose_all)
         self.odeme_ekrani.table_cleaning_signal.connect(self.del_chosen_row)
