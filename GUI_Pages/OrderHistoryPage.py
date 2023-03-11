@@ -1,24 +1,48 @@
 import csv
 import pandas as pd
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QCheckBox
-from UI_Files.siparis_gecmisi_UI import siparis_gecmisi
+from UI_Files.siparis_gecmisi_UI import OrderHistory
 from PyQt5.QtCore import Qt
 
 class OrderHistoryPage(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.SP = siparis_gecmisi()
-        self.SP.setupUi(self)
-        self.file= open("Data/order_history.csv", "r", newline='', encoding="utf-8")
-        self.SP.customer_info.returnPressed.connect(self.tablo_arama)
-        self.SP.pushButton_search.clicked.connect(self.tablo_arama)
-        self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
-        self.SP.pushbutton_choose_all.clicked.connect(self.tumunu_sec)
-        self.last_row_count = 0
-        self.loadCsv()
 
-    def loadCsv(self):
-        self.SP.order_history.setRowCount(0)
+        # History page object
+        self.order_history_page = OrderHistory()
+        self.order_history_page.setupUi(self)
+
+        # Order history data as csv
+        self.file = open("Data/order_history.csv", "r", newline='', encoding="utf-8")
+        # Connection
+        # Searching a specific order in order history when press the enter key
+        self.order_history_page.customer_info.returnPressed.connect(self.search_in_orders)
+
+        # Connection
+        # Searching a specific order in order history when press the clicked the search button
+        self.order_history_page.pushButton_search.clicked.connect(self.search_in_orders)
+
+        # Connection
+        # Selecting all rows in order history page
+        self.order_history_page.pushbutton_choose_all.clicked.connect(self.select_all)
+
+        # Connection
+        # Deleting selected rows in order history page
+        self.order_history_page.pushbutton_remove_.clicked.connect(self.del_chosen)
+
+        self.last_row_count = 0
+
+        # Loading the csv to the order history table
+        self.load_csv()
+
+    # This function clears the order history table before loading the csv to the table
+    # because of repeating order problem
+    def clear_table(self):
+        self.order_history_page.order_history.clearContents()
+
+    # This function loads the csv to the order history table
+    def load_csv(self):
+        self.order_history_page.order_history.setRowCount(0)
         with open("Data/order_history.csv", "r", newline='', encoding="utf-8") as fileInput:
             reader = csv.reader(fileInput)
             next(reader)
@@ -27,22 +51,19 @@ class OrderHistoryPage(QMainWindow):
                     QTableWidgetItem(field)
                     for field in row_data
                 ]
-                self.SP.order_history.insertRow(row_num)
+                self.order_history_page.order_history.insertRow(row_num)
                 for col_num, item in enumerate(items):
-                    self.SP.order_history.setItem(row_num, col_num, item)
-                    self.SP.order_history.item(row_num, col_num).setFlags(self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
+                    self.order_history_page.order_history.setItem(row_num, col_num, item)
+                    self.order_history_page.order_history.item(row_num, col_num).setFlags(self.order_history_page.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable)
                 
                 check_box = QCheckBox()
-                self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
+                self.order_history_page.order_history.setCellWidget(row_num, self.order_history_page.order_history.columnCount() - 1, check_box)
 
-    def clear_table(self):
-        self.SP.order_history.clearContents()
-
-
-    def tablo_arama(self):
-        search = self.SP.customer_info.text().capitalize()
-        table = self.SP.order_history
-        self.SP.error_handling.setText("")
+    # This function searches a specific order in order history table
+    def search_in_orders(self):
+        search = self.order_history_page.customer_info.text().capitalize()
+        table = self.order_history_page.order_history
+        self.order_history_page.error_handling.setText("")
 
         for row in range(table.rowCount()):
             match = False
@@ -55,35 +76,12 @@ class OrderHistoryPage(QMainWindow):
             table.setRowHidden(row, not match)
 
         if not any([not table.isRowHidden(row) for row in range(table.rowCount())]):
-            self.SP.error_handling.setText("Aradığınız kritere uygun bir eşleşme bulunamadı.")
+            self.order_history_page.error_handling.setText("Aradığınız kritere uygun eşleşme bulunamadı.")
 
-    def secili_sil(self):
-        df = pd.read_csv("Data/order_history.csv")
-        rows_to_delete = []
-        for row in range(self.SP.order_history.rowCount()):
-            if self.SP.order_history.cellWidget(row, 8) is not None and self.SP.order_history.cellWidget(row, 8).isChecked():
-                rows_to_delete.append(row)
-        df.drop(rows_to_delete, inplace=True)
-        df.to_csv("Data/order_history.csv", index=False)
-        for i, row in enumerate(rows_to_delete):
-            self.SP.order_history.removeRow(row - i)
-        for row_num, row_data in df.iterrows():
-            items = [QTableWidgetItem(str(field)) for field in row_data]
-            for col_num, item in enumerate(items):
-                if self.SP.order_history.item(row_num, col_num) is not None:
-                    self.SP.order_history.setItem(row_num, col_num, item)
-                    self.SP.order_history.item(row_num, col_num).setFlags(
-                        self.SP.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable
-                    )
-            check_box = QCheckBox()
-            self.SP.order_history.setCellWidget(row_num, self.SP.order_history.columnCount() - 1, check_box)
-
-
-
-
-    def tumunu_sec(self):
-        for row in range(self.SP.order_history.rowCount()):
-            checkbox = self.SP.order_history.cellWidget(row, 8)
+    # This function selects all rows in order table
+    def select_all(self):
+        for row in range(self.order_history_page.order_history.rowCount()):
+            checkbox = self.order_history_page.order_history.cellWidget(row, 8)
             if not checkbox.isChecked():
                 checkbox.setChecked(True)
             elif checkbox.isChecked():
@@ -92,9 +90,24 @@ class OrderHistoryPage(QMainWindow):
                 else:
                     checkbox.setChecked(False)
 
-
-
-#uyg_1 = QApplication(sys.argv)
-#pencere_1 = Siparis_Gecmisi()
-#pencere_1.show()
-#sys.exit(uyg_1.exec_())
+    # This function deletes selected rows in order history table
+    def del_chosen(self):
+        df = pd.read_csv("Data/order_history.csv")
+        rows_to_delete = []
+        for row in range(self.order_history_page.order_history.rowCount()):
+            if self.order_history_page.order_history.cellWidget(row, 8) is not None and self.order_history_page.order_history.cellWidget(row, 8).isChecked():
+                rows_to_delete.append(row)
+        df.drop(rows_to_delete, inplace=True)
+        df.to_csv("Data/order_history.csv", index=False)
+        for i, row in enumerate(rows_to_delete):
+            self.order_history_page.order_history.removeRow(row - i)
+        for row_num, row_data in df.iterrows():
+            items = [QTableWidgetItem(str(field)) for field in row_data]
+            for col_num, item in enumerate(items):
+                if self.order_history_page.order_history.item(row_num, col_num) is not None:
+                    self.order_history_page.order_history.setItem(row_num, col_num, item)
+                    self.order_history_page.order_history.item(row_num, col_num).setFlags(
+                        self.order_history_page.order_history.item(row_num, col_num).flags() & ~Qt.ItemIsEditable
+                    )
+            check_box = QCheckBox()
+            self.order_history_page.order_history.setCellWidget(row_num, self.order_history_page.order_history.columnCount() - 1, check_box)

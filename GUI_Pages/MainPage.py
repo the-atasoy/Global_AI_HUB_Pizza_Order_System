@@ -16,14 +16,17 @@ class MainPage(QMainWindow):
         self.main_page = Ui_MainWindow()
         self.main_page.setupUi(self)
 
+        # Payment page object
+        self.payment_window = PaymentPage()
+
+        # Order history page object
+        self.order_history_window = OrderHistoryPage()
+
         # Displaying menu on GUI
         pizza_menu(self)
         ingredient_menu(self)
         sauce_menu(self)
         drink_menu(self)
-
-        # Button "add to basket" connection
-        self.main_page.button_add_to_basket.clicked.connect(self.add_to_basket)
 
         # Checkbox connections
         self.main_page.classic_pizza_check.stateChanged.connect(self.choose_pizza)
@@ -70,14 +73,12 @@ class MainPage(QMainWindow):
         self.main_page.spinBox_lemonade.valueChanged.connect(self.auto_check)
         self.main_page.spinBox_ayran.valueChanged.connect(self.auto_check)
 
-        # Order history page object
-        self.order_history_window = OrderHistoryPage()
+        # Connection
+        # Add selected items to basket
+        self.main_page.button_add_to_basket.clicked.connect(self.add_to_basket)
 
-        # Payment page object
-        self.payment_window = PaymentPage()
-
-        # A signal from payment page to save datas in payment page to the order history database
-        self.payment_window.order_history_signal.connect(self.save_to_order_history)
+        # A list to save order
+        self.order = []
 
         # Signals from payment page to delete items in basket when payment is successful
         self.payment_window.table_cleaning_signal.connect(self.choose_all)
@@ -92,11 +93,11 @@ class MainPage(QMainWindow):
         # Connection to go to the payment page when confirm the basket
         self.main_page.confirm_basket.clicked.connect(self.go_to_payment)
 
+        # A signal from payment page to save datas in payment page to the order history database
+        self.payment_window.order_history_signal.connect(self.save_to_order_history)
+
         # Connection to show order history when clicked on "orders"
         self.main_page.action_past_orders.triggered.connect(self.show_order_history)
-
-        # A list to save order
-        self.order = []
 
     # This function checks if a pizza is checked or not and if a pizza is checked, do not allow checking another pizza
     def choose_pizza(self):
@@ -466,4 +467,4 @@ class MainPage(QMainWindow):
     # This function shows order history
     def show_order_history(self):
         self.order_history_window.show()
-        self.order_history_window.loadCsv()
+        self.order_history_window.load_csv()
