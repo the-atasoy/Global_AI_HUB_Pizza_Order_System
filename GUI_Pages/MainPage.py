@@ -7,6 +7,7 @@ from GUI_Pages.OrderHistoryPage import *
 from GUI_Pages.PaymentPage import *
 from PyQt5.QtCore import Qt
 
+
 class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -25,21 +26,21 @@ class MainPage(QMainWindow):
         self.main_page.button_add_to_basket.clicked.connect(self.add_to_basket)
 
         # Checkbox connections
-        self.main_page.classic_pizza_check.stateChanged.connect(self.choose_checkbox)
-        self.main_page.margherita_pizza_check.stateChanged.connect(self.choose_checkbox)
-        self.main_page.turk_pizza_check.stateChanged.connect(self.choose_checkbox)
-        self.main_page.dominos_pizza_check.stateChanged.connect(self.choose_checkbox)
-        self.main_page.ketchup_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.mayo_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.mustard_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.bbq_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.hot_sauce_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.ranch_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.coke_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.fanta_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.pop_soda_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.lemonade_check.stateChanged.connect(self.sauces_beverages_check)
-        self.main_page.ayran_check.stateChanged.connect(self.sauces_beverages_check)
+        self.main_page.classic_pizza_check.stateChanged.connect(self.choose_pizza)
+        self.main_page.margherita_pizza_check.stateChanged.connect(self.choose_pizza)
+        self.main_page.turk_pizza_check.stateChanged.connect(self.choose_pizza)
+        self.main_page.dominos_pizza_check.stateChanged.connect(self.choose_pizza)
+        self.main_page.ketchup_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.mayo_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.mustard_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.bbq_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.hot_sauce_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.ranch_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.coke_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.fanta_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.pop_soda_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.lemonade_check.stateChanged.connect(self.choose_sauce_beverage)
+        self.main_page.ayran_check.stateChanged.connect(self.choose_sauce_beverage)
 
         # Connection
         # Amount of item automatically will be 1 when you choose the item
@@ -80,13 +81,13 @@ class MainPage(QMainWindow):
 
         # Signals from payment page to delete items in basket when payment is successful
         self.payment_window.table_cleaning_signal.connect(self.choose_all)
-        self.payment_window.table_cleaning_signal.connect(self.del_chosen_row)
+        self.payment_window.table_cleaning_signal.connect(self.del_chosen)
 
         # Connection to choose all items in basket
         self.main_page.select_all.clicked.connect(self.choose_all)
 
         # Connection to delete chosen items in basket
-        self.main_page.delete_chosen.clicked.connect(self.del_chosen_row)
+        self.main_page.delete_chosen.clicked.connect(self.del_chosen)
 
         # Connection to go to the payment page when confirm the basket
         self.main_page.confirm_basket.clicked.connect(self.go_to_payment)
@@ -106,7 +107,7 @@ class MainPage(QMainWindow):
         order_info = []
         total_price = 0
         notes_info = []
-        table_widget = self.main_page.sepet_table
+        table_widget = self.main_page.basket_table
         payment_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         for row in range(table_widget.rowCount()):
             pizza = table_widget.item(row, 0).text()
@@ -152,7 +153,7 @@ class MainPage(QMainWindow):
 
     def go_to_payment(self):
         all_checked = True
-        if self.main_page.sepet_table.rowCount() == 0:
+        if self.main_page.basket_table.rowCount() == 0:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
             msg.setText("Lütfen Sepete Ürün Ekleyin")
@@ -161,8 +162,8 @@ class MainPage(QMainWindow):
             msg.exec_()
             return
 
-        for row in range(self.main_page.sepet_table.rowCount()):
-            if not self.main_page.sepet_table.cellWidget(row, 6).isChecked():
+        for row in range(self.main_page.basket_table.rowCount()):
+            if not self.main_page.basket_table.cellWidget(row, 6).isChecked():
                 all_checked = False
                 break
 
@@ -177,87 +178,87 @@ class MainPage(QMainWindow):
             msg.exec_()
 
     def add_to_basket(self):
-        self.pizza_secim(Tuples.pizza_tuple(self))
-        self.malzeme_secimi(Tuples.ingredient_tuple(self))
-        self.sos_secim(Tuples.sauce_tuple(self))
-        self.icecekler_secim(Tuples.drinks_tuple(self))
-        order_dict = self.sozluk_olustur(self.order)
-        self.tabloya_veri_ekle(order_dict)
+        self.add_pizza(Tuples.pizza_tuple(self))
+        self.add_ingredient(Tuples.ingredient_tuple(self))
+        self.add_sauce(Tuples.sauce_tuple(self))
+        self.add_beverages(Tuples.drinks_tuple(self))
+        order_dict = self.create_dictionary(self.order)
+        self.add_data_to_table(order_dict)
         self.set_default_situation()
         return order_dict
 
-    def pizza_secim(self, pizza_listesi):
-        for eleman in pizza_listesi:
-            if eleman[2] == True:
-                self.order.append(eleman[0:2])
+    def add_pizza(self, pizza_list):
+        for element in pizza_list:
+            if element[2]:
+                self.order.append(element[0:2])
         return self.order
 
-    def malzeme_secimi(self, malzeme_listesi):
-        for eleman in malzeme_listesi:
-            if eleman[2] == True:
-                self.order.append(eleman[0:2])
+    def add_ingredient(self, ingredient_list):
+        for element in ingredient_list:
+            if element[2]:
+                self.order.append(element[0:2])
         return self.order
 
-    def sos_secim(self, sos_listesi):
-        for i in sos_listesi:
-            if i[2] == True:
-                self.order.append(i[0:2])
+    def add_sauce(self, sauce_list):
+        for element in sauce_list:
+            if element[2]:
+                self.order.append(element[0:2])
         return self.order
 
-    def icecekler_secim(self, icecek_listesi):
-        for i in icecek_listesi:
-            if i[2] == True:
-                self.order.append(i[0:2])
+    def add_beverages(self, beverages_list):
+        for element in beverages_list:
+            if element[2]:
+                self.order.append(element[0:2])
         return self.order
 
-    def sozluk_olustur(self, siparis_listesi):
+    def create_dictionary(self, order_list):
 
-        pizzalar = [classic.get_description(),
-                    margherita.get_description(),
-                    turk.get_description(),
-                    dominos.get_description()]
+        pizzas = [classic.get_description(),
+                  margherita.get_description(),
+                  turk.get_description(),
+                  dominos.get_description()]
 
-        malzemeler = [olive.get_description(),
-                      mushroom.get_description(),
-                      goat_cheese.get_description(),
-                      meat.get_description(),
-                      onion.get_description(),
-                      corn.get_description()]
+        ingredients = [olive.get_description(),
+                       mushroom.get_description(),
+                       goat_cheese.get_description(),
+                       meat.get_description(),
+                       onion.get_description(),
+                       corn.get_description()]
 
-        soslar = [ketchup.get_description(),
+        sauces = [ketchup.get_description(),
                   mayo.get_description(),
                   mustard.get_description(),
                   bbq.get_description(),
                   hot_sauce.get_description(),
                   ranch.get_description()]
 
-        icecekler = [coke.get_description(),
+        beverages = [coke.get_description(),
                      fanta.get_description(),
                      pop_soda.get_description(),
                      lemonade.get_description(),
                      ayran.get_description()]
 
-        sepet_ekle = {"Pizza": "", "Malzemeler": "", "Soslar": "", "İçecekler": "", "Fiyat": 0, "Notlar": ""}
-        for veri in siparis_listesi:
-            if veri[0] in pizzalar:
-                sepet_ekle['Pizza'] = veri[0]
-            elif veri[0] in soslar:
-                if sepet_ekle["Soslar"] != "":
-                    sepet_ekle["Soslar"] += ", "
-                sepet_ekle["Soslar"] += veri[0]
-            elif veri[0] in icecekler:
-                if sepet_ekle["İçecekler"] != "":
-                    sepet_ekle["İçecekler"] += ", "
-                sepet_ekle["İçecekler"] += veri[0]
+        basket = {"Pizza": "", "Malzemeler": "", "Soslar": "", "İçecekler": "", "Fiyat": 0, "Notlar": ""}
+        for data in order_list:
+            if data[0] in pizzas:
+                basket['Pizza'] = data[0]
+            elif data[0] in sauces:
+                if basket["Soslar"] != "":
+                    basket["Soslar"] += ", "
+                basket["Soslar"] += data[0]
+            elif data[0] in beverages:
+                if basket["İçecekler"] != "":
+                    basket["İçecekler"] += ", "
+                basket["İçecekler"] += data[0]
             else:
-                if sepet_ekle["Malzemeler"] != "":
-                    sepet_ekle["Malzemeler"] += ", "
-                sepet_ekle["Malzemeler"] += veri[0]
-            sepet_ekle["Fiyat"] += veri[1]
-            sepet_ekle["Notlar"] = self.main_page.plainTextEdit.toPlainText()
-        return sepet_ekle
+                if basket["Malzemeler"] != "":
+                    basket["Malzemeler"] += ", "
+                basket["Malzemeler"] += data[0]
+            basket["Fiyat"] += data[1]
+            basket["Notlar"] = self.main_page.plainTextEdit.toPlainText()
+        return basket
 
-    def choose_checkbox(self):
+    def choose_pizza(self):
         check_box = [
             [self.main_page.classic_pizza_check, self.main_page.classic_pizza_check.isChecked()],
             [self.main_page.margherita_pizza_check, self.main_page.margherita_pizza_check.isChecked()],
@@ -279,8 +280,8 @@ class MainPage(QMainWindow):
                         other_checkbox[0].setEnabled(True)
                     self.order.clear()
 
-    def sauces_beverages_check(self):
-        check_box_soslar_icecekler = [
+    def choose_sauce_beverage(self):
+        check_box_sauces_beverages = [
             [self.main_page.ketchup_check, self.main_page.ketchup_check.isChecked()],
             [self.main_page.mayo_check, self.main_page.mayo_check.isChecked()],
             [self.main_page.mustard_check, self.main_page.mustard_check.isChecked()],
@@ -293,15 +294,15 @@ class MainPage(QMainWindow):
             [self.main_page.lemonade_check, self.main_page.lemonade_check.isChecked()],
             [self.main_page.ayran_check, self.main_page.ayran_check.isChecked()]
         ]
-        for checkbox in check_box_soslar_icecekler:
+        for checkbox in check_box_sauces_beverages:
             if checkbox[1]:
-                for other_checkbox in check_box_soslar_icecekler:
+                for other_checkbox in check_box_sauces_beverages:
                     if other_checkbox[0] != checkbox[0]:
                         self.order.clear()
                 checkbox[1] = False
                 break
             else:
-                for other_checkbox in check_box_soslar_icecekler:
+                for other_checkbox in check_box_sauces_beverages:
                     if other_checkbox[0] != checkbox[0]:
                         self.order.clear()
 
@@ -369,54 +370,54 @@ class MainPage(QMainWindow):
             else:
                 checkbox[i].setChecked(False)
 
-    def tabloya_veri_ekle(self, veriler):
-        table_widget = self.main_page.sepet_table
+    def add_data_to_table(self, datas):
+        table_widget = self.main_page.basket_table
         row_count = table_widget.rowCount()
         table_widget.setRowCount(row_count + 1)
         row = row_count
 
-        # yeni bir QTableWidgetItem objesi oluştur
-        pizza_item = QTableWidgetItem(veriler["Pizza"])
-        malzeme_item = QTableWidgetItem(veriler["Malzemeler"])
-        sos_item = QTableWidgetItem(veriler["Soslar"])
-        icecekler_item = QTableWidgetItem(veriler["İçecekler"])
-        tutar_item = QTableWidgetItem(str(veriler["Fiyat"]))
-        notlar_item = QTableWidgetItem(veriler["Notlar"])
+        # Create a new QTableWidgetItem object
+        pizza_item = QTableWidgetItem(datas["Pizza"])
+        ingredient_item = QTableWidgetItem(datas["Malzemeler"])
+        sauce_item = QTableWidgetItem(datas["Soslar"])
+        beverage_item = QTableWidgetItem(datas["İçecekler"])
+        cost_item = QTableWidgetItem(str(datas["Fiyat"]))
+        notes_item = QTableWidgetItem(datas["Notlar"])
 
-        # Tablonun dışarıdan erişilmesini engelleme
+        # Blocking outside access to the QTableWidgetItem
         pizza_item.setFlags(pizza_item.flags() ^ Qt.ItemIsEditable)
-        malzeme_item.setFlags(malzeme_item.flags() ^ Qt.ItemIsEditable)
-        sos_item.setFlags(sos_item.flags() ^ Qt.ItemIsEditable)
-        icecekler_item.setFlags(icecekler_item.flags() ^ Qt.ItemIsEditable)
-        tutar_item.setFlags(tutar_item.flags() ^ Qt.ItemIsEditable)
-        notlar_item.setFlags(notlar_item.flags() ^ Qt.ItemIsEditable)
+        ingredient_item.setFlags(ingredient_item.flags() ^ Qt.ItemIsEditable)
+        sauce_item.setFlags(sauce_item.flags() ^ Qt.ItemIsEditable)
+        beverage_item.setFlags(beverage_item.flags() ^ Qt.ItemIsEditable)
+        cost_item.setFlags(cost_item.flags() ^ Qt.ItemIsEditable)
+        notes_item.setFlags(notes_item.flags() ^ Qt.ItemIsEditable)
 
-        # QTableWidgetItem objelerini tableWidget'a ekle
+        # Add objects to the table
         table_widget.setItem(row, 0, pizza_item)
-        table_widget.setItem(row, 1, malzeme_item)
-        table_widget.setItem(row, 2, sos_item)
-        table_widget.setItem(row, 3, icecekler_item)
-        table_widget.setItem(row, 4, tutar_item)
-        table_widget.setItem(row, 5, notlar_item)
+        table_widget.setItem(row, 1, ingredient_item)
+        table_widget.setItem(row, 2, sauce_item)
+        table_widget.setItem(row, 3, beverage_item)
+        table_widget.setItem(row, 4, cost_item)
+        table_widget.setItem(row, 5, notes_item)
 
-        #  Sil Sütununa Checkbox eklenmesi
+        # Checkboxes in allow/delete column
         check_box = QCheckBox()
-        self.main_page.sepet_table.setCellWidget(row, 6, check_box)
+        self.main_page.basket_table.setCellWidget(row, 6, check_box)
 
     def choose_all(self):
-        # burada checkbox widgetlerini bulmak için QCheckBox tipi kullanılır
-        for row in range(self.main_page.sepet_table.rowCount()):
-            checkBox = self.main_page.sepet_table.cellWidget(row, 6)
-            if not checkBox.isChecked():
-                checkBox.setChecked(True)  # tüm checkbox'ları işaretleyin
+        # QCheckBox is used to find checkbox widgets
+        for row in range(self.main_page.basket_table.rowCount()):
+            checkbox = self.main_page.basket_table.cellWidget(row, 6)
+            if not checkbox.isChecked():
+                checkbox.setChecked(True)  # check all checkboxes
 
-    def del_chosen_row(self):
-        for row in range(self.main_page.sepet_table.rowCount() - 1, -1, -1):
-            if self.main_page.sepet_table.cellWidget(row, 6).isChecked():
-                self.main_page.sepet_table.removeRow(row)
+    def del_chosen(self):
+        for row in range(self.main_page.basket_table.rowCount() - 1, -1, -1):
+            if self.main_page.basket_table.cellWidget(row, 6).isChecked():
+                self.main_page.basket_table.removeRow(row)
 
     def set_default_situation(self):
-        checkBox_list = [
+        checkbox_list = [
             self.main_page.classic_pizza_check,
             self.main_page.margherita_pizza_check,
             self.main_page.turk_pizza_check,
@@ -440,16 +441,10 @@ class MainPage(QMainWindow):
             self.main_page.lemonade_check,
             self.main_page.ayran_check]
 
-        for e in checkBox_list:
+        for e in checkbox_list:
             if e.isChecked():
                 e.setChecked(False)
 
-        # this code make add note widget default when push the "Sepete Ekle" button
+        # this code make add note widget default when push the "add to basket" button
         self.main_page.plainTextEdit.clear()
         self.main_page.plainTextEdit.setPlaceholderText("Not Ekleyin")
-
-
-#uyg = QApplication(sys.argv)
-#pencere = MainPage()
-#pencere.show()
-#sys.exit(uyg.exec_())
