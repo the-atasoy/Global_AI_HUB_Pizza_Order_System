@@ -3,7 +3,7 @@ import datetime
 import Connections.Tuples as Tuples
 from UI_Files.Anaekran_UI import *
 from Connections.Objects import *
-from GUI_Pages.siparis_gecmisi import *
+from GUI_Pages.OrderHistory import *
 from GUI_Pages.Payment import *
 from PyQt5.QtCore import Qt
 
@@ -55,7 +55,7 @@ class MainPage(QMainWindow):
         self.ui.spinBox_GAZOZ.valueChanged.connect(self.auto_check)
         self.ui.spinBox_LMONATA.valueChanged.connect(self.auto_check)
         self.ui.spinBox_AYRAN.valueChanged.connect(self.auto_check)
-        self.order_history = Siparis_Gecmisi()
+        self.order_history = OrderHistory()
         self.odeme_ekrani = Payment()
         self.odeme_ekrani.order_history_signal.connect(self.save_to_order_history)
         self.odeme_ekrani.table_cleaning_signal.connect(self.choose_all)

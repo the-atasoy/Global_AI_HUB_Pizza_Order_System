@@ -4,12 +4,12 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QCheckBox
 from UI_Files.siparis_gecmisi_UI import siparis_gecmisi
 from PyQt5.QtCore import Qt
 
-class Siparis_Gecmisi(QMainWindow):
+class OrderHistory(QMainWindow):
     def __init__(self):
         super().__init__()
         self.SP = siparis_gecmisi()
         self.SP.setupUi(self)
-        self.file= open("Data\order_history.csv", "r", newline='', encoding="utf-8")
+        self.file= open("Data/order_history.csv", "r", newline='', encoding="utf-8")
         self.SP.customer_info.returnPressed.connect(self.tablo_arama)
         self.SP.pushButton_search.clicked.connect(self.tablo_arama)
         self.SP.pushbutton_remove_.clicked.connect(self.secili_sil)
@@ -17,10 +17,9 @@ class Siparis_Gecmisi(QMainWindow):
         self.last_row_count = 0
         self.loadCsv()
 
-   
     def loadCsv(self):
         self.SP.order_history.setRowCount(0)
-        with open("Data\order_history.csv", "r", newline='', encoding="utf-8") as fileInput:
+        with open("Data/order_history.csv", "r", newline='', encoding="utf-8") as fileInput:
             reader = csv.reader(fileInput)
             next(reader)
             for row_num, row_data in enumerate(reader):
