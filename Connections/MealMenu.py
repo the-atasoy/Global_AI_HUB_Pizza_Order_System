@@ -6,7 +6,7 @@ def pizza_menu(self):
     menu = (
             f"1. {classic.get_description()}       -----> {classic.get_cost()} TL" + "\n" +
             f"2. {margherita.get_description()}-----> {margherita.get_cost()} TL" + "\n" +
-            f"3. {turk.get_description()}          -----> {turk.get_cost()} TL" + "\n" +
+            f"3. {turk.get_description()}       -----> {turk.get_cost()} TL" + "\n" +
             f"4. {dominos.get_description()}  -----> {dominos.get_cost()} TL")
 
     self.main_page.pizza_menu.setText(menu)
