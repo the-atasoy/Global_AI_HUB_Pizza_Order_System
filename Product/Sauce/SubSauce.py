@@ -1,27 +1,27 @@
-from Product.Ingredient.SuperIngredient import Ingredient
-class Ketchup(Ingredient):
+from Product.Sauce.SuperSauce import Sauce
+class Ketchup(Sauce):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
-class Mayo(Ingredient):
+class Mayo(Sauce):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
-class Mustard(Ingredient):
-    def __init__(self, description, cost):
-        super().__init__(description, cost)
-
-
-class BBQ(Ingredient):
+class Mustard(Sauce):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
 
-class Hot(Ingredient):
+class BBQ(Sauce):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
 
-class Ranch(Ingredient):
+class Hot(Sauce):
+    def __init__(self, description, cost):
+        super().__init__(description, cost)
+
+
+class Ranch(Sauce):
     def __init__(self, description, cost):
         super().__init__(description, cost)

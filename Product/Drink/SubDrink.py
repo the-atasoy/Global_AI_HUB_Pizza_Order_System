@@ -1,23 +1,23 @@
-from Product.Ingredient.SuperIngredient import Ingredient
-class Coke(Ingredient):
+from Product.Drink.SuperDrink import Drink
+class Coke(Drink):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
-class Fanta(Ingredient):
+class Fanta(Drink):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
-class SodaPop(Ingredient):
-    def __init__(self, description, cost):
-        super().__init__(description, cost)
-
-
-class Lemonade(Ingredient):
+class SodaPop(Drink):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
 
-class Ayran(Ingredient):
+class Lemonade(Drink):
+    def __init__(self, description, cost):
+        super().__init__(description, cost)
+
+
+class Ayran(Drink):
     def __init__(self, description, cost):
         super().__init__(description, cost)
 
