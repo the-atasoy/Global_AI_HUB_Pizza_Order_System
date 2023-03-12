@@ -51,7 +51,7 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
 Uygulama üç pencereden oluşmaktadır.Uygulama ilk açıldığında sipariş penceresi kullanıcıyı karşılamktadır.Burada yer alan menü data klasörü içerisindeki, csv dosyasından bilgi almaktadır. Burada kullanıcı pizzalar, malzemeler, soslar ve içecekler bölümlerinden seçimlerini yaptıktan sonra belirtmek istediği bir şey varsa notlar kısmında yazabilir.Sepete ekle tuşundan seçili ürünlerini sepete ekledikten sonra ürünleri ve toplam sipariş tutarını görecektir.Burada isterse sepete yeni bir sipariş listesi daha ekleyebilir, siparişini silip baştan oluşturabilir ya da siparişi onaylayıp ödeme adımına geçebilir.
  
 <h1>
- <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084465472025661440/ezgif.com-gif-maker_2.gif" width="400px"/>
+ <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084465472025661440/ezgif.com-gif-maker_2.gif" width="600px"/>
  </h1>
  
  Sipariş onaylandıktan sonra açılan ödeme penceresinde, kullanıcıdan ad soyad, tc kimlik numarası, kart numarası ve şifresi istenir.Burada kullanıcıdan bilgileri doğru girmesi istenir, aksi takdirde kullanıcı hata mesajı alacaktır.
