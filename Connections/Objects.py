@@ -3,36 +3,36 @@
 from Connections.Costs import *
 from Connections.Descriptions import *
 
-from Product.Drink.SubDrink import *
-from Product.Ingredient.SubIngredient import *
-from Product.Pizza.SubPizza import *
-from Product.Sauce.SubSauce import *
+from Product.Beverage.Beverage import Beverage
+from Product.Ingredient.Ingredient import Ingredient
+from Product.Pizza.Pizza import Pizza
+from Product.Sauce.Sauce import Sauce
 
 # Pizza objects
-dominos = Dominos(Descriptions.dominos_description(), Costs.dominos_cost())
-turk = Turk(Descriptions.turk_description(), Costs.turk_cost())
-margherita = Margherita(Descriptions.margherita_description(), Costs.margherita_cost())
-classic = Classic(Descriptions.classic_description(), Costs.classic_cost())
+dominos = Pizza(Descriptions.dominos_description(), Costs.dominos_cost())
+turk = Pizza(Descriptions.turk_description(), Costs.turk_cost())
+margherita = Pizza(Descriptions.margherita_description(), Costs.margherita_cost())
+classic = Pizza(Descriptions.classic_description(), Costs.classic_cost())
 
 # Ingredient objects
-olive = Olive(Descriptions.olive_description(), Costs.olive_cost())
-mushroom = Mushroom(Descriptions.mushroom_description(), Costs.mushroom_cost())
-goat_cheese = GoatCheese(Descriptions.goat_cheese_description(), Costs.goat_cheese_cost())
-meat = Meat(Descriptions.meat_description(), Costs.meat_cost())
-onion = Onion(Descriptions.onion_description(), Costs.onion_cost())
-corn = Corn(Descriptions.corn_description(), Costs.corn_cost())
+olive = Ingredient(Descriptions.olive_description(), Costs.olive_cost())
+mushroom = Ingredient(Descriptions.mushroom_description(), Costs.mushroom_cost())
+goat_cheese = Ingredient(Descriptions.goat_cheese_description(), Costs.goat_cheese_cost())
+meat = Ingredient(Descriptions.meat_description(), Costs.meat_cost())
+onion = Ingredient(Descriptions.onion_description(), Costs.onion_cost())
+corn = Ingredient(Descriptions.corn_description(), Costs.corn_cost())
 
 # Sauce objects
-ketchup = Ketchup(Descriptions.ketchup_description(), Costs.ketchup_cost())
-mayo = Mayo(Descriptions.mayo_description(), Costs.mayo_cost())
-mustard = Mustard(Descriptions.mustard_description(), Costs.mustard_cost())
-bbq = BBQ(Descriptions.bbq_description(), Costs.bbq_cost())
-hot_sauce = Hot(Descriptions.hot_sauce_description(), Costs.hot_sauce_cost())
-ranch = Ranch(Descriptions.ranch_description(), Costs.ranch_cost())
+ketchup = Sauce(Descriptions.ketchup_description(), Costs.ketchup_cost())
+mayo = Sauce(Descriptions.mayo_description(), Costs.mayo_cost())
+mustard = Sauce(Descriptions.mustard_description(), Costs.mustard_cost())
+bbq = Sauce(Descriptions.bbq_description(), Costs.bbq_cost())
+hot_sauce = Sauce(Descriptions.hot_sauce_description(), Costs.hot_sauce_cost())
+ranch = Sauce(Descriptions.ranch_description(), Costs.ranch_cost())
 
-# Drink objects
-coke = Coke(Descriptions.coke_description(), Costs.coke_cost())
-fanta = Fanta(Descriptions.fanta_description(), Costs.fanta_cost())
-pop_soda = SodaPop(Descriptions.pop_soda_description(), Costs.pop_soda_cost())
-lemonade = Lemonade(Descriptions.lemonade_description(), Costs.lemonade_cost())
-ayran = Ayran(Descriptions.ayran_description(), Costs.ayran_cost())
+# Beverage objects
+coke = Beverage(Descriptions.coke_description(), Costs.coke_cost())
+fanta = Beverage(Descriptions.fanta_description(), Costs.fanta_cost())
+pop_soda = Beverage(Descriptions.pop_soda_description(), Costs.pop_soda_cost())
+lemonade = Beverage(Descriptions.lemonade_description(), Costs.lemonade_cost())
+ayran = Beverage(Descriptions.ayran_description(), Costs.ayran_cost())

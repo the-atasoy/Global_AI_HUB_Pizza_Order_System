@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import *
-from UI_Files.paymentPageUI import *
+from UI_Files.PaymentPageUI import *
 from PyQt5.QtCore import pyqtSignal
 
 
