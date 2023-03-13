@@ -14,7 +14,7 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
 
 1- İndirme linki üzerinden pizza sipariş sistemi kurulum dosyası indirilir.
 
-İndirme Linki: https://github.com/GlobalAIHubPythonBootcampFinishProject/Global_AI_HUB_Pizza_Order_System
+İndirme Linki: https://drive.google.com/drive/folders/1DUkEMnlA86Myo34nFZlgNKmC3M6m_C_p?usp=sharing
 
 
 2- İndirmesi tamamlanan dosyada uygulamanın kurulacağı yer seçildikten sonra install ile kurulum başlatılır.
