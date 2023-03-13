@@ -3,10 +3,10 @@
 from Connections.Costs import *
 from Connections.Descriptions import *
 
-from Product.Beverage.Beverage import Beverage
-from Product.Ingredient.Ingredient import Ingredient
-from Product.Pizza.Pizza import Pizza
-from Product.Sauce.Sauce import Sauce
+from Product.Beverage import Beverage
+from Product.Ingredient import Ingredient
+from Product.Pizza import Pizza
+from Product.Sauce import Sauce
 
 # Pizza objects
 dominos = Pizza(Descriptions.dominos_description(), Costs.dominos_cost())
