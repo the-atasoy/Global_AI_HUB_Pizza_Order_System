@@ -1,7 +1,7 @@
 import csv
 import pandas as pd
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QCheckBox
-from UI_Files.OrderHistory_UI import OrderHistory_UI
+from UI_Files.OrderHistoryPage_UI import OrderHistoryPage_UI
 from PyQt5.QtCore import Qt
 
 class OrderHistoryPage(QMainWindow):
@@ -9,7 +9,7 @@ class OrderHistoryPage(QMainWindow):
         super().__init__()
 
         # History page object
-        self.order_history_page = OrderHistory_UI()
+        self.order_history_page = OrderHistoryPage_UI()
         self.order_history_page.setupUi(self)
 
         # Order history data as csv

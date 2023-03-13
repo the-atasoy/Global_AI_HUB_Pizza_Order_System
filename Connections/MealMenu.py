@@ -36,7 +36,7 @@ def sauce_menu(self):
     self.main_page.sauce_menu.setText(menu)
 
 
-def drink_menu(self):
+def beverage_menu(self):
     menu = (
             f"1. {coke.get_description()}               -----> {coke.get_cost()} TL" + "\n" +
             f"2. {fanta.get_description()}             -----> {fanta.get_cost()} TL" + "\n" +

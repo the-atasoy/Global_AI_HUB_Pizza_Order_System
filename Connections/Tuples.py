@@ -40,7 +40,7 @@ def sauce_tuple(self):
     ]
     return sauces
 
-def drinks_tuple(self):
+def beverage_tuple(self):
     drinks = [
         (coke.get_description(), coke.get_cost() * self.main_page.spinBox_coke.value(), self.main_page.coke_check.isChecked()),
         (fanta.get_description(), fanta.get_cost() * self.main_page.spinBox_fanta.value(), self.main_page.fanta_check.isChecked()),

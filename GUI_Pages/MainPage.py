@@ -1,4 +1,4 @@
-from Connections.MealMenu import pizza_menu, ingredient_menu, sauce_menu, drink_menu
+from Connections.MealMenu import pizza_menu, ingredient_menu, sauce_menu, beverage_menu
 import datetime
 import Connections.Tuples as Tuples
 from UI_Files.MainPage_UI import *
@@ -25,7 +25,7 @@ class MainPage(QMainWindow):
         pizza_menu(self)
         ingredient_menu(self)
         sauce_menu(self)
-        drink_menu(self)
+        beverage_menu(self)
 
         # Checkbox connections
         self.main_page.classic_pizza_check.stateChanged.connect(self.choose_pizza)
@@ -248,7 +248,7 @@ class MainPage(QMainWindow):
         self.add_pizza(Tuples.pizza_tuple(self))
         self.add_ingredient(Tuples.ingredient_tuple(self))
         self.add_sauce(Tuples.sauce_tuple(self))
-        self.add_beverages(Tuples.drinks_tuple(self))
+        self.add_beverages(Tuples.beverage_tuple(self))
         order_dict = self.create_dictionary(self.order)
         self.add_data_to_table(order_dict)
         self.set_default_situation()
