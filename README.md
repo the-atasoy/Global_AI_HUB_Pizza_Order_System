@@ -85,6 +85,13 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
  <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084591344758030426/beverages.csv_-_Global_AI_HUB_Pizza_Order_System_-_Visual_Studio_Code_13_03_2023_00_37_29.png" width="600px"/>
  
  </h1>
+ 
+ <h1>
+ <div id="header" align="center"> 
+ <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084877336140324914/uml_page-0001.jpg" width="900px"/>
+ 
+ </h1>
+ 
 
 
 #### Grup Üyeleri:
