@@ -86,9 +86,11 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
  
  </h1>
  
+   
+ #  UML Sınıf Diyagramı:
  <h1>
  <div id="header" align="center"> 
- <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084877336140324914/uml_page-0001.jpg" width="900px"/>
+ <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084877336140324914/uml_page-0001.jpg" width="1000px"/>
  
  </h1>
  
