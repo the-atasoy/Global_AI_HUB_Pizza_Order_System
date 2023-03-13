@@ -1,3 +1,5 @@
+[Readme in English](README-en.md)
+
 # Pizza Sipariş Sistemi
 
 
