@@ -5,7 +5,7 @@ Bu proje kullanıcıların kendi pizza menülerini oluşturmalarını ve ödeme 
 
 Proje Pyton dili ile yazıldı.
 Ara yüzü tasarımı Qt Designer ile yapıldı.
-Ürünler ve ürün fiyatları Csv dosyalarına kaydedildi ve Pandas ile işlendi.
+Ürünler ve ürün fiyatları csv dosyalarına kaydedildi ve Pandas kütüphanesi ile işlendi.
 
 
 
@@ -17,7 +17,7 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
 İndirme Linki: https://github.com/GlobalAIHubPythonBootcampFinishProject/Global_AI_HUB_Pizza_Order_System
 
 
-2- İndirimi tamamlanan dosyada uygulamamnın kurulacağı yer seçildikten sonra install ile kurulum başlatılır.
+2- İndirmesi tamamlanan dosyada uygulamanın kurulacağı yer seçildikten sonra install ile kurulum başlatılır.
 
  
  <h1>
@@ -52,21 +52,21 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
  
  #  Uygulama Arayüzü:
  
-* Uygulama üç pencereden oluşmaktadır.Uygulama ilk açıldığında sipariş penceresi kullanıcıyı karşılamktadır.Burada yer alan menü data klasörü içerisindeki, csv dosyasından bilgi almaktadır. Burada kullanıcı pizzalar, malzemeler, soslar ve içecekler bölümlerinden seçimlerini yaptıktan sonra belirtmek istediği bir şey varsa notlar kısmında yazabilir.Sepete ekle tuşundan seçili ürünlerini sepete ekledikten sonra ürünleri ve toplam sipariş tutarını görecektir.Burada isterse sepete yeni bir sipariş listesi daha ekleyebilir, siparişini silip baştan oluşturabilir ya da siparişi onaylayıp ödeme adımına geçebilir.
+* Uygulama üç pencereden oluşmaktadır. Uygulama ilk açıldığında sipariş penceresi kullanıcıyı karşılamaktadır.Burada yer alan menü data klasörü içerisindeki, csv dosyasından bilgi almaktadır. Burada kullanıcı pizzalar, malzemeler, soslar ve içecekler bölümlerinden seçimlerini yaptıktan sonra belirtmek istediği bir şey varsa notlar kısmında yazabilir. Sepete ekle tuşundan seçili ürünlerini sepete ekledikten sonra ürünleri ve toplam sipariş tutarını görecektir. Burada isterse sepete yeni bir sipariş listesi daha ekleyebilir, siparişini silip baştan oluşturabilir ya da siparişi onaylayıp ödeme adımına geçebilir.
  
 <h1>
 <div id="header" align="center"> 
  <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084465472025661440/ezgif.com-gif-maker_2.gif" width="800px"/>
  </h1>
  
-* Sipariş onaylandıktan sonra açılan ödeme penceresinde, kullanıcıdan ad soyad, tc kimlik numarası, kart numarası ve şifresi istenir.Burada kullanıcıdan bilgileri doğru girmesi istenir, aksi takdirde kullanıcı hata mesajı alacaktır.
+* Sipariş onaylandıktan sonra açılan ödeme penceresinde kullanıcıdan ad soyad, tc kimlik numarası, kart numarası ve şifresi istenir. Burada kullanıcı bilgileri doğru girmediği takdirde hata mesajı ile karşılaşır.
 
 <h1>  
 <div id="header" align="center"> 
   <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084585652852637808/ezgif.com-gif-maker_4.gif" width="500px">
 </h1>
 
-* Ödeme başarılı olduktan sonra, sipariş bilgileri sipariş geçmişi ekranına kaydedilir.Burada ki bilgiler data klasörü içerisindeki csv dosyasında saklanır.Kullanıcı bu ekranda bilgilerini aratabilir.Seçtiği bilgileri sipariş geçmişinden silebilir.
+* Ödeme başarılı olduktan sonra sipariş bilgileri sipariş geçmişi ekranına kaydedilir. Buradaki bilgiler data klasörü içerisindeki csv dosyasında saklanır. Kullanıcı bu ekranda bilgilerini aratabilir. Seçtiği bilgileri sipariş geçmişinden silebilir.
 
 <h1>  
 <div id="header" align="center"> 
@@ -74,7 +74,7 @@ Ara yüzü tasarımı Qt Designer ile yapıldı.
 </h1>
 
 
-* Kullanıcı menü ve fiyatları  data klasörü içerisindeki csv dosyasından kolay bir şekilde değiştirebilir.
+* Kullanıcı menü ve fiyatları data klasörü içerisindeki csv dosyasından kolay bir şekilde değiştirebilir.
 <h1>  
 <div id="header" align="center"> 
   <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084592301323595878/ezgif.com-gif-maker_6.gif" width="800px"/>
