@@ -86,7 +86,7 @@ Download Link: https://drive.google.com/drive/folders/1DUkEMnlA86Myo34nFZlgNKmC3
  </h1>
 
 
-#  UML Sınıf Diyagramı:
+#  UML Class Diagram:
  <h1>
  <div id="header" align="center"> 
  <img src="https://cdn.discordapp.com/attachments/1079800574482067519/1084877336140324914/uml_page-0001.jpg" width="1000px"/>
@@ -95,7 +95,7 @@ Download Link: https://drive.google.com/drive/folders/1DUkEMnlA86Myo34nFZlgNKmC3
 
 
 
-#### Grup Üyeleri:
+#### Group Members:
 ##### Ali Çiçekçioğlu - https://github.com/alicicekcioglu
 ##### Orkun Umur Uzundere - https://github.com/orkunumur
 ##### Barış Atasoy - https://github.com/the-atasoy
