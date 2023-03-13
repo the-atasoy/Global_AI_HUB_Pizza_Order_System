@@ -12,7 +12,7 @@ Products and their prices saved to csv files and processed with pandas library
 
 
 
-### Uygulamanın Kurulumu
+### Installation Of Application
 
 1- Pizza order system setup file is downloaded via download link below.
 
