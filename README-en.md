@@ -16,7 +16,7 @@ Products and their prices saved to csv files and processed with pandas library
 
 1- Pizza order system setup file is downloaded via download link below.
 
-Download Link: https://github.com/GlobalAIHubPythonBootcampFinishProject/Global_AI_HUB_Pizza_Order_System
+Download Link: https://drive.google.com/drive/folders/1DUkEMnlA86Myo34nFZlgNKmC3M6m_C_p?usp=sharing
 
 
 2- Installation starts after destination folder is selected and Install is clicked.
